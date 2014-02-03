@@ -34,8 +34,8 @@ Along with the standard HTML/CSS/JS, the site uses:
 * An [nginx](http://nginx.org/) server for handling routing and the
     serving of static files. (The config file is not included
     in the repo.)
-* A proxied [Node.js](http://nodejs.org/) for server-side operations like
-    logging unique users and views, using Express and
+* A proxied [Node.js](http://nodejs.org/) server for server-side operations
+    like logging unique users and views, using Express and
     MongoDB modules.
 * [MongoDB](http://www.mongodb.org/) for database storage.
 

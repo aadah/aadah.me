@@ -516,6 +516,7 @@ audio {
     width: 230px;
     height: 230px;
     overflow: hidden;
+    background-color: #000000;
     border: #000000 5px solid;
     margin: 5px;
 
@@ -547,8 +548,6 @@ audio {
     right: 0;
     left: 0;
     max-width: 730px;
-    min-width: 230px;
-    min-height: 230px;
     cursor: pointer;
     border: none;
 }

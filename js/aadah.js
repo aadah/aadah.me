@@ -81,7 +81,10 @@ var THEME = {'body': {'color': {'main': '#ffffff',
              
              '.gallery figure': {'border-color': {'main': '#000000',
                                                   'alt': '#ffffff'
-                                                 }
+                                                 },
+                                 'background-color': {'main': '#000000',
+                                                      'alt': '#ffffff'
+                                                     }
                                 },
              
              '.gallery figcaption': {'background-color': {'main': '#000000',
