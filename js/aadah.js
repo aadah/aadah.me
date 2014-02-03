@@ -145,7 +145,7 @@ function switchTheme(theme) {
     var current;
     // if no valid theme string is passed in, function acts as a toggle
     if (theme != 'main' && theme != 'alt') {
-        current = localStorage.getItem('current') == null ? 'main' : localStorage.getItem('current');
+        current = localStorage.getItem('current') == null ? 'alt' : localStorage.getItem('current');
         current = current == 'main' ? 'alt' : 'main';
     }
     else {
@@ -241,7 +241,7 @@ $(document).ready(function() {
         data: {last: formatTimestamp()},
         dataType: 'json',
         success: function() {
-            console.log('Success! /visit recieced.');
+            console.log('Success! /visit recieved.');
         },
         error: function(xhr, status, error) {
             console.log('Error with /visit:', status, error);
