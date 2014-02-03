@@ -99,11 +99,11 @@ a.about:hover {
 }
 
 .navbar span.prev a:before {
-    content: 'Previous Post: ';
+    content: 'Previous : ';
 }
 
 .navbar span.next a:before {
-    content: 'Next Post: ';
+    content: 'Next : ';
 }
 
 .navbar span.prev {
