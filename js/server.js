@@ -7,7 +7,7 @@ var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport))
 
 app.use(express.bodyParser());
 
-app.post('/home', function(req, res){
+app.post('/visit', function(req, res){
     if (!config.valid(req)) {
         return res.send(404);
     }
@@ -16,7 +16,7 @@ app.post('/home', function(req, res){
     
     db.open(function(err, db) {
         if (!err) {
-            var collection = db.collection(config.home);
+            var collection = db.collection(config.visit);
             collection.find({ip: ip}).count(function(err, count) {
                 if (!err) {
                     if (count) {
@@ -44,14 +44,14 @@ app.post('/home', function(req, res){
     });
 });
 
-app.post('/visit', function(req, res) {
+app.post('/post', function(req, res) {
     if (!config.valid(req)) {
         return res.send(404);
     }
     
     db.open(function(err, db) {
         if (!err) {
-            var collection = db.collection(config.visit);
+            var collection = db.collection(config.post);
             collection.find({dir: req.param('dir')}).count(function(err, count) {
                 if (!err) {
                     if (count) {
