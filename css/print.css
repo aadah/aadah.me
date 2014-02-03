@@ -1,0 +1,19 @@
+@media print {
+    .navbar {
+        display: none
+    }
+
+    body, p, a, ul, ol, table, figcaption, q.pquoter, q.pquotel, blockquote, p.postscript, .header, .footer, a:link, a:visited {
+        color: #000000;
+    }
+
+    .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+        color: #000000;
+        padding: 0;
+        border: 0;
+    }
+
+    code {
+        max-height: none;
+    }
+}
