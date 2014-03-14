@@ -91,6 +91,15 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                                                           'alt': '#ffffff'
                                                          }
                                     },
+             
+             '.content a': {
+//                 'color': {'main': '#ffffff',
+//                                      'alt': '#000000'
+//                                     },
+                            'border-bottom-color': {'main': '#ffffff',
+                                                    'alt': '#000000'
+                                                   }
+                           },
 
              // code theme colors
              '.str': {'color': {'main': '#00ff00',

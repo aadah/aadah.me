@@ -54,19 +54,19 @@ div.navbar {
 	margin: 0;
 }
 
-a.home:hover {
+.navbar a.home:hover {
     color: #ff0000;
 }
 
-a.blog:hover {
+.navbar a.blog:hover {
     color: #00ff00;
 }
 
-a.works:hover {
+.navbar a.works:hover {
     color: #00ffff;
 }
 
-a.about:hover {
+.navbar a.about:hover {
     color: #ffff00;
 }
 
@@ -225,27 +225,34 @@ h1,h2,h3,h4,h5,h6 {
 /* -------------------------------------------------------*/
 a {
 	text-decoration: none;
+
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	-ms-transition: all .5s ease;
+	transition: all .5s ease;
 }
 
-a:link, a:visited {
+.navbar a:link, .navbar a:visited {
 	color: #808080;
-
-	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
-a:hover {
+.navbar a:hover {
 	color: #ff00ff;
-
-	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
-	transition: all .5s ease;
 }
+
+.content a {
+    border-bottom: #ffffff 1px dotted;
+}
+
+.content a:link, .content a:visited {
+	color: inherit;
+}
+
+.content a:hover {
+    border-bottom-color: #808080;
+}
+
 
 /* -------------------------------------------------------*/
 blockquote {
@@ -272,16 +279,20 @@ q, quote {
 	font-style: italic;
 }
 
+q em {
+	font-style: normal;
+}
+
 q.pquoter, q.pquotel {
 	display: block;
 	color: #bbbbbb;
 	background-color: #000000;
-	width: 33%;
+	width: 12em;
 	font-size: 1.25em;
 	line-height: 1.25em;
 	text-align: center;
-	margin-top: .5em;
-	margin-bottom: .5em;
+	margin-top: .25em;
+	margin-bottom: .25em;
 	padding: 1em;
 
 	-webkit-transition: all .5s ease;
@@ -293,12 +304,12 @@ q.pquoter, q.pquotel {
 
 q.pquoter {
 	float: right;
-	margin-left: .75em;
+	margin-left: 1em;
 }
 
 q.pquotel {
 	float: left;
-	margin-right: .75em;
+	margin-right: 1em;
 }
 
 q.pquoter:before, q.pquoter:after, q.pquotel:before, q.pquotel:after {
