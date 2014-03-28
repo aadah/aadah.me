@@ -403,7 +403,6 @@ th {
 	background-color: #222222;
 	font-weight: normal;
 	font-size: smaller;
-	text-align: left;
 	padding: 5px;
 
 	-webkit-transition: all .5s ease;
@@ -414,8 +413,9 @@ th {
 }
 
 td {
+	vertical-align: text-top;
+	text-align: center;
 	font-size: smaller;
-	text-align: right;
 	padding: 5px;
 }
 
@@ -483,6 +483,12 @@ li .a {
 li .d {
     font-style: italic;
     font-size: smaller;
+}
+
+table ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 /* -------------------------------------------------------*/
