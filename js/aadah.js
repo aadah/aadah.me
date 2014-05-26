@@ -149,8 +149,11 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                      }
             };
 
+//--------------------------------------------------------------------------------------------------
+
 function switchTheme(theme) {
     var current;
+
     // if no valid theme string is passed in, function acts as a toggle
     if (theme != 'main' && theme != 'alt') {
         current = localStorage.getItem('current') == null ? 'alt' : localStorage.getItem('current');
@@ -159,6 +162,8 @@ function switchTheme(theme) {
     else {
         current = theme;
     }
+
+	// store in localStorage and change theme accordingly
     localStorage.setItem('current', current);
     for (var selector in THEME) {
         var $sel = $(selector);
@@ -217,7 +222,7 @@ function formatTimestamp(date) {
     return newDate;
 }
 
-// ----------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 
 $(document).ready(function() {
     $('.navbar, .navbar a').click(switchTheme);
@@ -238,7 +243,7 @@ $(document).ready(function() {
                 console.log('Success! /post recieved.');
             },
             error: function(jqXHR, status, error) {
-            console.log('Error with /post:', status, error);
+            	console.log('Error with /post:', status, error);
             }
         });
     }

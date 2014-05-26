@@ -41,7 +41,7 @@ Along with the standard HTML/CSS/JS, the site uses:
 
 ### License
 
-The blog is under the [GPLv3 license](https://www.gnu.org/copyleft/gpl.html).
+The blog is under the [GPL3 license](https://www.gnu.org/copyleft/gpl.html).
 
 ### TODO
 

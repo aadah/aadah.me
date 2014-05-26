@@ -8,9 +8,9 @@ var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport))
 app.use(express.bodyParser());
 
 app.post('/visit', function(req, res){
-    if (!config.valid(req)) {
-        return res.send(404);
-    }
+//    if (!config.valid(req)) {
+//        return res.send(404);
+//    }
     
     var ip = req.get('x-real_ip');
     
