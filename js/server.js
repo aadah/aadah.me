@@ -8,14 +8,10 @@ var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport))
 app.use(express.bodyParser());
 
 app.post('/visit', function(req, res){
-//    if (!config.valid(req)) {
-//        return res.send(404);
-//    }
-    
     var ip = req.get('x-real_ip');
-    
     var collection = db.collection(config.visit);
-    collection.find({ip: ip}).count(function(err, count) {
+
+	collection.find({ip: ip}).count(function(err, count) {
         if (!err) {
             if (count) {
                 collection.update({ip: ip}, {$inc: {views: 1},
@@ -36,11 +32,8 @@ app.post('/visit', function(req, res){
 });
 
 app.post('/post', function(req, res) {
-    if (!config.valid(req)) {
-        return res.send(404);
-    }
-    
     var collection = db.collection(config.post);
+
     collection.find({dir: req.param('dir')}).count(function(err, count) {
         if (!err) {
             if (count) {
