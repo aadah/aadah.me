@@ -355,7 +355,7 @@ code {
 	font-family: monospace;
 	font-size: smaller;
 	line-height: 1.5em;
-    max-height: 500px;
+    max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
 	padding: 5px;

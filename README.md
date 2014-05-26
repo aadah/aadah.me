@@ -1,6 +1,8 @@
 # [aadah.me](http://aadah.me/)
 
-This is my blog.
+Welcome to my blog.
+
+- - -
 
 ### Design
 
@@ -24,6 +26,8 @@ in a presentable manner. Displaying code and LaTeX was
 thus very important. Printing modifies the CSS to format
 it for a physical medium.
 
+- - -
+
 ### How It's Built
 
 Along with the standard HTML/CSS/JS, the site uses:
@@ -39,14 +43,18 @@ Along with the standard HTML/CSS/JS, the site uses:
     MongoDB modules.
 * [MongoDB](http://www.mongodb.org/) for database storage.
 
+- - -
+
 ### License
 
 The blog is under the [GPL3 license](https://www.gnu.org/copyleft/gpl.html).
 
+- - -
+
 ### TODO
 
-* ~~Switch from Apache to nginx~~
+* <s>Switch from Apache to nginx</s>
 * Write a GUI for writing posts with JavaFX
-* ~~Make custom error pages~~
+* <s>Make custom error pages</s>
 * Setup an email server
 * Port to mobile (?)
