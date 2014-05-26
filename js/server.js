@@ -27,6 +27,7 @@ app.post('/visit', function(req, res){
                            last: req.param('last')};
                 collection.insert(doc);
             }
+			res.send(200);
         }
         else {
             console.log(err);
@@ -54,6 +55,7 @@ app.post('/post', function(req, res) {
                            dir: req.param('dir')};
                 collection.insert(doc);
             }
+			res.send(200);
         }
         else {
             console.log(err);

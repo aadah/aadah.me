@@ -92,11 +92,7 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                                                          }
                                     },
              
-             '.content a': {
-//                 'color': {'main': '#ffffff',
-//                                      'alt': '#000000'
-//                                     },
-                            'border-bottom-color': {'main': '#ffffff',
+             '.content a': {'border-bottom-color': {'main': '#ffffff',
                                                     'alt': '#000000'
                                                    }
                            },
