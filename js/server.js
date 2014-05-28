@@ -27,6 +27,7 @@ app.post('/visit', function(req, res){
         }
         else {
             console.log(err);
+			res.send(500);
         }
     });
 });
@@ -52,6 +53,7 @@ app.post('/post', function(req, res) {
         }
         else {
             console.log(err);
+			res.send(500);
         }
     });
 });

@@ -238,9 +238,8 @@ $(document).ready(function() {
                    posted: formatTimestamp($('.timestamp').text()),
                    dir: location.pathname
                   },
-            dataType: 'json',
-            success: function() {
-                console.log('Success! /post recieved.');
+            success: function(data, status) {
+                console.log('Success! /post recieved:', status, data);
             },
             error: function(jqXHR, status, error) {
             	console.log('Error with /post:', status, error);
@@ -252,9 +251,8 @@ $(document).ready(function() {
         type: 'POST',
         url: '/visit',
         data: {last: formatTimestamp()},
-        dataType: 'json',
-        success: function() {
-            console.log('Success! /visit recieved.');
+        success: function(data, status) {
+            console.log('Success! /visit recieved:', status, data);
         },
         error: function(xhr, status, error) {
             console.log('Error with /visit:', status, error);
