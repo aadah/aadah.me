@@ -476,6 +476,11 @@ li .t {
     font-size: larger;
 }
 
+li .s {
+    font-style: italic;
+	font-size: smaller;
+}
+
 li .a {
     font-size: smaller;
 }

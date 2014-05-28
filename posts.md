@@ -1,2 +1,3 @@
+* 2014-05-28 [Motivation](http://aadah.me/blog/motivation/)
 * 2014-03-14 [The Divine Dichotomy](http://aadah.me/blog/the-divine-dichotomy/)
 * 2014-02-02 [Pilot](http://aadah.me/blog/pilot/)
