@@ -5,8 +5,6 @@ var config = require('./config');
 var app = express();
 var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport));
 
-app.use(express.bodyParser());
-
 app.post('/visit', function(req, res){
     var ip = req.get('x-real_ip');
     var collection = db.collection(config.visit);
