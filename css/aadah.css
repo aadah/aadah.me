@@ -250,7 +250,8 @@ a {
 }
 
 .content a:hover {
-    border-bottom-color: #808080;
+	color: #808080;
+	border-bottom-color: #808080;
 }
 
 
@@ -366,6 +367,12 @@ code {
 	-o-transition: all .5s ease;
 	-ms-transition: all .5s ease;
 	transition: all .5s ease;
+
+	-webkit-tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	-ms-tab-size: 4;
+	tab-size: 4;
 }
 
 code:hover {

@@ -19,8 +19,11 @@
         border: 0;
     }
 
-    code {
-		color: #000000;
+	code {
         max-height: none;
+	}
+
+    code, code .output, code .input {
+		color: #000000;
     }
 }
