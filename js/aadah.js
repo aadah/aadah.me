@@ -7,7 +7,7 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                                           }
                      },
 
-             '.header': {'border-bottom-color': {'main': '#ffffff',
+             'header': {'border-bottom-color': {'main': '#ffffff',
                                                  'alt': '#000000'
                                                 }
                         },
@@ -17,12 +17,12 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                                   }
                         },
 
-             '.content h1, .content h2, .content h3, .content h4, .content h5, .content h6': {'border-left-color': {'main': '#ffffff',
+             'article h1, article h2, article h3, article h4, article h5, article h6': {'border-left-color': {'main': '#ffffff',
                                                                                                                     'alt': '#000000'
                                                                                                                    }
                                                                                              },
 
-             '.footer': {'color': {'main': '#aaaaaa',
+             'footer': {'color': {'main': '#aaaaaa',
                                    'alt': '#555555'
                                   },
 
@@ -92,7 +92,7 @@ var THEME = {'body': {'color': {'main': '#ffffff',
                                                          }
                                     },
              
-             '.content a': {'border-bottom-color': {'main': '#ffffff',
+             'article a': {'border-bottom-color': {'main': '#ffffff',
                                                     'alt': '#000000'
                                                    }
                            },
@@ -225,7 +225,7 @@ function formatTimestamp(date) {
 //--------------------------------------------------------------------------------------------------
 
 $(document).ready(function() {
-    $('.navbar, .navbar a').click(switchTheme);
+    $('nav, nav a').click(switchTheme);
     $('img', '.gallery').click(toggleImage);
     
     if (isPost()) {    
@@ -235,7 +235,7 @@ $(document).ready(function() {
             data: {title: $('.title').text(),
                    subtitle: $('.subtitle').text(),
                    author: $('.author').text(),
-                   posted: formatTimestamp($('.timestamp').text()),
+                   posted: formatTimestamp($('time').text()),
                    dir: location.pathname
                   },
             success: function(data, status) {

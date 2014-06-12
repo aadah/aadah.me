@@ -16,7 +16,7 @@ body {
 }
 
 /* NAVIGATION */
-div.navbar {
+nav {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -34,7 +34,7 @@ div.navbar {
 	transition: all .5s ease;
 }
 
-.navbar ul {
+nav ul {
 /*    display: inline-block;*/
 	color: #808080;
 /*
@@ -45,32 +45,32 @@ div.navbar {
 	font-size: 12pt;
 	vertical-align: middle;
 	padding: 0;
-	margin: 0 auto;
+	margin: 0;
 }
 
-.navbar li {
+nav li {
 	display: inline;
 	padding: 0;
 	margin: 0;
 }
 
-.navbar a.home:hover {
+nav a.home:hover {
     color: #ff0000;
 }
 
-.navbar a.blog:hover {
+nav a.blog:hover {
     color: #00ff00;
 }
 
-.navbar a.works:hover {
+nav a.works:hover {
     color: #00ffff;
 }
 
-.navbar a.about:hover {
+nav a.about:hover {
     color: #ffff00;
 }
 
-.navbar span {
+nav span {
     position: absolute;
 	color: #808080;
 
@@ -81,11 +81,11 @@ div.navbar {
 	transition: all .5s ease;
 }
 
-.navbar span:hover {
+nav span:hover {
 	color: #ff00ff;
 }
 
-.navbar span.prev a, .navbar span.next a {
+nav span.prev a, nav span.next a {
 	display: inline-block;
 	vertical-align: middle;
 	max-width: 250px;
@@ -98,26 +98,26 @@ div.navbar {
 	font-size: smaller;
 }
 
-.navbar span.prev a:before {
+nav span.prev a:before {
     content: 'Previous : ';
 }
 
-.navbar span.next a:before {
+nav span.next a:before {
     content: 'Next : ';
 }
 
-.navbar span.prev {
+nav span.prev {
     left: .5em;
 	float: left;
 }
 
-div.navbar span.next {
+nav span.next {
     right: .5em;
 	float: right;
 }
 
 /* HEADER */
-div.header {
+header {
 	clear: both;
 	padding-bottom: .5em;
 	border-bottom: #ffffff 1px solid;
@@ -130,20 +130,20 @@ div.header {
 	transition: all .5s ease;
 }
 
-.header .title {
+header .title {
 	text-align: center;
 	padding: 0;
 	margin: 0;
 }
 
-.header .subtitle {
+header .subtitle {
 	font-style: italic;
 	text-align: center;
 	padding: 0;
 	margin: 0;
 }
 
-.header .author {
+header .author {
 	color: #aaaaaa;
 	font-size: smaller;
 	text-align: center;
@@ -157,17 +157,17 @@ div.header {
 	transition: all .5s ease;
 }
 
-.header .author:before {
+header .author:before {
     content: 'Authored by ';
 }
 
 /* CONTENT */
-div.content {
+article {
 	clear: both;
 	margin: .5em 0;
 }
 
-.content h1,.content h2,.content h3,.content h4,.content h5,.content h6 {
+article h1, article h2, article h3, article h4, article h5, article h6 {
 	padding-left: 5px;
 	border-left: #ffffff 1px solid;
 
@@ -179,7 +179,7 @@ div.content {
 }
 
 /* FOOTER */
-div.footer {
+footer {
 	clear: both;
 	color: #aaaaaa;
 	padding-top: .5em;
@@ -193,14 +193,15 @@ div.footer {
 	transition: all .5s ease;
 }
 
-.footer .timestamp {
+footer time {
+	display: block;
 	font-size: smaller;
 	text-align: center;
 	padding: 0;
 	margin: .5em;
 }
 
-.footer .timestamp:before {
+footer time:before {
     content: 'Posted on ';
 }
 
@@ -233,23 +234,23 @@ a {
 	transition: all .5s ease;
 }
 
-.navbar a:link, .navbar a:visited {
+nav a:link, nav a:visited {
 	color: #808080;
 }
 
-.navbar a:hover {
+nav a:hover {
 	color: #ff00ff;
 }
 
-.content a {
+article a {
     border-bottom: #ffffff 1px dotted;
 }
 
-.content a:link, .content a:visited {
+article a:link, article a:visited {
 	color: inherit;
 }
 
-.content a:hover {
+article a:hover {
 	color: #808080;
 	border-bottom-color: #808080;
 }
@@ -359,7 +360,7 @@ code {
     max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
-	padding: 5px;
+	padding: 1em;
 	margin: 5px auto;
 
 	-webkit-transition: all .5s ease;
