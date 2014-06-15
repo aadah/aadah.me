@@ -24,8 +24,9 @@ nav {
 	background-color: inherit;
 	text-align: center;
 	font-style: italic;
-	padding: .5em;
+	padding: 1em;
 	z-index: 1;
+	opacity: 0.5;
 
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
@@ -34,14 +35,12 @@ nav {
 	transition: all .5s ease;
 }
 
+nav:hover {
+	opacity: 1;
+}
+
 nav ul {
-/*    display: inline-block;*/
 	color: #808080;
-/*
-    width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-*/
 	font-size: 12pt;
 	vertical-align: middle;
 	padding: 0;
@@ -55,23 +54,23 @@ nav li {
 }
 
 nav a.home:hover {
-    color: #ff0000;
+	color: #ff0000;
 }
 
 nav a.blog:hover {
-    color: #00ff00;
+	color: #00ff00;
 }
 
 nav a.works:hover {
-    color: #00ffff;
+	color: #00ffff;
 }
 
 nav a.about:hover {
-    color: #ffff00;
+	color: #ffff00;
 }
 
 nav span {
-    position: absolute;
+	position: absolute;
 	color: #808080;
 
 	-webkit-transition: all .5s ease;
@@ -99,20 +98,20 @@ nav span.prev a, nav span.next a {
 }
 
 nav span.prev a:before {
-    content: 'Previous : ';
+	content: 'Previous : ';
 }
 
 nav span.next a:before {
-    content: 'Next : ';
+	content: 'Next : ';
 }
 
 nav span.prev {
-    left: .5em;
+	left: 1em;
 	float: left;
 }
 
 nav span.next {
-    right: .5em;
+	right: 1em;
 	float: right;
 }
 
@@ -158,16 +157,16 @@ header .author {
 }
 
 header .author:before {
-    content: 'Authored by ';
+	content: 'Authored by ';
 }
 
 /* CONTENT */
-article {
+main {
 	clear: both;
 	margin: .5em 0;
 }
 
-article h1, article h2, article h3, article h4, article h5, article h6 {
+main h1, main h2, main h3, main h4, main h5, main h6 {
 	padding-left: 5px;
 	border-left: #ffffff 1px solid;
 
@@ -202,7 +201,7 @@ footer time {
 }
 
 footer time:before {
-    content: 'Posted on ';
+	content: 'Posted on ';
 }
 
 /* AESTHETICS */
@@ -219,7 +218,7 @@ p.postscript {
 	margin: 0;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
@@ -242,15 +241,15 @@ nav a:hover {
 	color: #ff00ff;
 }
 
-article a {
-    border-bottom: #ffffff 1px dotted;
+main a {
+	border-bottom: #ffffff 1px dotted;
 }
 
-article a:link, article a:visited {
+main a:link, main a:visited {
 	color: inherit;
 }
 
-article a:hover {
+main a:hover {
 	color: #808080;
 	border-bottom-color: #808080;
 }
@@ -263,8 +262,8 @@ blockquote {
 	font-style: italic;
 	text-align: justify;
 	border-left: #bbbbbb 1px solid;
-	margin: 1.5em;
-	padding-left: 5px;
+	margin: 1em;
+	padding-left: 1em;
 
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
@@ -274,7 +273,7 @@ blockquote {
 }
 
 blockquote em {
-    font-style: normal;
+	font-style: normal;
 }
 
 q, quote {
@@ -289,12 +288,12 @@ q.pquoter, q.pquotel {
 	display: block;
 	color: #bbbbbb;
 	background-color: #000000;
-	width: 12em;
+	width: 250px;
 	font-size: 1.25em;
 	line-height: 1.25em;
 	text-align: center;
-	margin-top: .25em;
-	margin-bottom: .25em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 	padding: 1em;
 
 	-webkit-transition: all .5s ease;
@@ -320,26 +319,12 @@ q.pquoter:before, q.pquoter:after, q.pquotel:before, q.pquotel:after {
 }
 
 .salutation {
-    text-align: right;
-}
-
-/* -------------------------------------------------------*/
-img {
-	display: block;
-    border: 5px #000000 solid;
-	max-width: 740px;
-	margin: auto;
-
-	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
-	transition: all .5s ease;
+	text-align: right;
 }
 
 /* -------------------------------------------------------*/
 figure {
-    display: block;
+	display: block;
 	margin: 5px auto;
 }
 
@@ -347,7 +332,7 @@ figcaption {
 	font-size: smaller;
 	font-style: italic;
 	text-align: center;
-	margin-top: 5px;
+	margin-top: 0.5em;
 }
 
 /* -------------------------------------------------------*/
@@ -357,7 +342,7 @@ code {
 	font-family: monospace;
 	font-size: smaller;
 	line-height: 1.5em;
-    max-height: 50em;
+	max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
 	padding: 1em;
@@ -377,7 +362,7 @@ code {
 }
 
 code:hover {
-    overflow: auto;
+	overflow: auto;
 }
 
 code.input {
@@ -397,7 +382,8 @@ code.output {
 table {
 	background-color: #000000;
 	border-spacing: 0;
-	padding: 5px;
+	font-size: smaller;
+	padding: 0.5em;
 	margin: 5px auto;
 
 	-webkit-transition: all .5s ease;
@@ -410,8 +396,7 @@ table {
 th {
 	background-color: #222222;
 	font-weight: normal;
-	font-size: smaller;
-	padding: 5px;
+	padding: 0.5em;
 
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
@@ -423,15 +408,13 @@ th {
 td {
 	vertical-align: text-top;
 	text-align: center;
-	font-size: smaller;
-	padding: 5px;
+	padding: 0.5em;
 }
 
 caption {
-	font-size: smaller;
 	font-style: italic;
 	text-align: right;
-	margin: 5px 0;
+	margin: 0.5em 0;
 }
 
 /* -------------------------------------------------------*/
@@ -487,25 +470,25 @@ ul.posts p {
 }
 
 li p {
-    margin: 0;
+	margin: 0;
 }
 
 li .t {
-    font-size: larger;
+	font-size: larger;
 }
 
 li .s {
-    font-style: italic;
+	font-style: italic;
 	font-size: smaller;
 }
 
 li .a {
-    font-size: smaller;
+	font-size: smaller;
 }
 
 li .d {
-    font-style: italic;
-    font-size: smaller;
+	font-style: italic;
+	font-size: smaller;
 }
 
 table ul {
@@ -515,11 +498,24 @@ table ul {
 }
 
 /* -------------------------------------------------------*/
+img {
+	display: block;
+	max-width: 740px;
+	border: 5px #000000 solid;
+	margin: auto;
+
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	-ms-transition: all .5s ease;
+	transition: all .5s ease;
+}
+
 video {
 	display: block;
 	max-width: 740px;
-    background-color: #000000;
-    padding: 5px;
+	background-color: #000000;
+	padding: 5px;
 	margin: auto;
 
 	-webkit-transition: all .5s ease;
@@ -532,8 +528,8 @@ video {
 audio {
 	display: block;
 	max-width: 740px;
-    background-color: #000000;
-    padding: 5px;
+	background-color: #000000;
+	padding: 5px;
 	margin: auto;
 
 	-webkit-transition: all .5s ease;
@@ -545,20 +541,20 @@ audio {
 
 /* -------------------------------------------------------*/
 .gallery {
-/*    display: block;*/
-    overflow: auto;
-    margin: 5px auto;
+	/*display: block;*/
+	overflow: auto;
+	margin: 5px auto;
 }
 
 .gallery figure {
-    position: relative;
-    float: left;
-    width: 230px;
-    height: 230px;
-    overflow: hidden;
-    background-color: #000000;
-    border: #000000 5px solid;
-    margin: 5px;
+	position: relative;
+	float: left;
+	width: 230px;
+	height: 230px;
+	overflow: hidden;
+	background-color: #000000;
+	border: #000000 5px solid;
+	margin: 5px;
 
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
@@ -568,11 +564,11 @@ audio {
 }
 
 .gallery figcaption {
-    position: absolute;
-    bottom: 0;
-    background-color: #000000;
-    padding: 5px;
-    margin: 5px;
+	position: absolute;
+	bottom: 0;
+	background-color: #000000;
+	padding: 5px;
+	margin: 5px;
 
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
@@ -582,12 +578,12 @@ audio {
 }
 
 .gallery img {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    max-width: 730px;
-    cursor: pointer;
-    border: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	max-width: 730px;
+	cursor: pointer;
+	border: none;
 }

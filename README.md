@@ -33,14 +33,14 @@ it for a physical medium.
 Along with the standard HTML/CSS/JS, the site uses:
 
 * [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/) for coloring code
-    directly inserted into the page.
+	directly inserted into the page.
 * [MathJax](http://www.mathjax.org/) for writing LaTeX code in HTML files.
 * An [nginx](http://nginx.org/) server for handling routing and the
-    serving of static files. (The config file is not included
-    in the repo.)
+	serving of static files. (The config file is not included
+	in the repo.)
 * A proxied [Node.js](http://nodejs.org/) server for server-side operations
-    like logging unique users and views, using Express and
-    MongoDB modules.
+	like logging unique users and views, using Express and
+	MongoDB modules.
 * [MongoDB](http://www.mongodb.org/) for database storage.
 
 - - -
