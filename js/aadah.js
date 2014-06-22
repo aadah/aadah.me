@@ -244,7 +244,7 @@ $(document).ready(function() {
 				   dir: location.pathname
 				  },
 			success: function(data, status) {
-				console.log('Success! /post recieved:', status, data);
+				console.log('Success! /post received:', status, data);
 			},
 			error: function(jqXHR, status, error) {
 				console.log('Error with /post:', status, error);
@@ -257,7 +257,7 @@ $(document).ready(function() {
 		url: '/visit',
 		data: {last: formatTimestamp()},
 		success: function(data, status) {
-			console.log('Success! /visit recieved:', status, data);
+			console.log('Success! /visit received:', status, data);
 		},
 		error: function(xhr, status, error) {
 			console.log('Error with /visit:', status, error);
