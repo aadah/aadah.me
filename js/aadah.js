@@ -194,6 +194,11 @@ function isHome() {
 	return regex.test(location.pathname);
 }
 
+function isBlog() {
+	var regex = /^\/blog\/$/;
+	return regex.test(location.pathname);
+}
+
 function isPost() {
 	var regex = /^\/blog\/.+\/$/;
 	// if the page is not found, we don't want to count it as a post!
@@ -210,8 +215,8 @@ function formatTimestamp(date) {
 	var d = date == null ? new Date() : new Date(date);
 
 	// first, the date
-	var newDate = d.getFullYear() + '-'; // year
-	newDate += prependZero(d.getUTCMonth() + 1) + '-'; // month (zero indexed)
+	var newDate = d.getFullYear() + '/'; // year
+	newDate += prependZero(d.getUTCMonth() + 1) + '/'; // month (zero indexed)
 	newDate += prependZero(d.getUTCDate()) + ' '; // date
 
 	// second, the time

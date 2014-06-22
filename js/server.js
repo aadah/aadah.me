@@ -1,11 +1,19 @@
 var express = require('express');
 var mongo = require('mongodb');
+var bodyParser = require('body-parser');
+var path = require('path');
 var config = require('./config');
 
 var app = express();
 var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport));
 
-app.post('/visit', function(req, res){
+var root = path.resolve(__dirname + '/..');
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use(config.check(root));
+
+app.post('/visit', function(req, res) {
 	var ip = req.get('x-real_ip');
 	var collection = db.collection(config.visit);
 
