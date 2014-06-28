@@ -1,9 +1,12 @@
 /* This stylesheet was written by Abdi-Hakin Dirie. */
 
+@import url(http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
 body {
 	color: #ffffff;
 	background-color: #222222;
-	font-family: Times, TimesNewRoman, Baskerville, Georgia, serif;
+	font-family: "Tinos", serif;
 	width: 750px;
 	margin: auto;
 	padding: 50px;
@@ -223,6 +226,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -------------------------------------------------------*/
+
 a {
 	text-decoration: none;
 
@@ -256,6 +260,7 @@ main a:hover {
 
 
 /* -------------------------------------------------------*/
+
 blockquote {
 	display: block;
 	color: #bbbbbb;
@@ -323,6 +328,7 @@ q.pquoter:before, q.pquoter:after, q.pquotel:before, q.pquotel:after {
 }
 
 /* -------------------------------------------------------*/
+
 figure {
 	display: block;
 	margin: 5px auto;
@@ -336,12 +342,13 @@ figcaption {
 }
 
 /* -------------------------------------------------------*/
+
 code {
 	display: block;
 	background-color: #000000;
-	font-family: monospace;
+	font-family: "Inconsolata", monospace;
 	font-size: smaller;
-	line-height: 1.5em;
+	line-height: 1.25em;
 	max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
@@ -379,6 +386,7 @@ code.output {
 }
 
 /* -------------------------------------------------------*/
+
 table {
 	background-color: #000000;
 	border-spacing: 0;
@@ -418,6 +426,7 @@ caption {
 }
 
 /* -------------------------------------------------------*/
+
 .posts li {
 	padding: .5em 0;
 }
@@ -498,6 +507,7 @@ table ul {
 }
 
 /* -------------------------------------------------------*/
+
 img {
 	display: block;
 	max-width: 740px;
@@ -540,6 +550,7 @@ audio {
 }
 
 /* -------------------------------------------------------*/
+
 .gallery {
 	/*display: block;*/
 	overflow: auto;

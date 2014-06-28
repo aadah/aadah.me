@@ -233,6 +233,18 @@ $(document).ready(function() {
 	$('nav, nav a').click(switchTheme);
 	$('img', '.gallery').click(toggleImage);
 
+	$.ajax({
+		type: 'POST',
+		url: '/visit',
+		data: {last: formatTimestamp()},
+		success: function(data, status) {
+			console.log('Success! /visit received:', status, data);
+		},
+		error: function(xhr, status, error) {
+			console.log('Error with /visit:', status, error);
+		}
+	});
+
 	if (isPost()) {
 		$.ajax({
 			type: 'POST',
@@ -251,18 +263,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-
-	$.ajax({
-		type: 'POST',
-		url: '/visit',
-		data: {last: formatTimestamp()},
-		success: function(data, status) {
-			console.log('Success! /visit received:', status, data);
-		},
-		error: function(xhr, status, error) {
-			console.log('Error with /visit:', status, error);
-		}
-	});
 });
 
 $(window).load(function() {
