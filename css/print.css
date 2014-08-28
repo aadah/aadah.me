@@ -19,11 +19,11 @@
 		border: 0;
 	}
 
-	code {
+	code, samp {
 		max-height: none;
 	}
 
-	code, code .output, code .input {
+	code, samp {
 		color: #000000;
 	}
 }

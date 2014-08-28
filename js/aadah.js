@@ -1,3 +1,4 @@
+// TODO: Split THEME into two separate objects and use jQuery.animate() to transition themes instead.
 var THEME = {'body': {'color': {'main': '#ffffff',
 								'alt': '#000000'
 							   },
@@ -64,10 +65,10 @@ var THEME = {'body': {'color': {'main': '#ffffff',
 										  }
 					 },
 
-			 '.input, .output': {'background-color': {'main': '#111111',
+			 'kbd, samp': {'background-color': {'main': '#111111',
 													  'alt': '#eeeeee'
 													 }
-								},
+						  },
 
 			 'table': {'background-color': {'main': '#000000',
 											'alt': '#ffffff'
@@ -153,6 +154,8 @@ var THEME = {'body': {'color': {'main': '#ffffff',
 
 function switchTheme(theme) {
 	var current;
+	var selector;
+	var prop;
 
 	// if no valid theme string is passed in, function acts as a toggle
 	if (theme != 'main' && theme != 'alt') {
@@ -165,10 +168,10 @@ function switchTheme(theme) {
 
 	// store in localStorage and change theme accordingly
 	localStorage.setItem('current', current);
-	for (var selector in THEME) {
+	for (selector in THEME) {
 		var $sel = $(selector);
 		var props = THEME[selector];
-		for (var prop in props) {
+		for (prop in props) {
 			$sel.css(prop, props[prop][current]);
 		}
 	}
@@ -189,18 +192,31 @@ function toggleImage() {
 	}
 }
 
+function windowResize() {
+	if (window.innerWidth <= 850) {
+		$('img', '.gallery').off('click', toggleImage);
+		$('figure', '.gallery').css('width', 'auto');
+		$('figure', '.gallery').css('height', 'auto');
+	}
+	else {
+		$('img', '.gallery').click(toggleImage);
+		$('figure', '.gallery').css('width', '230px');
+		$('figure', '.gallery').css('height', '230px');
+	}
+}
+
 function isHome() {
-	var regex = /^\/$/;
+	var regex = /^\/(index\.html)?$/;
 	return regex.test(location.pathname);
 }
 
 function isBlog() {
-	var regex = /^\/blog\/$/;
+	var regex = /^\/blog\/(index\.html)?$/;
 	return regex.test(location.pathname);
 }
 
 function isPost() {
-	var regex = /^\/blog\/.+\/$/;
+	var regex = /^\/blog\/.+\/(index\.html)?$/;
 	// if the page is not found, we don't want to count it as a post!
 	return regex.test(location.pathname) && $('.title').text() != '404';
 }
@@ -210,6 +226,7 @@ function prependZero(piece) {
 	return piece.length == 1 ? '0' + piece : piece;
 }
 
+// TODO: Switch to moment.js formatting.
 function formatTimestamp(date) {
 	// if date is omitted, just return the current formatted datetime
 	var d = date == null ? new Date() : new Date(date);
@@ -232,6 +249,9 @@ function formatTimestamp(date) {
 $(document).ready(function() {
 	$('nav, nav a').click(switchTheme);
 	$('img', '.gallery').click(toggleImage);
+
+	windowResize();
+	$(window).resize(windowResize);
 
 	$.ajax({
 		type: 'POST',

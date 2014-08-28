@@ -7,6 +7,10 @@ var config = require('./config');
 var app = express();
 var db = new mongo.Db(config.db, new mongo.Server(config.dbhost, config.dbport));
 
+// TODO: Set up dynamic loading on blog page.
+//var blog_router = express.Router();
+//var retrieve_load = 1;
+
 var root = path.resolve(__dirname + '/..');
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -15,7 +19,7 @@ app.use(config.check(root));
 
 app.post('/visit', function(req, res) {
 	var ip = req.get('x-real_ip');
-	var collection = db.collection(config.visit);
+	var collection = db.collection(config.visitors);
 
 	collection.find({ip: ip}).count(function(err, count) {
 		if (!err) {
@@ -39,7 +43,7 @@ app.post('/visit', function(req, res) {
 });
 
 app.post('/post', function(req, res) {
-	var collection = db.collection(config.post);
+	var collection = db.collection(config.entries);
 
 	collection.find({dir: req.param('dir')}).count(function(err, count) {
 		if (!err) {
@@ -63,6 +67,20 @@ app.post('/post', function(req, res) {
 		}
 	});
 });
+
+//blog_router.get('/init', function() {
+//	var collection = db.collection(config.entries);
+//
+//	collection.find().count(function(err, count) {
+//		if (!err) {
+//			res.send(200);
+//		}
+//		else {
+//			console.log(err);
+//			res.send(500);
+//		}
+//	});
+//});
 
 port = process.env.PORT || 3000;
 

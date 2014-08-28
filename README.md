@@ -42,7 +42,7 @@ Along with the standard HTML/CSS/JS, the site uses:
 	in the repo.)
 * A proxied [Node.js](http://nodejs.org/) server for server-side operations
 	like logging unique users and views, using Express and
-	MongoDB modules.
+	MongoDB, among other modules.
 * [MongoDB](http://www.mongodb.org/) for database storage.
 * Fonts imported from [Google Fonts](https://www.google.com/fonts). I use
 	[Tinos](https://www.google.com/fonts/specimen/Tinos) as my primary font (serif) and
@@ -60,8 +60,10 @@ The blog is under the [GNU GPL v3.0 license](https://www.gnu.org/copyleft/gpl.ht
 ### TODO
 
 * <s>Switch from Apache to nginx</s>
-* Write a GUI for writing posts with JavaFX
+* Write a GUI for writing posts (in HTML/CSS/JS)
 * <s>Make custom error pages</s>
 * Setup an email server
-* Port to mobile (?)
+* <s>Setup media queries for RWD</s>
 * Create dynamic blog page
+* <s>Move all media (images, video, audio) out of repo into single folder.</s>
+* Use Moment.js for format date strings

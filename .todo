@@ -1,0 +1,7 @@
+{
+	"search": {
+		"scope": "project",
+		"excludeFiles": [".html", ".md"],
+		"excludeFolders": ["/js/node_modules", "/debug/node_modules"]
+	}
+}

@@ -1,0 +1,42 @@
+@media (max-width: 850px) {
+	body {
+		width: 90%;
+		padding: 50px 0;
+	}
+
+	nav span.prev, nav span.next {
+		font-size: large;
+	}
+
+	nav span.prev a, nav span.next a {
+		max-width: 100px;
+	}
+
+	q.pquoter, q.pquotel {
+		font-size: 1em;
+	}
+
+	table {
+		font-size: 8pt;
+	}
+
+	.gallery figure {
+		float: none;
+		max-width: 98%;
+		width: auto;
+		height: auto;
+		margin: 5px 0;
+	}
+
+	.gallery img {
+		position: relative;
+		max-width: 100%;
+		cursor: auto;
+	}
+}
+
+@media (max-width: 500px) {
+	nav span.prev a, nav span.next a {
+		max-width: 50px;
+	}
+}

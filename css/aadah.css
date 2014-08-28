@@ -9,12 +9,9 @@ body {
 	font-family: "Tinos", serif;
 	width: 750px;
 	margin: auto;
-	padding: 50px;
+	padding: 50px 0;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -32,9 +29,6 @@ nav {
 	opacity: 0.5;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -44,7 +38,6 @@ nav:hover {
 
 nav ul {
 	color: #808080;
-	font-size: 12pt;
 	vertical-align: middle;
 	padding: 0;
 	margin: 0;
@@ -77,9 +70,6 @@ nav span {
 	color: #808080;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -93,19 +83,8 @@ nav span.prev a, nav span.next a {
 	max-width: 250px;
 	white-space: nowrap;
 	overflow: hidden;
-
-	-o-text-overflow: ellipsis;
-	-ms-text-overflow: ellipsis;
 	text-overflow: ellipsis;
 	font-size: smaller;
-}
-
-nav span.prev a:before {
-	content: 'Previous : ';
-}
-
-nav span.next a:before {
-	content: 'Next : ';
 }
 
 nav span.prev {
@@ -126,9 +105,6 @@ header {
 	margin: .5em 0;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -150,12 +126,9 @@ header .author {
 	font-size: smaller;
 	text-align: center;
 	padding: 0;
-	margin: .5em;
+	margin: .5em 0;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -174,9 +147,6 @@ main h1, main h2, main h3, main h4, main h5, main h6 {
 	border-left: #ffffff 1px solid;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -189,9 +159,6 @@ footer {
 	margin: .5em 0;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -200,7 +167,7 @@ footer time {
 	font-size: smaller;
 	text-align: center;
 	padding: 0;
-	margin: .5em;
+	margin: .5em 0;
 }
 
 footer time:before {
@@ -231,9 +198,6 @@ a {
 	text-decoration: none;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -271,9 +235,6 @@ blockquote {
 	padding-left: 1em;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -293,7 +254,7 @@ q.pquoter, q.pquotel {
 	display: block;
 	color: #bbbbbb;
 	background-color: #000000;
-	width: 250px;
+	width: 33%;
 	font-size: 1.25em;
 	line-height: 1.25em;
 	text-align: center;
@@ -302,9 +263,6 @@ q.pquoter, q.pquotel {
 	padding: 1em;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -343,9 +301,8 @@ figcaption {
 
 /* -------------------------------------------------------*/
 
-code {
+code, samp {
 	display: block;
-	background-color: #000000;
 	font-family: "Inconsolata", monospace;
 	font-size: smaller;
 	line-height: 1.25em;
@@ -356,9 +313,6 @@ code {
 	margin: 5px auto;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 
 	-webkit-tab-size: 4;
@@ -368,21 +322,27 @@ code {
 	tab-size: 4;
 }
 
-code:hover {
+code:hover, samp:hover {
 	overflow: auto;
 }
 
-code.input {
-	display: inline;
-	background-color: #111111;
-	font-size: inherit;
-	font-weight: bold;
-	padding: 0;
-	margin: 0;
+code {
+	background-color: #000000;
 }
 
-code.output {
+samp {
 	background-color: #111111;
+}
+
+kbd {
+	font-weight: bold;
+}
+
+p > kbd {
+	font-family: "Inconsolata", monospace;
+	font-size: smaller;
+	padding: 3px;
+	border-radius: 3px;
 }
 
 /* -------------------------------------------------------*/
@@ -395,9 +355,6 @@ table {
 	margin: 5px auto;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -407,9 +364,6 @@ th {
 	padding: 0.5em;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -510,50 +464,39 @@ table ul {
 
 img {
 	display: block;
-	max-width: 740px;
+	max-width: 98%;
 	border: 5px #000000 solid;
 	margin: auto;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
 video {
 	display: block;
-	max-width: 740px;
+	max-width: 98%;
 	background-color: #000000;
 	padding: 5px;
 	margin: auto;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
 audio {
 	display: block;
-	max-width: 740px;
+	max-width: 98%;
 	background-color: #000000;
 	padding: 5px;
 	margin: auto;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
 /* -------------------------------------------------------*/
 
 .gallery {
-	/*display: block;*/
-	overflow: auto;
 	margin: 5px auto;
 }
 
@@ -568,9 +511,6 @@ audio {
 	margin: 5px;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -582,9 +522,6 @@ audio {
 	margin: 5px;
 
 	-webkit-transition: all .5s ease;
-	-moz-transition: all .5s ease;
-	-o-transition: all .5s ease;
-	-ms-transition: all .5s ease;
 	transition: all .5s ease;
 }
 
