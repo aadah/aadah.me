@@ -193,7 +193,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -------------------------------------------------------*/
-
+/* TODO: Fix border-bottom-color on hover. */
 a {
 	text-decoration: none;
 
@@ -213,11 +213,15 @@ main a {
 	border-bottom: #ffffff 1px dotted;
 }
 
-main a:link, main a:visited {
+footer a {
+	border-bottom: #aaaaaa 1px dotted;
+}
+
+main a:link, main a:visited, footer a:link, footer a:visited {
 	color: inherit;
 }
 
-main a:hover {
+main a:hover, footer a:hover {
 	color: #808080;
 	border-bottom-color: #808080;
 }
@@ -342,8 +346,8 @@ p > kbd {
 	font-family: "Inconsolata", monospace;
 	font-size: smaller;
 	background-color: #111111;
-	padding: 3px;
-	border-radius: 3px;
+	padding: 0 5px;
+	border-radius: 5px;
 }
 
 /* -------------------------------------------------------*/

@@ -96,7 +96,12 @@ var THEME = {'body': {'color': {'main': '#ffffff',
 			 'main a': {'border-bottom-color': {'main': '#ffffff',
 												   'alt': '#000000'
 												  }
-						  },
+					   },
+
+			 'footer a': {'border-bottom-color': {'main': '#aaaaaa',
+												   'alt': '#555555'
+												  }
+						 },
 
 			 // code theme colors
 			 '.str': {'color': {'main': '#00ff00',
