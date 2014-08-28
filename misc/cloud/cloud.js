@@ -5,7 +5,7 @@ var ctx;
 window.requestAnimationFrame =
 	window.requestAnimationFrame || // Chrome
 	window.mozRequestAnimationFrame || // Firefox
-	window.oRequestAnimationFrame || // Newer verions of Opera
+	window.oRequestAnimationFrame || // Newer versions of Opera
 	window.webkitRequestAnimationFrame || // Safari
 	window.msRequestAnimationFrame || // IE
 	function (callback) { // Older versions of Opera
@@ -550,11 +550,17 @@ function App() {
 	// event handlers
 	this.keyPress = function (event) {
 		print(event.charCode);
+		var i;
 		switch (event.charCode) {
 		case 97:
-			var i;
 			for (i = 0; i < particles.length; i += 1) {
 				particles[i].setAlive(!particles[i].isAlive());
+			}
+			break;
+
+		case 114:
+			for (i = 0; i < particles.length; i += 1) {
+				particles[i].reset();
 			}
 			break;
 

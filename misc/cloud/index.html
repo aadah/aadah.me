@@ -615,10 +615,18 @@ function App() {
 	this.keyPress = function (event) {
 		print(event.charCode);
 		switch (event.charCode) {
+		print(event.charCode);
+		var i;
+		switch (event.charCode) {
 		case 97:
-			var i;
 			for (i = 0; i &lt; particles.length; i += 1) {
 				particles[i].setAlive(!particles[i].isAlive());
+			}
+			break;
+
+		case 114:
+			for (i = 0; i &lt; particles.length; i += 1) {
+				particles[i].reset();
 			}
 			break;
 

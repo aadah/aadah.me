@@ -341,6 +341,7 @@ kbd {
 p > kbd {
 	font-family: "Inconsolata", monospace;
 	font-size: smaller;
+	background-color: #111111;
 	padding: 3px;
 	border-radius: 3px;
 }
