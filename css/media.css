@@ -32,6 +32,10 @@
 		position: relative;
 		max-width: 100%;
 		cursor: auto;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
 	}
 }
 

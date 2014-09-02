@@ -62,8 +62,9 @@ The blog is under the [GNU GPL v3.0 license](https://www.gnu.org/copyleft/gpl.ht
 * <s>Switch from Apache to nginx</s>
 * Write a GUI for writing posts (in HTML/CSS/JS)
 * <s>Make custom error pages</s>
+* <s>Use lower resolution images on pages</s>
 * Setup an email server
 * <s>Setup media queries for RWD</s>
 * Create dynamic blog page
-* <s>Move all media (images, video, audio) out of repo into single folder.</s>
+* <s>Move all media (images, video, audio) out of repo into single folder</s>
 * Use Moment.js for format date strings
