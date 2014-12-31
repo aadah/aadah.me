@@ -1,0 +1,168 @@
+@media print {
+/*
+	nav {
+		display: none
+	}
+
+	body, p, a, ul, ol, table, figcaption, q.pquoter, q.pquotel, blockquote, p.postscript, header, footer, a:link, a:visited {
+		color: #000000;
+	}
+*/
+/*
+	main h1, main h2, main h3, main h4, main h5, main h6 {
+		color: black;
+		padding: 0;
+		border: none;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		color: black;
+		padding: 0;
+		border: none;
+	}
+*/
+
+/*
+	code, samp {
+		max-height: none;
+	}
+
+	code, samp {
+		color: #000000;
+	}
+*/
+
+	/* This stylesheet was written by Abdi-Hakin Dirie. */
+
+	* {
+		color: #000000 !important;
+		background-color: #ffffff !important;
+		border: none !important;
+	}
+
+	nav {
+		display: none;
+	}
+
+	code, samp {
+		max-height: none;
+		color: #000000;
+	}
+
+	header {
+		color: #ffffff !important;
+		background-color: #222222 !important;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		color: #ffffff !important;
+		background-color: #222222 !important;
+	}
+
+/*
+	body {
+		color: #000000;
+		background-color: #ffffff;
+	}
+
+	nav {
+		display: none;
+	}
+
+	header {
+		border-bottom-color: #000000;
+	}
+
+	header .author {
+		color: #000000;
+	}
+
+	main h1, main h2, main h3, main h4, main h5, main h6 {
+		border: none;
+		padding: 0;
+		margin: 0;
+		color: #000000;
+	}
+
+	footer {
+		color: #000000;
+		border-top-color: #000000;
+	}
+
+	nav a:link, nav a:visited {
+		color: #000000;
+	}
+
+	nav a:hover {
+		color: #000000;
+	}
+
+	main a {
+		border-bottom-color: #000000;
+	}
+
+	footer a {
+		border-bottom-color: #000000;
+	}
+
+	main a:link, main a:visited, footer a:link, footer a:visited {
+		color: inherit;
+	}
+
+	main a:hover, footer a:hover {
+		color: #000000;
+		border-bottom-color: #000000;
+	}
+
+	blockquote {
+		color: #000000;
+		border-left-color: #000000;
+	}
+
+	q.pquoter, q.pquotel {
+		color: #000000;
+		background-color: #ffffff;
+	}
+
+	code {
+		background-color: #ffffff;
+	}
+
+	samp {
+		background-color: #ffffff;
+	}
+
+	p > kbd {
+		background-color: #ffffff;
+	}
+
+	table {
+		background-color: #ffffff;
+	}
+
+	th {
+		background-color: #ffffff;
+	}
+
+	img {
+		border-color: #ffffff;
+	}
+
+	video {
+		background-color: #ffffff;
+	}
+
+	audio {
+		background-color: #ffffff;
+	}
+
+	.gallery figure {
+		background-color: #ffffff;
+		border-color: #ffffff;
+	}
+
+	.gallery figcaption {
+		background-color: #ffffff;
+	}
+*/
+}

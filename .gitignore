@@ -1,5 +1,5 @@
-/js/config.js
-/media/
-/about/resume/
-/debug/
-.brackets.json
+/utils/config.js
+/public/media/
+/grammars/
+/utils/test.js
+/public/debug/
