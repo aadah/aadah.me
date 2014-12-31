@@ -29,15 +29,10 @@ it for a physical medium.
 
 Along with the standard HTML/CSS/JS, the site uses:
 
+- [Node.js](http://nodejs.org/) as the server.
 - [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/)
-	for coloring code directly inserted into the page.
+	for coloring code on the page.
 - [MathJax](http://www.mathjax.org/) for writing LaTeX code in HTML files.
-- An [nginx](http://nginx.org/) server for handling routing and the
-	serving of static files. (The config file is not included
-	in the repo.)
-- A proxied [Node.js](http://nodejs.org/) server for server-side operations
-	like logging unique users and views, using Express and
-	MongoDB, among other modules.
 - [MongoDB](http://www.mongodb.org/) for database storage.
 - Fonts imported from [Google Fonts](https://www.google.com/fonts). I use
 	[Tinos](https://www.google.com/fonts/specimen/Tinos) (serif) as my primary font and
