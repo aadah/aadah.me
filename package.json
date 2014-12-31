@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon start/server.js"
+    "start": "sudo nodemon start/server.js"
   },
   "dependencies": {
     "bcrypt": "^0.8.0",
