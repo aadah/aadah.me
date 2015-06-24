@@ -13,7 +13,10 @@
 	}
 
 	q.pquoter, q.pquotel {
-		font-size: 1em;
+		float: none;
+		width: inherit;
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	table {
@@ -22,7 +25,7 @@
 
 	.gallery figure {
 		float: none;
-		max-width: 98%;
+		max-width: 100%;
 		width: auto;
 		height: auto;
 		margin: 5px 0;

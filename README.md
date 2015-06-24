@@ -34,7 +34,7 @@ Along with the standard HTML/CSS/JS, the site uses:
 	for coloring code on the page.
 - [MathJax](http://www.mathjax.org/) for writing LaTeX code in HTML files.
 - [MongoDB](http://www.mongodb.org/) for database storage.
-- Fonts imported from [Google Fonts](https://www.google.com/fonts). I use
+- Fonts from [Google Fonts](https://www.google.com/fonts). I use
 	[Tinos](https://www.google.com/fonts/specimen/Tinos) (serif) as my primary font and
 	[Inconsolata](http://levien.com/type/myfonts/inconsolata.html)
 	(monospace) for code snippets.
@@ -55,3 +55,4 @@ The blog is under the [GNU GPL v3.0 license](https://www.gnu.org/copyleft/gpl.ht
 - <s>Setup media queries for RWD</s>
 - Create dynamic blog page
 - <s>Move all media (images, video, audio) out of repo into single media folder</s>
+- Fix gallery RWD bug with photo galleries.

@@ -10,9 +10,6 @@ body {
 	width: 750px;
 	margin: auto;
 	padding: 50px 0;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 /* NAVIGATION */
@@ -28,8 +25,8 @@ nav {
 	z-index: 1;
 	opacity: 0.5;
 
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
+	-webkit-transition: opacity .5s ease;
+	transition: opacity .5s ease;
 }
 
 nav:hover {
@@ -50,19 +47,19 @@ nav li {
 }
 
 nav a.home:hover {
-	color: #ff0000;
+	color: #b00000;
 }
 
 nav a.blog:hover {
-	color: #00ff00;
+	color: #00b000;
 }
 
 nav a.works:hover {
-	color: #00ffff;
+	color: #00b0b0;
 }
 
 nav a.about:hover {
-	color: #ffff00;
+	color: #b0b000;
 }
 
 nav span {
@@ -74,7 +71,7 @@ nav span {
 }
 
 nav span:hover {
-	color: #ff00ff;
+	color: #b000b0;
 }
 
 nav span.prev a, nav span.next a {
@@ -97,15 +94,17 @@ nav span.next {
 	float: right;
 }
 
+#hidden {
+	all: inherit;
+	cursor: pointer;
+}
+
 /* HEADER */
 header {
 	clear: both;
 	padding-bottom: .5em;
 	border-bottom: #ffffff 1px solid;
 	margin: .5em 0;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 header .title {
@@ -127,9 +126,6 @@ header .author {
 	text-align: center;
 	padding: 0;
 	margin: .5em 0;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 header .author:before {
@@ -145,9 +141,6 @@ main {
 main h1, main h2, main h3, main h4, main h5, main h6 {
 	padding-left: 5px;
 	border-left: #ffffff 1px solid;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 /* FOOTER */
@@ -157,9 +150,6 @@ footer {
 	padding-top: .5em;
 	border-top: #ffffff 1px solid;
 	margin: .5em 0;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 footer time {
@@ -236,9 +226,6 @@ blockquote {
 	border-left: #bbbbbb 1px solid;
 	margin: 1em;
 	padding-left: 1em;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 blockquote i {
@@ -264,9 +251,6 @@ q.pquoter, q.pquotel {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 	padding: 1em;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 q.pquoter {
@@ -319,9 +303,6 @@ code, samp {
 	padding: 1em;
 	margin: 5px auto;
 
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
-
 	-webkit-tab-size: 4;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -361,18 +342,12 @@ table {
 	font-size: smaller;
 	padding: 0.5em;
 	margin: 5px auto;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 th {
 	background-color: #222222;
 	font-weight: normal;
 	padding: 0.5em;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 td {
@@ -389,11 +364,7 @@ caption {
 
 /* -------------------------------------------------------*/
 
-.posts li {
-	padding: .5em 0;
-}
-
-ol,ul {
+ol, ul {
 	line-height: 1.5em;
 	font-size: inherit;
 }
@@ -430,42 +401,42 @@ ul ul ul ul {
 	list-style-type: disc;
 }
 
-ul.posts {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-ul.posts p {
-	text-align: center;
-}
-
-li p {
-	margin: 0;
-}
-
-li .t {
-	font-size: larger;
-}
-
-li .s {
-	font-style: italic;
-	font-size: smaller;
-}
-
-li .a {
-	font-size: smaller;
-}
-
-li .d {
-	font-style: italic;
-	font-size: smaller;
-}
-
 table ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+}
+
+
+/* -------------------------------------------------------*/
+
+.posts {
+	display: block;
+	max-width: 50%;
+	margin: auto;
+}
+
+.post {
+	margin: 1em 0;
+}
+
+.post .t {
+	font-size: larger;
+	margin: 0;
+}
+
+.post p {
+	font-size: smaller;
+	text-align: center;
+	margin: 0;
+}
+
+.post .s {
+	font-style: italic;
+}
+
+.post .a:before {
+	content: 'by ';
 }
 
 /* -------------------------------------------------------*/
@@ -475,9 +446,6 @@ img {
 	max-width: 98%;
 	border: 5px #000000 solid;
 	margin: auto;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 video {
@@ -486,9 +454,6 @@ video {
 	background-color: #000000;
 	padding: 5px;
 	margin: auto;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 audio {
@@ -497,9 +462,6 @@ audio {
 	background-color: #000000;
 	padding: 5px;
 	margin: auto;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 /* -------------------------------------------------------*/
@@ -518,9 +480,6 @@ audio {
 	background-color: #000000;
 	border: #000000 5px solid;
 	margin: 5px;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 .gallery figcaption {
@@ -529,9 +488,6 @@ audio {
 	background-color: #000000;
 	padding: 5px;
 	margin: 5px;
-
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
 }
 
 .gallery img {

@@ -37,8 +37,7 @@ var ipsSchema = new Schema({
     ip: {
         type: String,
         required: true,
-        unique: true,
-        match: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})$/
+        unique: true
     },
     views: {
         type: Number,
@@ -51,7 +50,7 @@ var ipsSchema = new Schema({
     },
 });
 
-models.Posts = mongoose.model(config.posts, postsSchema);
-models.Ips = mongoose.model(config.ips, ipsSchema);
+models.Posts = mongoose.model(config.db_posts, postsSchema);
+models.Ips = mongoose.model(config.db_ips, ipsSchema);
 
 module.exports = models;

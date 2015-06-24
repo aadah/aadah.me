@@ -1,224 +1,304 @@
 var THEME = {
 	'body': {
-		'color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'color': '#ffffff',
+			'background-color': '#222222'
 		},
-		'background-color': {
-			'main': '#222222',
-			'alt': '#dddddd'
+		'alt': {
+			'color': '#000000',
+			'background-color': '#dddddd'
 		}
 	},
 	'header': {
-		'border-bottom-color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'border-bottom-color': '#ffffff'
+		},
+		'alt': {
+			'border-bottom-color': '#000000'
 		}
 	},
 	'.author': {
-		'color': {
-			'main': '#aaaaaa',
-			'alt': '#555555'
+		'main': {
+			'color': '#aaaaaa'
+		},
+		'alt': {
+			'color': '#555555'
 		}
 	},
 	'main h1, main h2, main h3, main h4, main h5, main h6': {
-		'border-left-color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'border-left-color': '#ffffff'
+		},
+		'alt': {
+			'border-left-color': '#000000'
 		}
 	},
 	'footer': {
-		'color': {
-			'main': '#aaaaaa',
-			'alt': '#555555'
+		'main': {
+			'color': '#aaaaaa',
+			'border-top-color': '#ffffff'
 		},
-		'border-top-color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'alt': {
+			'color': '#555555',
+			'border-top-color': '#000000'
 		}
 	},
 	'blockquote': {
-		'color': {
-			'main': '#bbbbbb',
-			'alt': '#444444'
+		'main': {
+			'color': '#bbbbbb',
+			'border-left-color': '#bbbbbb'
 		},
-		'border-left-color': {
-			'main': '#bbbbbb',
-			'alt': '#444444'
+		'alt': {
+			'color': '#444444',
+			'border-left-color': '#444444'
 		}
 	},
 	'.pquoter, .pquotel': {
-		'color': {
-			'main': '#bbbbbb',
-			'alt': '#444444'
+		'main': {
+			'color': '#bbbbbb',
+			'background-color': '#000000'
 		},
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'alt': {
+			'color': '#444444',
+			'background-color': '#ffffff'
 		}
 	},
 	'img': {
-		'border-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'border-color': '#000000'
+		},
+		'alt': {
+			'border-color': '#ffffff'
 		}
 	},
 	'video, audio': {
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'background-color': '#000000'
+		},
+		'alt': {
+			'background-color': '#ffffff'
 		}
 	},
 	'code': {
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'background-color': '#000000'
+		},
+		'alt': {
+			'background-color': '#ffffff'
 		}
 	},
 	'kbd, samp': {
-		'background-color': {
-			'main': '#111111',
-			'alt': '#eeeeee'
+		'main': {
+			'background-color': '#111111'
+		},
+		'alt': {
+			'background-color': '#eeeeee'
 		}
 	},
 	'table': {
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'background-color': '#000000'
+		},
+		'alt': {
+			'background-color': '#ffffff'
 		}
 	},
 	'th': {
-		'background-color': {
-			'main': '#222222',
-			'alt': '#dddddd'
+		'main': {
+			'background-color': '#222222'
+		},
+		'alt': {
+			'background-color': '#dddddd'
 		}
 	},
 	'.gallery figure': {
-		'border-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'border-color': '#000000',
+			'background-color': '#000000'
 		},
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'alt': {
+			'border-color': '#ffffff',
+			'background-color': '#ffffff'
 		}
 	},
 	'.gallery figcaption': {
-		'background-color': {
-			'main': '#000000',
-			'alt': '#ffffff'
+		'main': {
+			'color': '#ffffff',
+			'background-color': '#000000'
+		},
+		'alt': {
+			'color': '#000000',
+			'background-color': '#ffffff'
 		}
 	},
 	'main a': {
-		'border-bottom-color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'border-bottom-color': '#ffffff'
+		},
+		'alt': {
+			'border-bottom-color': '#000000'
 		}
 	},
 	'footer a': {
-		'border-bottom-color': {
-			'main': '#aaaaaa',
-			'alt': '#555555'
+		'main': {
+			'border-bottom-color': '#aaaaaa'
+		},
+		'alt': {
+			'border-bottom-color': '#555555'
 		}
 	},
 
 	// code theme colors
 	'.str': {
-		'color': {
-			'main': '#00ff00',
-			'alt': '#00b000'
+		'main': {
+			'color': '#00ff00'
+		},
+		'alt': {
+			'color': '#00b000'
 		}
 	},
 	'.kwd': {
-		'color': {
-			'main': '#ffff00',
-			'alt': '#b0b000'
+		'main': {
+			'color': '#ffff00'
+		},
+		'alt': {
+			'color': '#b0b000'
 		}
 	},
 	'.typ': {
-		'color': {
-			'main': '#00ffff',
-			'alt': '#00b0b0'
+		'main': {
+			'color': '#00ffff'
+		},
+		'alt': {
+			'color': '#00b0b0'
 		}
 	},
 	'.lit': {
-		'color': {
-			'main': '#ff00ff',
-			'alt': '#b000b0'
+		'main': {
+			'color': '#ff00ff'
+		},
+		'alt': {
+			'color': '#b000b0'
 		}
 	},
 	'.pun': {
-		'color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'color': '#ffffff'
+		},
+		'alt': {
+			'color': '#000000'
 		}
 	},
 	'.pln': {
-		'color': {
-			'main': '#ffffff',
-			'alt': '#000000'
+		'main': {
+			'color': '#ffffff'
+		},
+		'alt': {
+			'color': '#000000'
 		}
 	},
 	'.tag': {
-		'color': {
-			'main': '#00ffff',
-			'alt': '#00b0b0'
+		'main': {
+			'color': '#00ffff'
+		},
+		'alt': {
+			'color': '#00b0b0'
 		}
 	},
 	'.atn': {
-		'color': {
-			'main': '#ffff00',
-			'alt': '#b0b000'
+		'main': {
+			'color': '#ffff00'
+		},
+		'alt': {
+			'color': '#b0b000'
 		}
 	},
 	'.atv': {
-		'color': {
-			'main': '#00ff00',
-			'alt': '#00b000'
+		'main': {
+			'color': '#00ff00'
+		},
+		'alt': {
+			'color': '#00b000'
 		}
 	},
 	'.dec': {
-		'color': {
-			'main': '#ff00ff',
-			'alt': '#b000b0'
+		'main': {
+			'color': '#ff00ff'
+		},
+		'alt': {
+			'color': '#b000b0'
 		}
 	}
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 
-function switchTheme(theme) {
+function setHourlyTheme(fadeOff) {
+	var sunrise_hour = 6;
+	var sunset_hour = 18;
+	var now_hour = new Date().getHours();
+	if (sunrise_hour <= now_hour && now_hour < sunset_hour) {
+		switchTheme('alt', fadeOff);
+	} else {
+		switchTheme('main', fadeOff);
+	}
+}
+
+function switchTheme(theme, fadeOff) {
+	var prev;
 	var current;
 	var selector;
-	var prop;
 
 	// if no valid theme string is passed in, function acts as a toggle
 	if (theme !== 'main' && theme !== 'alt') {
-		current = localStorage.getItem('current') ? localStorage.getItem('current') : 'main';
-		current = current === 'main' ? 'alt' : 'main';
+		prev = $('body').data('theme');
+		current = prev === 'main' ? 'alt' : 'main';
 	} else {
 		current = theme;
 	}
 
-	// change theme accordingly
 	for (selector in THEME) {
-		var $sel = $(selector);
-		var props = THEME[selector];
-		for (prop in props) {
-			$sel.css(prop, props[prop][current]);
-		}
+		changeColor(selector, THEME[selector][current], fadeOff);
 	}
 
-	// store current theme in local storage
-	localStorage.setItem('current', current);
+	$('body').data('theme', current);
 }
+
+function changeColor(selector, attributes, fadeOff) {
+	var $sel = $(selector);
+	var attr;
+	if (fadeOff) {
+		$(selector).animate(attributes, 0);
+	} else {
+		$sel.animate(attributes, 500);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 function toggleImage() {
 	$img = $(this);
-	$fig = $img.parent();
-	if ($fig.css('width') == '230px') {
-		var img_width = $img.css('width');
-		var img_height = $img.css('height');
+	$fig = $img.closest('figure');
+	$img.data('expanded?', !$img.data('expanded?'));
+	if ($img.data('expanded?')) {
+		var img_width = $img.data('width');
+		var img_height = $img.data('height');
+		$fig.animate({
+			'width': img_width,
+			'height': img_height
+		}, 500, 'easeOutCubic');
+	} else {
+		$fig.animate({
+			'width': '230px',
+			'height': '230px'
+		}, 500, 'easeOutCubic');
+	}
+}
+
+function imageResize($img, $fig) {
+	if ($img.data('expanded?')) {
+		var img_width = $img.data('width');
+		var img_height = $img.data('height');
 		$fig.css('width', img_width);
 		$fig.css('height', img_height);
 	} else {
@@ -227,17 +307,34 @@ function toggleImage() {
 	}
 }
 
+function storeImageSizes() {
+	if ($('body').data('imageSizesStored?')) return;
+	$('img', '.gallery').each(function () {
+		$img = $(this);
+		$img.data('width', $img.css('width'));
+		$img.data('height', $img.css('height'));
+	});
+	$('body').data('imageSizesStored?', true);
+}
+
 function windowResize() {
 	if (window.innerWidth <= 850) {
 		$('img', '.gallery').off('click', toggleImage);
 		$('figure', '.gallery').css('width', 'auto');
 		$('figure', '.gallery').css('height', 'auto');
 	} else {
+		storeImageSizes();
+		$('img', '.gallery').off('click', toggleImage);
 		$('img', '.gallery').click(toggleImage);
-		$('figure', '.gallery').css('width', '230px');
-		$('figure', '.gallery').css('height', '230px');
+		$('img', '.gallery').each(function () {
+			$img = $(this);
+			$fig = $img.closest('figure');
+			imageResize($img, $fig);
+		});
 	}
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 function isHome() {
 	var regex = /^\/(index\.html)?$/;
@@ -257,7 +354,7 @@ function isPost() {
 
 function formatTimestamp(date) {
 	// if date is omitted, just return the current formatted datetime
-	var mdate = date ? moment.utc(new Date()) : moment.utc(new Date(date));
+	var mdate = date ? moment.utc(new Date(date)) : moment.utc(new Date());
 
 	var formattedDate = mdate.format('D MMMM YYYY H:mm:ss UTC');
 
@@ -279,17 +376,15 @@ function ajaxError(msg) {
 ////////////////////////////////////////////////////////////////////////////////
 
 $(function() {
-	$('nav, nav a').click(switchTheme);
-	$('img', '.gallery').click(toggleImage);
-
-	windowResize();
-	$(window).resize(windowResize);
+	$('body').data('theme', 'main');
+	$('body').data('imageSizesStored?', false);
+	$('img', '.gallery').data('expanded?', false);
 
 	$.ajax({
 		type: 'POST',
 		url: '/log/visit',
 		data: {
-			last: formatTimestamp()
+			last: new Date()
 		},
 		success: ajaxSuccess('POST /log/visit success:'),
 		error: ajaxError('POST /log/visit error:')
@@ -303,7 +398,7 @@ $(function() {
 				title: $('.title').text(),
 				subtitle: $('.subtitle').text(),
 				author: $('.author').text(),
-				posted: formatTimestamp($('time').text()),
+				posted: new Date($('time').text()),
 				dir: location.pathname
 			},
 			success: ajaxSuccess('POST /log/visit/post success:'),
@@ -313,6 +408,11 @@ $(function() {
 });
 
 $(window).load(function() {
-	// preserve theme while navigating site
-	switchTheme(localStorage.getItem('current'));
+	windowResize();
+	$(window).resize(windowResize);
+
+	setHourlyTheme(true);
+	setInterval(function () {
+		setHourlyTheme();
+	}, 60000);
 });
