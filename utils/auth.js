@@ -1,7 +1,7 @@
 var auth = {};
 
 var config = require('./config');
-var crypto = require('./crypto');
+// var crypto = require('./crypto');
 
 auth.login = function (req, res) {
     if (!req.session.allowed) {
