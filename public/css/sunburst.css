@@ -21,14 +21,14 @@ li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
 li.L1,li.L3,li.L5,li.L7,li.L9 { }
 
 @media print {
-	code .str { color: #000000; }
-	code .kwd { color: #000000; font-weight: bold; }
-	code .com { color: #000000; font-style: italic; }
-	code .typ { color: #000000; font-weight: bold; }
-	code .lit { color: #000000; }
-	code .pun { color: #000000; }
-	code .pln { color: #000000; }
-	code .tag { color: #000000; font-weight: bold; }
-	code .atn { color: #000000; }
-	code .atv { color: #000000; }
+	code .str { color: #000000 !important; }
+	code .kwd { color: #000000 !important; }
+	code .com { color: #000000 !important; }
+	code .typ { color: #000000 !important; }
+	code .lit { color: #000000 !important; }
+	code .pun { color: #000000 !important; }
+	code .pln { color: #000000 !important; }
+	code .tag { color: #000000 !important; }
+	code .atn { color: #000000 !important; }
+	code .atv { color: #000000 !important; }
 }

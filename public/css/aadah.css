@@ -94,11 +94,6 @@ nav span.next {
 	float: right;
 }
 
-#hidden {
-	all: inherit;
-	cursor: pointer;
-}
-
 /* HEADER */
 header {
 	clear: both;
@@ -324,14 +319,12 @@ samp {
 
 kbd {
 	font-weight: bold;
+	font-family: "Inconsolata", monospace;
 }
 
 p > kbd {
-	font-family: "Inconsolata", monospace;
-	font-size: smaller;
 	background-color: #111111;
 	padding: 0 5px;
-	border-radius: 5px;
 }
 
 /* -------------------------------------------------------*/
@@ -365,6 +358,7 @@ caption {
 /* -------------------------------------------------------*/
 
 ol, ul {
+	/*color: #ffffff;*/
 	line-height: 1.5em;
 	font-size: inherit;
 }
@@ -441,27 +435,24 @@ table ul {
 
 /* -------------------------------------------------------*/
 
-img {
+img, video, audio {
 	display: block;
 	max-width: 98%;
-	border: 5px #000000 solid;
 	margin: auto;
+}
+
+img {
+	border: 5px #000000 solid;
 }
 
 video {
-	display: block;
-	max-width: 98%;
 	background-color: #000000;
 	padding: 5px;
-	margin: auto;
 }
 
 audio {
-	display: block;
-	max-width: 98%;
 	background-color: #000000;
 	padding: 5px;
-	margin: auto;
 }
 
 /* -------------------------------------------------------*/

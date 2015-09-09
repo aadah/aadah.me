@@ -87,7 +87,7 @@ var THEME = {
 			'background-color': '#ffffff'
 		}
 	},
-	'kbd, samp': {
+	'p > kbd, samp': {
 		'main': {
 			'background-color': '#111111'
 		},

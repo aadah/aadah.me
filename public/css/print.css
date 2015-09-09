@@ -1,168 +1,173 @@
 @media print {
-/*
-	nav {
-		display: none
-	}
 
-	body, p, a, ul, ol, table, figcaption, q.pquoter, q.pquotel, blockquote, p.postscript, header, footer, a:link, a:visited {
-		color: #000000;
-	}
-*/
-/*
-	main h1, main h2, main h3, main h4, main h5, main h6 {
-		color: black;
-		padding: 0;
-		border: none;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		color: black;
-		padding: 0;
-		border: none;
-	}
-*/
-
-/*
-	code, samp {
-		max-height: none;
-	}
-
-	code, samp {
-		color: #000000;
-	}
-*/
-
-	/* This stylesheet was written by Abdi-Hakin Dirie. */
-
-	* {
+	body {
 		color: #000000 !important;
 		background-color: #ffffff !important;
-		border: none !important;
+		padding: 0 !important;
 	}
 
+	/* NAVIGATION */
 	nav {
-		display: none;
+		display: none !important;
 	}
 
-	code, samp {
-		max-height: none;
-		color: #000000;
-	}
-
+	/* HEADER */
 	header {
-		color: #ffffff !important;
-		background-color: #222222 !important;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		color: #ffffff !important;
-		background-color: #222222 !important;
-	}
-
-/*
-	body {
-		color: #000000;
-		background-color: #ffffff;
-	}
-
-	nav {
-		display: none;
-	}
-
-	header {
-		border-bottom-color: #000000;
+		clear: both;
+		padding-bottom: .5em;
+		border-bottom-color: #000000 !important;
+		margin: .5em 0;
 	}
 
 	header .author {
-		color: #000000;
+		color: #000000 !important;
 	}
+
+	/* CONTENT */
 
 	main h1, main h2, main h3, main h4, main h5, main h6 {
-		border: none;
-		padding: 0;
-		margin: 0;
-		color: #000000;
+		padding-left: 0 !important;
+		border: none !important;
 	}
 
+	/* FOOTER */
 	footer {
-		color: #000000;
-		border-top-color: #000000;
+		color: #000000 !important;
+		border-top-color: #000000 !important;
 	}
 
-	nav a:link, nav a:visited {
-		color: #000000;
-	}
+	/* AESTHETICS */
 
-	nav a:hover {
-		color: #000000;
-	}
+	/* -------------------------------------------------------*/
 
 	main a {
-		border-bottom-color: #000000;
+		border-bottom: none !important;
 	}
 
 	footer a {
-		border-bottom-color: #000000;
+		border-bottom: none !important;
 	}
 
-	main a:link, main a:visited, footer a:link, footer a:visited {
-		color: inherit;
-	}
-
-	main a:hover, footer a:hover {
-		color: #000000;
-		border-bottom-color: #000000;
-	}
+	/* -------------------------------------------------------*/
 
 	blockquote {
-		color: #000000;
-		border-left-color: #000000;
+		color: #000000 !important;
+		border-left-color: #000000 !important;
 	}
 
 	q.pquoter, q.pquotel {
-		color: #000000;
-		background-color: #ffffff;
+		color: #000000 !important;
+		background-color: #eeeeee !important;
+	}
+
+	/* -------------------------------------------------------*/
+
+	code, samp {
+		max-height: none !important;
+		overflow: visible !important;
 	}
 
 	code {
-		background-color: #ffffff;
+		background-color: #eeeeee !important;
 	}
 
 	samp {
-		background-color: #ffffff;
+		background-color: #dddddd !important;
 	}
 
 	p > kbd {
-		background-color: #ffffff;
+		background-color: #eeeeee !important;
 	}
 
+	/* -------------------------------------------------------*/
+
 	table {
-		background-color: #ffffff;
+		background-color: #eeeeee !important;
 	}
 
 	th {
-		background-color: #ffffff;
+		background-color: #dddddd !important;
+	}
+
+	/* -------------------------------------------------------*/
+
+
+	ol, ul {
+		/*color: #000000 !important;*/
+		line-height: 1.5em;
+		font-size: inherit;
+	}
+
+	/* -------------------------------------------------------*/
+
+	img, video, audio {
+		display: block;
+		max-width: 98%;
+		margin: auto;
 	}
 
 	img {
-		border-color: #ffffff;
+		border-color: #eeeeee !important;
 	}
 
 	video {
-		background-color: #ffffff;
+		background-color: #eeeeee !important;
 	}
 
 	audio {
-		background-color: #ffffff;
+		background-color: #eeeeee !important;
+	}
+
+	/* -------------------------------------------------------*/
+
+	.gallery {
+		overflow: auto;
+		margin: 5px auto;
 	}
 
 	.gallery figure {
-		background-color: #ffffff;
-		border-color: #ffffff;
+		position: relative;
+		float: left;
+		width: 230px;
+		height: 230px;
+		overflow: hidden;
+		background-color: #000000;
+		border: #000000 5px solid;
+		margin: 5px;
 	}
 
 	.gallery figcaption {
-		background-color: #ffffff;
+		position: absolute;
+		bottom: 0;
+		background-color: #000000;
+		padding: 5px;
+		margin: 5px;
 	}
-*/
+
+	.gallery img {
+		position: absolute;
+		top: -1000%;
+		bottom: -1000%;
+		right: -1000%;
+		left: -1000%;
+		max-width: 730px;
+		cursor: pointer;
+		border: none;
+	}
+
+	/* Page breaks */
+
+	header,
+	footer,
+	blockquote,
+	q,
+	figure,
+	code,
+	samp,
+	table,
+	ol,
+	ul {
+		page-break-inside: avoid;
+	}
+
 }
