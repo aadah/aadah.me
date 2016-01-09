@@ -15,7 +15,7 @@ var SchemaType = require('../schematype');
  * @api private
  */
 
-function SchemaBoolean (path, options) {
+function SchemaBoolean(path, options) {
   SchemaType.call(this, path, options, 'Boolean');
 }
 
@@ -39,7 +39,7 @@ SchemaBoolean.prototype.constructor = SchemaBoolean;
  * @api private
  */
 
-SchemaBoolean.prototype.checkRequired = function (value) {
+SchemaBoolean.prototype.checkRequired = function(value) {
   return value === true || value === false;
 };
 
@@ -50,32 +50,16 @@ SchemaBoolean.prototype.checkRequired = function (value) {
  * @api private
  */
 
-SchemaBoolean.prototype.cast = function (value) {
+SchemaBoolean.prototype.cast = function(value) {
   if (null === value) return value;
   if ('0' === value) return false;
   if ('true' === value) return true;
   if ('false' === value) return false;
-  return !! value;
+  return !!value;
 };
 
-/*!
- * ignore
- */
-
-function handleArray (val) {
-  var self = this;
-  if (!Array.isArray(val)) {
-    return [self.cast(val)];
-  }
-  return val.map(function (m) {
-    return self.cast(m);
-  });
-}
-
 SchemaBoolean.$conditionalHandlers =
-  utils.options(SchemaType.prototype.$conditionalHandlers, {
-    '$in': handleArray
-  });
+  utils.options(SchemaType.prototype.$conditionalHandlers, {});
 
 /**
  * Casts contents for queries.
@@ -85,7 +69,7 @@ SchemaBoolean.$conditionalHandlers =
  * @api private
  */
 
-SchemaBoolean.prototype.castForQuery = function ($conditional, val) {
+SchemaBoolean.prototype.castForQuery = function($conditional, val) {
   var handler;
   if (2 === arguments.length) {
     handler = SchemaBoolean.$conditionalHandlers[$conditional];

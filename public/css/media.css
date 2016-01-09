@@ -28,17 +28,17 @@
 		max-width: 100%;
 		width: auto;
 		height: auto;
-		margin: 5px 0;
+		margin: 0.5em 0;
 	}
 
 	.gallery img {
-		position: relative;
-		max-width: 100%;
+		position: static;
+		max-width: 98%;
 		cursor: auto;
-		top: 0;
+		/*top: 0;
 		bottom: 0;
 		right: 0;
-		left: 0;
+		left: 0;*/
 	}
 }
 

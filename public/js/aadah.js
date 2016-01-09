@@ -55,23 +55,23 @@ var THEME = {
 	},
 	'.pquoter, .pquotel': {
 		'main': {
-			'color': '#bbbbbb',
-			'background-color': '#000000'
+			'color': '#cccccc',
+			'background-color': '#111111'
 		},
 		'alt': {
-			'color': '#444444',
-			'background-color': '#ffffff'
+			'color': '#333333',
+			'background-color': '#eeeeee'
 		}
 	},
-	'img': {
+	'main li': {
 		'main': {
-			'border-color': '#000000'
+			'color': '#ffffff'
 		},
 		'alt': {
-			'border-color': '#ffffff'
+			'color': '#000000'
 		}
 	},
-	'video, audio': {
+	'img, audio, video': {
 		'main': {
 			'background-color': '#000000'
 		},
@@ -87,12 +87,12 @@ var THEME = {
 			'background-color': '#ffffff'
 		}
 	},
-	'p > kbd, samp': {
+	'p kbd, samp': {
 		'main': {
-			'background-color': '#111111'
+			'background-color': '#333333'
 		},
 		'alt': {
-			'background-color': '#eeeeee'
+			'background-color': '#cccccc'
 		}
 	},
 	'table': {
@@ -145,6 +145,14 @@ var THEME = {
 		},
 		'alt': {
 			'border-bottom-color': '#555555'
+		}
+	},
+	'#fn-box': {
+		'main': {
+			'background-color': '#111111'
+		},
+		'alt': {
+			'background-color': '#eeeeee'
 		}
 	},
 
@@ -276,6 +284,90 @@ function changeColor(selector, attributes, fadeOff) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+function findFootnotes() {
+	return $('.footnote a');
+}
+
+function extractFootnoteText(f, i) {
+	var footnote = $(f);
+	var text = footnote.text();
+	var num = i.toString();
+
+	footnote.text(num);
+	footnote.attr('href', '#f'+num);
+
+	return text;
+}
+
+function createFootnotesListElement(text, i) {
+	var elem = $('<li>');
+	var num = i.toString();
+
+	elem.text(text);
+	elem.attr('id', 'f'+num);
+
+	return elem;
+}
+
+function footnoteHoverEnter(event) {
+	var box = $('#fn-box');
+	var fn = $('a', this);
+	var id = fn.attr('href');
+	var html = $(id).html();
+	box.html(html);
+	var width = box.css('width');
+	width = Number(width.substring(0, width.length-2));
+	mid = width / 2;
+
+	var x = event.pageX - window.pageXOffset;
+	var y = event.pageY - window.pageYOffset;
+	x -= mid;
+
+	box.css('left', x.toString()+'px');
+	box.css('top', y.toString()+'px');
+
+	box.css('z-index', 1);
+
+	box.animate({
+		'opacity': 0.95,
+		'z-index': 1
+	}, 125);
+}
+
+function footnoteHoverExit() {
+	var box = $('#fn-box');
+
+	box.animate({
+		'opacity': 0.0,
+		'z-index': -1
+	}, 125);
+}
+
+function createFootnotesList() {
+	var footnotes = findFootnotes();
+
+	if (footnotes.size() === 0) {
+		return;
+	}
+
+	var list = $('<ol>');
+	list.addClass('footnotes');
+
+	for (i = 0; i < footnotes.size(); i++) {
+		var f = footnotes[i];
+		var index = i + 1;
+		var text = extractFootnoteText(f, index);
+		var elem = createFootnotesListElement(text, index);
+		list.append(elem);
+	}
+
+	list.insertBefore($('div.times'));
+
+	$('.footnote').hover(footnoteHoverEnter, footnoteHoverExit);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 function toggleImage() {
 	$img = $(this);
 	$fig = $img.closest('figure');
@@ -336,78 +428,64 @@ function windowResize() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-function isHome() {
-	var regex = /^\/(index\.html)?$/;
-	return regex.test(location.pathname);
-}
-
-function isBlog() {
-	var regex = /^\/blog\/(index\.html)?$/;
-	return regex.test(location.pathname);
-}
-
-function isPost() {
-	var regex = /^\/blog\/.+\/(index\.html)?$/;
-	// if the page is not found, we don't want to count it as a post
-	return regex.test(location.pathname) && $('.title').text() != '404';
-}
-
-function formatTimestamp(date) {
-	// if date is omitted, just return the current formatted datetime
-	var mdate = date ? moment.utc(new Date(date)) : moment.utc(new Date());
-
-	var formattedDate = mdate.format('D MMMM YYYY H:mm:ss UTC');
-
-	return formattedDate;
-}
-
-function ajaxSuccess(msg) {
-	return (function (data, status) {
-		console.log(msg, data, status);
-	});
-}
-
-function ajaxError(msg) {
-	return (function (xhr, status, err) {
-		console.error(msg, status, err);
-	});
-}
+// function isHome() {
+// 	var regex = /^\/(index\.html)?$/;
+// 	return regex.test(location.pathname);
+// }
+//
+// function isBlog() {
+// 	var regex = /^http:\/\/aadah.me\/blog\/$/;
+// 	var url = $('meta[property="og:url"]').attr('content');
+//
+// 	return regex.test(url);
+// }
+//
+// function isPost() {
+// 	var regex = /^http:\/\/aadah.me(\/blog\/.+\/)$/;
+// 	var url = $('meta[property="og:url"]').attr('content');
+// 	var match = regex.exec(url);
+// 	var result = match ? match[1] : false;
+//
+// 	return result;
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-$(function() {
+$(function () {
 	$('body').data('theme', 'main');
 	$('body').data('imageSizesStored?', false);
 	$('img', '.gallery').data('expanded?', false);
 
-	$.ajax({
-		type: 'POST',
-		url: '/log/visit',
-		data: {
-			last: new Date()
-		},
-		success: ajaxSuccess('POST /log/visit success:'),
-		error: ajaxError('POST /log/visit error:')
-	});
+	createFootnotesList();
 
-	if (isPost()) {
-		$.ajax({
-			type: 'POST',
-			url: '/log/visit/post',
-			data: {
-				title: $('.title').text(),
-				subtitle: $('.subtitle').text(),
-				author: $('.author').text(),
-				posted: new Date($('time').text()),
-				dir: location.pathname
-			},
-			success: ajaxSuccess('POST /log/visit/post success:'),
-			error: ajaxError('POST /log/visit/post error:')
-		});
-	}
+	// $.ajax({
+	// 	type: 'POST',
+	// 	url: '/log/visit',
+	// 	data: {
+	// 		last: new Date()
+	// 	},
+	// 	success: ajaxSuccess('POST /log/visit success:'),
+	// 	error: ajaxError('POST /log/visit error:')
+	// });
+	//
+	// if (isPost()) {
+	// 	$.ajax({
+	// 		type: 'POST',
+	// 		url: '/log/visit/post',
+	// 		data: {
+	// 			title: $('.title').text(),
+	// 			subtitle: $('.subtitle').text(),
+	// 			author: $('.author').text(),
+	// 			posted: new Date($('time').text()),
+	// 			dir: location.pathname
+	// 		},
+	// 		success: ajaxSuccess('POST /log/visit/post success:'),
+	// 		error: ajaxError('POST /log/visit/post error:')
+	// 	});
+	// }
 });
 
-$(window).load(function() {
+$(window).load(function () {
 	windowResize();
 	$(window).resize(windowResize);
 

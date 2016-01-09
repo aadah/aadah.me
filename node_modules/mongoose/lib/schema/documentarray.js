@@ -5,6 +5,7 @@
  */
 
 var ArrayType = require('./array');
+var CastError = require('../error/cast');
 var MongooseDocumentArray = require('../types/documentarray');
 var SchemaType = require('../schematype');
 var Subdocument = require('../types/embedded');
@@ -19,9 +20,9 @@ var Subdocument = require('../types/embedded');
  * @api private
  */
 
-function DocumentArray (key, schema, options) {
+function DocumentArray(key, schema, options) {
   // compile an embedded document for this schema
-  function EmbeddedDocument () {
+  function EmbeddedDocument() {
     Subdocument.apply(this, arguments);
   }
 
@@ -46,7 +47,7 @@ function DocumentArray (key, schema, options) {
   var path = this.path;
   var fn = this.defaultValue;
 
-  this.default(function(){
+  this.default(function() {
     var arr = fn.call(this);
     if (!Array.isArray(arr)) arr = [arr];
     return new MongooseDocumentArray(arr, path, this);
@@ -73,8 +74,8 @@ DocumentArray.prototype.constructor = DocumentArray;
  * @api private
  */
 
-DocumentArray.prototype.doValidate = function (array, fn, scope) {
-  SchemaType.prototype.doValidate.call(this, array, function (err) {
+DocumentArray.prototype.doValidate = function(array, fn, scope) {
+  SchemaType.prototype.doValidate.call(this, array, function(err) {
     if (err) {
       return fn(err);
     }
@@ -96,7 +97,7 @@ DocumentArray.prototype.doValidate = function (array, fn, scope) {
         continue;
       }
 
-      doc.validate(function (err) {
+      doc.validate({ __noPromise: true }, function(err) {
         if (err) {
           error = err;
         }
@@ -117,12 +118,12 @@ DocumentArray.prototype.doValidate = function (array, fn, scope) {
  * @api private
  */
 
-DocumentArray.prototype.doValidateSync = function (array, scope) {
+DocumentArray.prototype.doValidateSync = function(array, scope) {
   var schemaTypeError = SchemaType.prototype.doValidateSync.call(this, array, scope);
   if (schemaTypeError) return schemaTypeError;
 
-  var count = array && array.length
-    , resultError = null;
+  var count = array && array.length,
+      resultError = null;
 
   if (!count) return;
 
@@ -155,10 +156,10 @@ DocumentArray.prototype.doValidateSync = function (array, scope) {
  * @api private
  */
 
-DocumentArray.prototype.cast = function (value, doc, init, prev) {
-  var selected
-    , subdoc
-    , i;
+DocumentArray.prototype.cast = function(value, doc, init, prev) {
+  var selected,
+      subdoc,
+      i;
 
   if (!Array.isArray(value)) {
     // gh-2442 mark whole array as modified if we're initializing a doc from
@@ -189,7 +190,7 @@ DocumentArray.prototype.cast = function (value, doc, init, prev) {
       } else {
         try {
           subdoc = prev.id(value[i]._id);
-        } catch(e) {}
+        } catch (e) {}
 
         if (prev && subdoc) {
           // handle resetting doc with existing id but differing data
@@ -199,10 +200,15 @@ DocumentArray.prototype.cast = function (value, doc, init, prev) {
           // see gh-746
           value[i] = subdoc;
         } else {
-          subdoc = new this.casterConstructor(value[i], value, undefined, undefined, i);
-          // if set() is hooked it will have no return value
-          // see gh-746
-          value[i] = subdoc;
+          try {
+            subdoc = new this.casterConstructor(value[i], value, undefined,
+              undefined, i);
+            // if set() is hooked it will have no return value
+            // see gh-746
+            value[i] = subdoc;
+          } catch (error) {
+            throw new CastError('embedded', value[i], value._path);
+          }
         }
       }
     }
@@ -220,15 +226,15 @@ DocumentArray.prototype.cast = function (value, doc, init, prev) {
  * @param {Boolean|undefined} init - if we are being created part of a query result
  */
 
-function scopePaths (array, fields, init) {
+function scopePaths(array, fields, init) {
   if (!(init && fields)) return undefined;
 
-  var path = array.path + '.'
-    , keys = Object.keys(fields)
-    , i = keys.length
-    , selected = {}
-    , hasKeys
-    , key;
+  var path = array.path + '.',
+      keys = Object.keys(fields),
+      i = keys.length,
+      selected = {},
+      hasKeys,
+      key;
 
   while (i--) {
     key = keys[i];

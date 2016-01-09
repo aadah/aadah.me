@@ -3,9 +3,15 @@ var models = {};
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var config = require('./config');
-
-var postsSchema = new Schema({
+var postSchema = new Schema({
+    _id: { // will be dir name
+        type: String,
+        required: true
+    },
+    manuscript: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -18,39 +24,28 @@ var postsSchema = new Schema({
         type: String,
         required: true
     },
-    posted: {
+    html: {
+        type: String
+    },
+    public: {
+        type: Boolean,
+        required: true
+    },
+    updated: {
         type: Date,
         required: true
     },
+    posted: {
+        type: Date,
+        required: false
+    },
     views: {
         type: Number,
-        min: 0,
-        default:0
-    },
-    dir: {
-        type: String,
-        required: true
+        required: false,
+        min: 0
     }
 });
 
-var ipsSchema = new Schema({
-    ip: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    views: {
-        type: Number,
-        min: 0,
-        default: 0
-    },
-    last: {
-        type: Date,
-        required: true
-    },
-});
-
-models.Posts = mongoose.model(config.db_posts, postsSchema);
-models.Ips = mongoose.model(config.db_ips, ipsSchema);
+models.Post = mongoose.model('Post', postSchema);
 
 module.exports = models;

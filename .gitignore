@@ -1,6 +1,4 @@
 /utils/config.js
-/public/media/
-/grammars/
-/utils/parser.js
-/utils/test.js
-/public/debug/
+/public/media
+/public/debug
+/manuscripts

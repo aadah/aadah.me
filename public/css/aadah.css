@@ -112,7 +112,7 @@ header .subtitle {
 	font-style: italic;
 	text-align: center;
 	padding: 0;
-	margin: 0;
+	margin: .5em 0;
 }
 
 header .author {
@@ -129,6 +129,9 @@ header .author:before {
 
 /* CONTENT */
 main {
+	/*for footnote*/
+	position: relative;
+
 	clear: both;
 	margin: .5em 0;
 }
@@ -145,18 +148,31 @@ footer {
 	padding-top: .5em;
 	border-top: #ffffff 1px solid;
 	margin: .5em 0;
+	padding: 0;
+}
+
+footer p {
+	font-style: italic;
+	text-align: center;
+}
+
+footer div.times {
+	line-height: 1.5em;
+	margin: 1em;
 }
 
 footer time {
 	display: block;
 	font-size: smaller;
 	text-align: center;
-	padding: 0;
-	margin: .5em 0;
 }
 
-footer time:before {
+footer time.posted:before {
 	content: 'Posted on ';
+}
+
+footer time.updated:before {
+	content: 'Updated on ';
 }
 
 /* AESTHETICS */
@@ -164,13 +180,6 @@ p {
 	line-height: 1.5em;
 	text-align: justify;
 	margin: 1.5em auto;
-}
-
-p.postscript {
-	font-style: italic;
-	text-align: center;
-	padding: 0;
-	margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -219,7 +228,7 @@ blockquote {
 	font-style: italic;
 	text-align: justify;
 	border-left: #bbbbbb 1px solid;
-	margin: 1em;
+	margin: 0.5em 1em;
 	padding-left: 1em;
 }
 
@@ -231,15 +240,15 @@ q, quote {
 	font-style: italic;
 }
 
-q i {
+q i, q em, quote i, quote em {
 	font-style: normal;
 }
 
 q.pquoter, q.pquotel {
 	display: block;
 	color: #bbbbbb;
-	background-color: #000000;
-	width: 33%;
+	background-color: #111111;
+	width: 250px;
 	font-size: 1.25em;
 	line-height: 1.25em;
 	text-align: center;
@@ -258,31 +267,35 @@ q.pquotel {
 	margin-right: 1em;
 }
 
-q.pquoter:before, q.pquoter:after, q.pquotel:before, q.pquotel:after {
+q.pquoter::before, q.pquoter::after, q.pquotel::before, q.pquotel::after {
 	font-size: 2em;
 	vertical-align: text-top;
 }
 
-.salutation {
+span.salutation {
+	display: block;
 	text-align: right;
+}
+
+span.salutation em {
+	font-style: normal;
+}
+
+span.salutation::before {
+	content: '— ';
 }
 
 /* -------------------------------------------------------*/
 
 figure {
 	display: block;
-	margin: 5px auto;
+	margin: 0.5em auto;
 }
 
 figcaption {
 	font-size: smaller;
-	font-style: italic;
 	text-align: center;
 	margin-top: 0.5em;
-}
-
-figcaption i {
-	font-style: normal;
 }
 
 /* -------------------------------------------------------*/
@@ -291,12 +304,12 @@ code, samp {
 	display: block;
 	font-family: "Inconsolata", monospace;
 	font-size: smaller;
-	line-height: 1.25em;
+	line-height: 1.5em;
 	max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
 	padding: 1em;
-	margin: 5px auto;
+	margin: 0.5em auto;
 
 	-webkit-tab-size: 4;
 	-moz-tab-size: 4;
@@ -313,18 +326,20 @@ code {
 	background-color: #000000;
 }
 
-samp {
-	background-color: #111111;
+samp, p kbd {
+	background-color: #333333;
 }
 
 kbd {
-	font-weight: bold;
 	font-family: "Inconsolata", monospace;
 }
 
-p > kbd {
-	background-color: #111111;
-	padding: 0 5px;
+p kbd {
+	padding: 0.25em;
+}
+
+samp kbd {
+	font-weight: bold;
 }
 
 /* -------------------------------------------------------*/
@@ -334,7 +349,7 @@ table {
 	border-spacing: 0;
 	font-size: smaller;
 	padding: 0.5em;
-	margin: 5px auto;
+	margin: 0.5em auto;
 }
 
 th {
@@ -350,15 +365,17 @@ td {
 }
 
 caption {
-	font-style: italic;
 	text-align: right;
 	margin: 0.5em 0;
 }
 
 /* -------------------------------------------------------*/
 
+main li {
+	color: #ffffff;
+}
+
 ol, ul {
-	/*color: #ffffff;*/
 	line-height: 1.5em;
 	font-size: inherit;
 }
@@ -401,17 +418,40 @@ table ul {
 	padding: 0;
 }
 
+/* -------------------------------------------------------*/
+
+.footnote {
+
+}
+
+.footnotes {
+	font-size: smaller;
+	list-style-type: decimal;
+}
+
+#fn-box {
+	position: fixed;
+	background-color: #111111;
+	font-size: smaller;
+	max-width: 33%;
+
+	z-index: -1;
+	opacity: 0;
+	padding: 1em;
+}
 
 /* -------------------------------------------------------*/
 
 .posts {
 	display: block;
-	max-width: 50%;
-	margin: auto;
+	/*max-width: 50%;*/
+	margin: 0.5em auto;
 }
 
 .post {
-	margin: 1em 0;
+	width: 31%;
+	float: left;
+	margin: 1em 1%;
 }
 
 .post .t {
@@ -420,13 +460,16 @@ table ul {
 }
 
 .post p {
-	font-size: smaller;
 	text-align: center;
 	margin: 0;
 }
 
 .post .s {
 	font-style: italic;
+}
+
+.post .a, .post .d {
+	font-size: smaller;
 }
 
 .post .a:before {
@@ -438,28 +481,19 @@ table ul {
 img, video, audio {
 	display: block;
 	max-width: 98%;
-	margin: auto;
+	margin: 0.5em auto;
 }
 
-img {
-	border: 5px #000000 solid;
-}
-
-video {
+img, video, audio {
 	background-color: #000000;
-	padding: 5px;
-}
-
-audio {
-	background-color: #000000;
-	padding: 5px;
+	padding: 1%;
 }
 
 /* -------------------------------------------------------*/
 
 .gallery {
 	overflow: auto;
-	margin: 5px auto;
+	margin: 0.5em auto;
 }
 
 .gallery figure {
@@ -477,8 +511,8 @@ audio {
 	position: absolute;
 	bottom: 0;
 	background-color: #000000;
-	padding: 5px;
-	margin: 5px;
+	padding: 0.5em;
+	margin: 0.5em;
 }
 
 .gallery img {
@@ -487,7 +521,28 @@ audio {
 	bottom: -1000%;
 	right: -1000%;
 	left: -1000%;
+	margin: auto;
 	max-width: 730px;
 	cursor: pointer;
 	border: none;
+}
+
+/* -------------------------------------------------------*/
+
+iframe {
+	margin: auto;
+	display: block;
+	max-width: 98%;
+	border: 5px #000000 solid;
+}
+
+/* -------------------------------------------------------*/
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-corner {
+	background-color: #808080;
 }

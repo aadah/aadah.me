@@ -4,17 +4,17 @@
  * Module dependencies.
  */
 
-var Schema = require('./schema')
-  , SchemaType = require('./schematype')
-  , VirtualType = require('./virtualtype')
-  , STATES = require('./connectionstate')
-  , Types = require('./types')
-  , Query = require('./query')
-  , Model = require('./model')
-  , Document = require('./document')
-  , utils = require('./utils')
-  , format = utils.toCollectionName
-  , pkg = require('../package.json');
+var Schema = require('./schema'),
+    SchemaType = require('./schematype'),
+    VirtualType = require('./virtualtype'),
+    STATES = require('./connectionstate'),
+    Types = require('./types'),
+    Query = require('./query'),
+    Model = require('./model'),
+    Document = require('./document'),
+    utils = require('./utils'),
+    format = utils.toCollectionName,
+    pkg = require('../package.json');
 
 var querystring = require('querystring');
 
@@ -30,7 +30,7 @@ var PromiseProvider = require('./promise_provider');
  * @api public
  */
 
-function Mongoose () {
+function Mongoose() {
   this.connections = [];
   this.plugins = [];
   this.models = {};
@@ -58,12 +58,14 @@ Mongoose.prototype.STATES = STATES;
  *
  *     mongoose.set('debug', true) // enable logging collection methods + arguments to the console
  *
+ *     mongoose.set('debug', function(collectionName, methodName, arg1, arg2...) {}); // use custom function to log collection methods + arguments
+ *
  * @param {String} key
- * @param {String} value
+ * @param {String|Function} value
  * @api public
  */
 
-Mongoose.prototype.set = function (key, value) {
+Mongoose.prototype.set = function(key, value) {
   if (arguments.length == 1) {
     return this.options[key];
   }
@@ -117,7 +119,7 @@ var checkReplicaSetInUri = function(uri) {
       if (obj && obj.replicaSet) {
         isReplicaSet = true;
       }
-    } catch(e) {
+    } catch (e) {
       return false;
     }
   }
@@ -199,7 +201,7 @@ Mongoose.prototype.createConnection = function(uri, options) {
  *     mongoose.connect('mongodb://user:pass@localhost:port/database');
  *
  *     // replica sets
- *     var uri = 'mongodb://user:pass@localhost:port/database,mongodb://anotherhost:port,mongodb://yetanother:port';
+ *     var uri = 'mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/mydatabase';
  *     mongoose.connect(uri);
  *
  *     // with options
@@ -238,12 +240,12 @@ Mongoose.prototype.connect = function() {
  * @api public
  */
 
-Mongoose.prototype.disconnect = function (fn) {
-  var count = this.connections.length
-    , error;
+Mongoose.prototype.disconnect = function(fn) {
+  var count = this.connections.length,
+      error;
 
-  this.connections.forEach(function(conn){
-    conn.close(function(err){
+  this.connections.forEach(function(conn) {
+    conn.close(function(err) {
       if (error) return;
 
       if (err) {
@@ -299,13 +301,13 @@ Mongoose.prototype.disconnect = function (fn) {
  * @api public
  */
 
-Mongoose.prototype.model = function (name, schema, collection, skipInit) {
+Mongoose.prototype.model = function(name, schema, collection, skipInit) {
   if ('string' == typeof schema) {
     collection = schema;
     schema = false;
   }
 
-  if (utils.isObject(schema) && !(schema instanceof Schema)) {
+  if (utils.isObject(schema) && !(schema.instanceOfSchema)) {
     schema = new Schema(schema);
   }
 
@@ -340,7 +342,7 @@ Mongoose.prototype.model = function (name, schema, collection, skipInit) {
   // connection.model() may be passing a different schema for
   // an existing model name. in this case don't read from cache.
   if (this.models[name] && false !== options.cache) {
-    if (schema instanceof Schema && schema != this.models[name].schema) {
+    if (schema && schema.instanceOfSchema && schema != this.models[name].schema) {
       throw new mongoose.Error.OverwriteModelError(name);
     }
 
@@ -397,7 +399,7 @@ Mongoose.prototype.model = function (name, schema, collection, skipInit) {
  * @return {Array}
  */
 
-Mongoose.prototype.modelNames = function () {
+Mongoose.prototype.modelNames = function() {
   var names = Object.keys(this.models);
   return names;
 };
@@ -409,7 +411,7 @@ Mongoose.prototype.modelNames = function () {
  * @api private
  */
 
-Mongoose.prototype._applyPlugins = function (schema) {
+Mongoose.prototype._applyPlugins = function(schema) {
   for (var i = 0, l = this.plugins.length; i < l; i++) {
     schema.plugin(this.plugins[i][0], this.plugins[i][1]);
   }
@@ -427,7 +429,7 @@ Mongoose.prototype._applyPlugins = function (schema) {
  * @api public
  */
 
-Mongoose.prototype.plugin = function (fn, opts) {
+Mongoose.prototype.plugin = function(fn, opts) {
   this.plugins.push([fn, opts]);
   return this;
 };
@@ -448,7 +450,7 @@ Mongoose.prototype.plugin = function (fn, opts) {
  * @api public
  */
 
-Mongoose.prototype.__defineGetter__('connection', function(){
+Mongoose.prototype.__defineGetter__('connection', function() {
   return this.connections[0];
 });
 
@@ -456,19 +458,19 @@ Mongoose.prototype.__defineGetter__('connection', function(){
  * Driver depentend APIs
  */
 
-var driver = global.MONGOOSE_DRIVER_PATH || 'node-mongodb-native';
+var driver = global.MONGOOSE_DRIVER_PATH || './drivers/node-mongodb-native';
 
 /*!
  * Connection
  */
 
-var Connection = require('./drivers/' + driver + '/connection');
+var Connection = require(driver + '/connection');
 
 /*!
  * Collection
  */
 
-var Collection = require('./drivers/' + driver + '/collection');
+var Collection = require(driver + '/collection');
 
 /**
  * The Mongoose Aggregate constructor

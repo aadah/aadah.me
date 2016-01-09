@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 
+var handleBitwiseOperator = require('./operators/bitwise');
 var utils = require('../utils');
 
 var MongooseBuffer = require('../types').Buffer;
@@ -20,7 +21,7 @@ var Document;
  * @api private
  */
 
-function SchemaBuffer (key, options) {
+function SchemaBuffer(key, options) {
   SchemaType.call(this, key, options, 'Buffer');
 }
 
@@ -44,7 +45,7 @@ SchemaBuffer.prototype.constructor = SchemaBuffer;
  * @api private
  */
 
-SchemaBuffer.prototype.checkRequired = function (value, doc) {
+SchemaBuffer.prototype.checkRequired = function(value, doc) {
   if (SchemaType._isRef(this, value, doc, true)) {
     return null != value;
   } else {
@@ -61,7 +62,7 @@ SchemaBuffer.prototype.checkRequired = function (value, doc) {
  * @api private
  */
 
-SchemaBuffer.prototype.cast = function (value, doc, init) {
+SchemaBuffer.prototype.cast = function(value, doc, init) {
   var ret;
   if (SchemaType._isRef(this, value, doc, init)) {
     // wait! we may need to cast this to a document
@@ -134,29 +135,20 @@ SchemaBuffer.prototype.cast = function (value, doc, init) {
 /*!
  * ignore
  */
-function handleSingle (val) {
+function handleSingle(val) {
   return this.castForQuery(val);
-}
-
-function handleArray (val) {
-  var self = this;
-  if (!Array.isArray(val)) {
-    return [this.castForQuery(val)];
-  }
-  return val.map( function (m) {
-    return self.castForQuery(m);
-  });
 }
 
 SchemaBuffer.prototype.$conditionalHandlers =
   utils.options(SchemaType.prototype.$conditionalHandlers, {
+    '$bitsAllClear': handleBitwiseOperator,
+    '$bitsAnyClear': handleBitwiseOperator,
+    '$bitsAllSet': handleBitwiseOperator,
+    '$bitsAnySet': handleBitwiseOperator,
     '$gt' : handleSingle,
     '$gte': handleSingle,
-    '$in' : handleArray,
     '$lt' : handleSingle,
-    '$lte': handleSingle,
-    '$ne' : handleSingle,
-    '$nin': handleArray
+    '$lte': handleSingle
   });
 
 /**
@@ -167,7 +159,7 @@ SchemaBuffer.prototype.$conditionalHandlers =
  * @api private
  */
 
-SchemaBuffer.prototype.castForQuery = function ($conditional, val) {
+SchemaBuffer.prototype.castForQuery = function($conditional, val) {
   var handler;
   if (arguments.length === 2) {
     handler = this.$conditionalHandlers[$conditional];
