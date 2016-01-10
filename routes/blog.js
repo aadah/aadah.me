@@ -15,36 +15,36 @@ function logView(req, res, next) {
     });
 }
 
-// router.get('/', function(req, res, next) {
-//     models.Post.find({
-//         public: true
-//     }).select('title subtitle author posted').sort({
-//         posted: 'desc'
-//     }).exec(function (err, posts) {
-//         if (err) {
-//             res.status(500).send();
-//         } else {
-//             res.locals.createBlogPost = parser.createBlogPost;
-//             res.status(200).render('main/blog', {posts: posts});
-//         }
-//     });
-// });
-//
-// router.get('/:dir', logView, function(req, res, next) {
-//     models.Post.findOne({
-//         _id: req.params.dir,
-//         public: true
-//     }, 'html', function (err, post) {
-//         if (err) {
-//             res.status(500).render('error/500');
-//         } else if (!post) {
-//             next();
-//         } else {
-//             res.status(200).type('text/html').send(post.html);
-//         }
-//     });
-// });
-//
+router.get('/', function(req, res, next) {
+    models.Post.find({
+        public: true
+    }).select('title subtitle author posted').sort({
+        posted: 'desc'
+    }).exec(function (err, posts) {
+        if (err) {
+            res.status(500).send();
+        } else {
+            res.locals.createBlogPost = parser.createBlogPost;
+            res.status(200).render('main/blog', {posts: posts});
+        }
+    });
+});
+
+router.get('/:dir', logView, function(req, res, next) {
+    models.Post.findOne({
+        _id: req.params.dir,
+        public: true
+    }, 'html', function (err, post) {
+        if (err) {
+            res.status(500).render('error/500');
+        } else if (!post) {
+            next();
+        } else {
+            res.status(200).type('text/html').send(post.html);
+        }
+    });
+});
+
 // router.get('/:dir/manuscript', logView, function(req, res, next) {
 //     models.Post.findOne({
 //         _id: req.params.dir,
