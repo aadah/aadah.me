@@ -428,61 +428,12 @@ function windowResize() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// function isHome() {
-// 	var regex = /^\/(index\.html)?$/;
-// 	return regex.test(location.pathname);
-// }
-//
-// function isBlog() {
-// 	var regex = /^http:\/\/aadah.me\/blog\/$/;
-// 	var url = $('meta[property="og:url"]').attr('content');
-//
-// 	return regex.test(url);
-// }
-//
-// function isPost() {
-// 	var regex = /^http:\/\/aadah.me(\/blog\/.+\/)$/;
-// 	var url = $('meta[property="og:url"]').attr('content');
-// 	var match = regex.exec(url);
-// 	var result = match ? match[1] : false;
-//
-// 	return result;
-// }
-
-////////////////////////////////////////////////////////////////////////////////
-
 $(function () {
 	$('body').data('theme', 'main');
 	$('body').data('imageSizesStored?', false);
 	$('img', '.gallery').data('expanded?', false);
 
 	createFootnotesList();
-
-	// $.ajax({
-	// 	type: 'POST',
-	// 	url: '/log/visit',
-	// 	data: {
-	// 		last: new Date()
-	// 	},
-	// 	success: ajaxSuccess('POST /log/visit success:'),
-	// 	error: ajaxError('POST /log/visit error:')
-	// });
-	//
-	// if (isPost()) {
-	// 	$.ajax({
-	// 		type: 'POST',
-	// 		url: '/log/visit/post',
-	// 		data: {
-	// 			title: $('.title').text(),
-	// 			subtitle: $('.subtitle').text(),
-	// 			author: $('.author').text(),
-	// 			posted: new Date($('time').text()),
-	// 			dir: location.pathname
-	// 		},
-	// 		success: ajaxSuccess('POST /log/visit/post success:'),
-	// 		error: ajaxError('POST /log/visit/post error:')
-	// 	});
-	// }
 });
 
 $(window).load(function () {

@@ -1,6 +1,7 @@
 var express = require('express');
 var models = require('../utils/models');
 var parser = require('../utils/parser');
+var auth = require('../utils/auth');
 
 var router = express.Router();
 
@@ -45,34 +46,23 @@ router.get('/:dir', logView, function(req, res, next) {
     });
 });
 
-// router.get('/:dir/manuscript', logView, function(req, res, next) {
-//     models.Post.findOne({
-//         _id: req.params.dir,
-//         public: true
-//     }, 'manuscript', function (err, post) {
-//         if (err) {
-//             res.status(500).render('error/500');
-//         } else if (!post) {
-//             res.status(404).render('error/404');
-//         } else {
-//             res.status(200).type('text/plain').send(post.manuscript);
-//         }
-//     });
-// });
-//
-// router.get('/:dir/times', function(req, res, next) {
-//     models.Post.findOne({
-//         _id: req.params.dir,
-//         public: true
-//     }, 'posted updated', function (err, post) {
-//         if (err) {
-//             res.status(500).render('error/500');
-//         } else if (!post) {
-//             next();
-//         } else {
-//             res.status(200).json(post);
-//         }
-//     });
-// });
+router.get('/:dir/preview', auth.checkAuthentication, function(req, res) {
+    // TODO: create preview page
+});
+
+router.get('/:dir/manuscript', auth.checkAuthentication, function(req, res, next) {
+    models.Post.findOne({
+        _id: req.params.dir,
+        public: true
+    }, 'manuscript', function (err, post) {
+        if (err) {
+            res.status(500).render('error/500');
+        } else if (!post) {
+            res.status(404).render('error/404');
+        } else {
+            res.status(200).type('text/plain').send(post.manuscript);
+        }
+    });
+});
 
 module.exports = router;

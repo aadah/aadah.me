@@ -1,6 +1,5 @@
 var fs = require('fs');
 var express = require('express');
-var auth = require('../utils/auth');
 
 var router = express.Router();
 
@@ -19,13 +18,5 @@ router.get('/', function(req, res, next) {
         }
     });
 });
-
-// router.get('/editor', auth.requireValidation, function(req, res) {
-//     // TODO: create editor page
-// });
-
-// router.get('/preview', auth.requireValidation, function(req, res) {
-//     // TODO: create preview page
-// });
 
 module.exports = router;

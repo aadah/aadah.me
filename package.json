@@ -11,7 +11,7 @@
     "debug": "~2.0.0",
     "ejs": "^1.0.0",
     "express": "~4.9.0",
-    "express-session": "^1.11.2",
+    "express-session": "^1.12.1",
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
     "mongoose": "^4.3.4",

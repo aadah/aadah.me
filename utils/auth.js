@@ -1,27 +1,29 @@
 var auth = {};
 
 var config = require('./config');
-// var crypto = require('./crypto');
+var crypto = require('./crypto');
 
-auth.login = function (req, res) {
-    if (!req.session.allowed) {
-
-    } else {
+auth.login = function (req, res, next) {
+    if (req.session.authenticated) {
         res.redirect('/editor');
+    } else {
+        // res.redirect('/editor');
+        // or
+        // res.status(403).render('error/403');
     }
 };
 
-auth.logout = function (req, res) {
+auth.logout = function (req, res, next) {
     req.session.destroy(function (err) {
         // destroyed if !err
     });
 };
 
-auth.requireValidation = function (req, res, next) {
-    if (req.session.validated) {
+auth.checkAuthentication = function (req, res, next) {
+    if (req.session.authenticated) {
         next();
     } else {
-        next(new Error('You\'re not allowed access to the editor.'));
+        res.status(403).render('error/403');
     }
 };
 
