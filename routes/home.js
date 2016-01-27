@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-    var image_dir = 'public/media/images/';
+    var image_dir = 'public/media/images/home/';
     fs.readdir(image_dir, function (err, images) {
         if (err) {
             res.status(500).render('error/500');

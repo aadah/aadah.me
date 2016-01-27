@@ -1,21 +1,23 @@
 var auth = {};
 
 var config = require('./config');
-var crypto = require('./crypto');
 
 auth.login = function (req, res, next) {
     if (req.session.authenticated) {
-        res.redirect('/editor');
+        res.redirect('/account');
     } else {
-        // res.redirect('/editor');
-        // or
-        // res.status(403).render('error/403');
+        if (req.body.passphrase === config.passphrase) {
+            req.session.authenticated = true;
+            res.redirect('/account');
+        } else {
+            res.status(403).render('error/403');
+        }
     }
 };
 
 auth.logout = function (req, res, next) {
     req.session.destroy(function (err) {
-        // destroyed if !err
+        res.redirect('/account/login');
     });
 };
 

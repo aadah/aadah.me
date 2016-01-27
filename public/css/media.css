@@ -1,7 +1,6 @@
 @media (max-width: 850px) {
 	body {
 		width: 90%;
-		padding: 50px 0;
 	}
 
 	nav span.prev, nav span.next {
@@ -17,10 +16,6 @@
 		width: inherit;
 		margin-left: 0;
 		margin-right: 0;
-	}
-
-	table {
-		font-size: 8pt;
 	}
 
 	.gallery figure {

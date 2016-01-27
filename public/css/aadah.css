@@ -5,8 +5,8 @@
 
 body {
 	color: #ffffff;
-	background-color: #222222;
-	font-family: "Oswald", serif;
+	background-color: #202020;
+	font-family: "Tinos", serif;
 	width: 750px;
 	margin: auto;
 	padding: 50px 0;
@@ -23,10 +23,10 @@ nav {
 	font-style: italic;
 	padding: 1em;
 	z-index: 1;
-	opacity: 0.5;
+	opacity: 0.25;
 
-	-webkit-transition: opacity .5s ease;
-	transition: opacity .5s ease;
+	-webkit-transition: opacity .25s ease;
+	transition: opacity .25s ease;
 }
 
 nav:hover {
@@ -34,7 +34,6 @@ nav:hover {
 }
 
 nav ul {
-	color: #808080;
 	vertical-align: middle;
 	padding: 0;
 	margin: 0;
@@ -64,14 +63,17 @@ nav a.about:hover {
 
 nav span {
 	position: absolute;
-	color: #808080;
 
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
+	-webkit-transition: all .25s ease;
+	transition: all .25s ease;
 }
 
 nav span:hover {
 	color: #b000b0;
+}
+
+nav a:hover {
+	color: #ff00ff;
 }
 
 nav span.prev a, nav span.next a {
@@ -116,7 +118,7 @@ header .subtitle {
 }
 
 header .author {
-	color: #aaaaaa;
+	color: #b0b0b0;
 	font-size: smaller;
 	text-align: center;
 	padding: 0;
@@ -129,22 +131,32 @@ header .author:before {
 
 /* CONTENT */
 main {
-	/*for footnote*/
-	position: relative;
-
 	clear: both;
 	margin: .5em 0;
 }
 
 main h1, main h2, main h3, main h4, main h5, main h6 {
-	padding-left: 5px;
+	/*display: inline-block;
+	float: left;
+	clear: both;
+	max-width: 50%;
+	margin-top: 2em;
+	line-height: 1em;
+	padding-right: 1em;
+	padding-bottom: 0.5em;
+	border-bottom: #ffffff 1px solid;*/
+
+	margin-top: 2em;
+	margin-bottom: 1em;
+	line-height: 1.5em;
+	padding-left: 0.5em;
 	border-left: #ffffff 1px solid;
 }
 
 /* FOOTER */
 footer {
 	clear: both;
-	color: #aaaaaa;
+	color: #b0b0b0;
 	padding-top: .5em;
 	border-top: #ffffff 1px solid;
 	margin: .5em 0;
@@ -187,47 +199,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -------------------------------------------------------*/
-/* TODO: Fix border-bottom-color on hover. */
+
 a {
 	text-decoration: none;
 
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
+	-webkit-transition: all .25s ease;
+	transition: all .25s ease;
 }
 
-nav a:link, nav a:visited {
-	color: #808080;
-}
-
-nav a:hover {
-	color: #ff00ff;
-}
-
-main a {
-	border-bottom: #ffffff 1px dotted;
-}
-
-footer a {
-	border-bottom: #aaaaaa 1px dotted;
-}
-
-main a:link, main a:visited, footer a:link, footer a:visited {
+a:link, a:visited {
 	color: inherit;
 }
 
-main a:hover, footer a:hover {
-	color: #808080;
-	border-bottom-color: #808080;
+main a, footer a {
+	border-bottom-color: inherit;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
 }
 
 /* -------------------------------------------------------*/
 
 blockquote {
 	display: block;
-	color: #bbbbbb;
+	color: #b0b0b0;
 	font-style: italic;
 	text-align: justify;
-	border-left: #bbbbbb 1px solid;
+	border-left: #b0b0b0 1px solid;
 	margin: 0.5em 1em;
 	padding-left: 1em;
 }
@@ -246,8 +243,8 @@ q i, q em, quote i, quote em {
 
 q.pquoter, q.pquotel {
 	display: block;
-	color: #bbbbbb;
-	background-color: #111111;
+	color: #c0c0c0;
+	background-color: #101010;
 	width: 250px;
 	font-size: 1.25em;
 	line-height: 1.25em;
@@ -287,19 +284,6 @@ span.salutation::before {
 
 /* -------------------------------------------------------*/
 
-figure {
-	display: block;
-	margin: 0.5em auto;
-}
-
-figcaption {
-	font-size: smaller;
-	text-align: center;
-	margin-top: 0.5em;
-}
-
-/* -------------------------------------------------------*/
-
 code, samp {
 	display: block;
 	font-family: "Inconsolata", monospace;
@@ -326,8 +310,8 @@ code {
 	background-color: #000000;
 }
 
-samp, p kbd {
-	background-color: #333333;
+p kbd, samp {
+	background-color: #303030;
 }
 
 kbd {
@@ -353,7 +337,7 @@ table {
 }
 
 th {
-	background-color: #222222;
+	background-color: #202020;
 	font-weight: normal;
 	padding: 0.5em;
 }
@@ -420,8 +404,12 @@ table ul {
 
 /* -------------------------------------------------------*/
 
-.footnote {
+.footnote > a {
+	border: none;
+}
 
+.footnotes li > a {
+	border: none;
 }
 
 .footnotes {
@@ -431,9 +419,9 @@ table ul {
 
 #fn-box {
 	position: fixed;
-	background-color: #111111;
+	background-color: #101010;
 	font-size: smaller;
-	max-width: 33%;
+	max-width: 25%;
 
 	z-index: -1;
 	opacity: 0;
@@ -444,14 +432,12 @@ table ul {
 
 .posts {
 	display: block;
-	/*max-width: 50%;*/
 	margin: 0.5em auto;
 }
 
 .post {
-	width: 31%;
-	float: left;
-	margin: 1em 1%;
+	width: 50%;
+	margin: 1em auto;
 }
 
 .post .t {
@@ -478,23 +464,62 @@ table ul {
 
 /* -------------------------------------------------------*/
 
-img, video, audio {
+figure {
 	display: block;
-	max-width: 98%;
 	margin: 0.5em auto;
 }
 
+figcaption {
+	font-size: smaller;
+	text-align: center;
+	margin-top: 0.5em;
+}
+
+/* -------------------------------------------------------*/
+
 img, video, audio {
+	display: block;
+	max-width: 98%;
 	background-color: #000000;
+	margin: auto;
 	padding: 1%;
 }
 
 /* -------------------------------------------------------*/
 
 .gallery {
-	overflow: auto;
+	position: relative;
 	margin: 0.5em auto;
+	overflow: hidden;
 }
+
+/*.gallery figure {
+	width: 240px;
+	padding: 0;
+	margin: 7px auto;
+	padding: 1%;
+	padding: 0.5em;
+	border: none;
+	background-color: #000000;
+	border: #000000 5px solid;
+	margin: 5px;
+}
+
+.gallery figcaption {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background-color: #000000;
+	padding: 0.5em;
+	margin: 4%;
+}
+
+.gallery img {
+	cursor: pointer;
+	border: none;
+	padding: 0;
+	margin: 0;
+}*/
 
 .gallery figure {
 	position: relative;
@@ -534,6 +559,37 @@ iframe {
 	display: block;
 	max-width: 98%;
 	border: 5px #000000 solid;
+}
+
+/* -------------------------------------------------------*/
+
+hr {
+	width: 50%;
+	border-width: 1px;
+	border-style: solid;
+
+	border: none;
+	border-top-width: 1px;
+	border-top-style: solid;
+	text-align: center;
+
+	margin-top: 3em;
+	margin-bottom: 0em;
+}
+
+hr:after {
+	content: url(/favicon_mini.ico);
+	position: relative;
+	top: -0.5em;
+	padding: 0 0.5em;
+}
+
+hr.main:after {
+	background-color: #202020;
+}
+
+hr.alt:after {
+	background-color: #e0e0e0;
 }
 
 /* -------------------------------------------------------*/

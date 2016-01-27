@@ -1,8 +1,9 @@
 @media print {
-
 	body {
 		color: #000000 !important;
 		background-color: #ffffff !important;
+		width: auto !important;
+		margin: 0 !important;
 		padding: 0 !important;
 	}
 
@@ -17,6 +18,7 @@
 		padding-bottom: .5em;
 		border-bottom-color: #000000 !important;
 		margin: .5em 0;
+		margin-top: 0;
 	}
 
 	header .author {
@@ -30,10 +32,15 @@
 		border: none !important;
 	}
 
+	hr:after {
+		background-color: #ffffff !important;
+	}
+
 	/* FOOTER */
 	footer {
 		color: #000000 !important;
 		border-top-color: #000000 !important;
+		margin-bottom: 0;
 	}
 
 	/* AESTHETICS */
@@ -57,43 +64,38 @@
 
 	q.pquoter, q.pquotel {
 		color: #000000 !important;
-		background-color: #eeeeee !important;
+		background-color: #e0e0e0 !important;
 	}
 
 	/* -------------------------------------------------------*/
 
 	code, samp {
 		max-height: none !important;
-		overflow: visible !important;
+		white-space: pre-wrap;
 	}
 
 	code {
-		background-color: #eeeeee !important;
+		background-color: #f0f0f0 !important;
 	}
 
-	samp {
-		background-color: #dddddd !important;
-	}
-
-	p > kbd {
-		background-color: #eeeeee !important;
+	p kbd, samp {
+		background-color: #e0e0e0 !important;
 	}
 
 	/* -------------------------------------------------------*/
 
 	table {
-		background-color: #eeeeee !important;
+		background-color: #f0f0f0 !important;
 	}
 
 	th {
-		background-color: #dddddd !important;
+		background-color: #e0e0e0 !important;
 	}
 
 	/* -------------------------------------------------------*/
 
-
 	ol, ul {
-		/*color: #000000 !important;*/
+		color: #000000 !important;
 		line-height: 1.5em;
 		font-size: inherit;
 	}
@@ -101,21 +103,7 @@
 	/* -------------------------------------------------------*/
 
 	img, video, audio {
-		display: block;
-		max-width: 98%;
-		margin: auto;
-	}
-
-	img {
-		border-color: #eeeeee !important;
-	}
-
-	video {
-		background-color: #eeeeee !important;
-	}
-
-	audio {
-		background-color: #eeeeee !important;
+		background-color: #f0f0f0 !important;
 	}
 
 	/* -------------------------------------------------------*/
@@ -162,6 +150,9 @@
 	blockquote,
 	q,
 	figure,
+	img,
+	video,
+	audio,
 	code,
 	samp,
 	table,
@@ -169,5 +160,4 @@
 	ul {
 		page-break-inside: avoid;
 	}
-
 }

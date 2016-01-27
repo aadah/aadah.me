@@ -25,7 +25,9 @@
 		<script type="text/javascript" src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 		<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+		<script type="text/javascript" src="//npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
 		<script type="text/javascript" src="/js/aadah.js"></script>
+
 	</head>
 
 	<body>
@@ -46,7 +48,7 @@
 		<main role="main">
 			<section class="posts">
                 <% for (var i=0; i < posts.length; i++) {%>
-                   <%- createBlogPost(posts[i]) %>
+                	<%- createBlogPost(posts[i]) %>
                 <% } %>
 			</section>
 		</main>

@@ -2,11 +2,11 @@ var THEME = {
 	'body': {
 		'main': {
 			'color': '#ffffff',
-			'background-color': '#222222'
+			'background-color': '#202020'
 		},
 		'alt': {
 			'color': '#000000',
-			'background-color': '#dddddd'
+			'background-color': '#e0e0e0'
 		}
 	},
 	'header': {
@@ -19,10 +19,10 @@ var THEME = {
 	},
 	'.author': {
 		'main': {
-			'color': '#aaaaaa'
+			'color': '#b0b0b0'
 		},
 		'alt': {
-			'color': '#555555'
+			'color': '#505050'
 		}
 	},
 	'main h1, main h2, main h3, main h4, main h5, main h6': {
@@ -35,32 +35,32 @@ var THEME = {
 	},
 	'footer': {
 		'main': {
-			'color': '#aaaaaa',
+			'color': '#b0b0b0',
 			'border-top-color': '#ffffff'
 		},
 		'alt': {
-			'color': '#555555',
+			'color': '#505050',
 			'border-top-color': '#000000'
 		}
 	},
 	'blockquote': {
 		'main': {
-			'color': '#bbbbbb',
-			'border-left-color': '#bbbbbb'
+			'color': '#b0b0b0',
+			'border-left-color': '#b0b0b0'
 		},
 		'alt': {
-			'color': '#444444',
-			'border-left-color': '#444444'
+			'color': '#505050',
+			'border-left-color': '#505050'
 		}
 	},
 	'.pquoter, .pquotel': {
 		'main': {
-			'color': '#cccccc',
-			'background-color': '#111111'
+			'color': '#c0c0c0',
+			'background-color': '#101010'
 		},
 		'alt': {
-			'color': '#333333',
-			'background-color': '#eeeeee'
+			'color': '#404040',
+			'background-color': '#f0f0f0'
 		}
 	},
 	'main li': {
@@ -89,10 +89,10 @@ var THEME = {
 	},
 	'p kbd, samp': {
 		'main': {
-			'background-color': '#333333'
+			'background-color': '#303030'
 		},
 		'alt': {
-			'background-color': '#cccccc'
+			'background-color': '#d0d0d0'
 		}
 	},
 	'table': {
@@ -105,10 +105,10 @@ var THEME = {
 	},
 	'th': {
 		'main': {
-			'background-color': '#222222'
+			'background-color': '#202020'
 		},
 		'alt': {
-			'background-color': '#dddddd'
+			'background-color': '#e0e0e0'
 		}
 	},
 	'.gallery figure': {
@@ -123,36 +123,18 @@ var THEME = {
 	},
 	'.gallery figcaption': {
 		'main': {
-			'color': '#ffffff',
 			'background-color': '#000000'
 		},
 		'alt': {
-			'color': '#000000',
 			'background-color': '#ffffff'
-		}
-	},
-	'main a': {
-		'main': {
-			'border-bottom-color': '#ffffff'
-		},
-		'alt': {
-			'border-bottom-color': '#000000'
-		}
-	},
-	'footer a': {
-		'main': {
-			'border-bottom-color': '#aaaaaa'
-		},
-		'alt': {
-			'border-bottom-color': '#555555'
 		}
 	},
 	'#fn-box': {
 		'main': {
-			'background-color': '#111111'
+			'background-color': '#101010'
 		},
 		'alt': {
-			'background-color': '#eeeeee'
+			'background-color': '#f0f0f0'
 		}
 	},
 
@@ -269,7 +251,9 @@ function switchTheme(theme, fadeOff) {
 		changeColor(selector, THEME[selector][current], fadeOff);
 	}
 
+	$('hr').removeClass($('body').data('theme'));
 	$('body').data('theme', current);
+	$('hr').addClass($('body').data('theme'));
 }
 
 function changeColor(selector, attributes, fadeOff) {
@@ -285,16 +269,19 @@ function changeColor(selector, attributes, fadeOff) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function findFootnotes() {
-	return $('.footnote a');
+	return $('.footnote');
 }
 
 function extractFootnoteText(f, i) {
 	var footnote = $(f);
-	var text = footnote.text();
+	var text = footnote.html();
 	var num = i.toString();
+	var link = $('<a>');
 
-	footnote.text(num);
-	footnote.attr('href', '#f'+num);
+	link.text(num);
+	link.attr('href', '#f'+num);
+	link.attr('id', 'd'+num);
+	footnote.html(link);
 
 	return text;
 }
@@ -302,45 +289,14 @@ function extractFootnoteText(f, i) {
 function createFootnotesListElement(text, i) {
 	var elem = $('<li>');
 	var num = i.toString();
+	var link = $('<a>');
 
-	elem.text(text);
-	elem.attr('id', 'f'+num);
+	link.html(text);
+	link.attr('href', '#d'+num);
+	link.attr('id', 'f'+num);
+	elem.append(link);
 
 	return elem;
-}
-
-function footnoteHoverEnter(event) {
-	var box = $('#fn-box');
-	var fn = $('a', this);
-	var id = fn.attr('href');
-	var html = $(id).html();
-	box.html(html);
-	var width = box.css('width');
-	width = Number(width.substring(0, width.length-2));
-	mid = width / 2;
-
-	var x = event.pageX - window.pageXOffset;
-	var y = event.pageY - window.pageYOffset;
-	x -= mid;
-
-	box.css('left', x.toString()+'px');
-	box.css('top', y.toString()+'px');
-
-	box.css('z-index', 1);
-
-	box.animate({
-		'opacity': 0.95,
-		'z-index': 1
-	}, 125);
-}
-
-function footnoteHoverExit() {
-	var box = $('#fn-box');
-
-	box.animate({
-		'opacity': 0.0,
-		'z-index': -1
-	}, 125);
 }
 
 function createFootnotesList() {
@@ -353,7 +309,7 @@ function createFootnotesList() {
 	var list = $('<ol>');
 	list.addClass('footnotes');
 
-	for (i = 0; i < footnotes.size(); i++) {
+	for (var i = 0; i < footnotes.size(); i++) {
 		var f = footnotes[i];
 		var index = i + 1;
 		var text = extractFootnoteText(f, index);
@@ -364,6 +320,45 @@ function createFootnotesList() {
 	list.insertBefore($('div.times'));
 
 	$('.footnote').hover(footnoteHoverEnter, footnoteHoverExit);
+}
+
+function footnoteHoverEnter(event) {
+	var box = $('#fn-box');
+	var fn = $('a', this);
+	var id = fn.attr('href');
+	var html = $(id).html();
+	box.html(html);
+	var width = box.css('width');
+	var height = box.css('height');
+	width = Number(width.substring(0, width.length-2));
+	mid = width / 2;
+
+	var x = event.pageX - window.pageXOffset;
+	var y = event.pageY - window.pageYOffset;
+	x -= mid;
+	x = Math.max(x, mid);
+	x = Math.min(x, window.innerWidth - mid);
+	// y = Math.max(y, height);
+	// y = Math.min(y, window.innerHeight - height);
+
+	box.css('left', x.toString()+'px');
+	box.css('top', y.toString()+'px');
+
+	box.css('z-index', 1);
+
+	box.animate({
+		'opacity': 1,
+		'z-index': 1
+	}, 125);
+}
+
+function footnoteHoverExit() {
+	var box = $('#fn-box');
+
+	box.animate({
+		'opacity': 0,
+		'z-index': -1
+	}, 125);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -428,6 +423,19 @@ function windowResize() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+function makeGalleryGrid() {
+	$('.gallery').masonry({
+		// options
+		itemSelector: '.gallery figure',
+		gutter: 5,
+		// columnWidth: 250
+		// percentPosition: true,
+		// gutter: 5,
+	});
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 $(function () {
 	$('body').data('theme', 'main');
 	$('body').data('imageSizesStored?', false);
@@ -439,6 +447,8 @@ $(function () {
 $(window).load(function () {
 	windowResize();
 	$(window).resize(windowResize);
+
+	// makeGalleryGrid();
 
 	setHourlyTheme(true);
 	setInterval(function () {

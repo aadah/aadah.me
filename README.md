@@ -31,7 +31,7 @@ Along with the standard HTML/CSS/JS, the site uses:
 - [Node.js](http://nodejs.org/) as the server.
 - [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/)
 	for code.
-- [MathJax](http://www.mathjax.org/) for writing LaTeX.
+- [MathJax](http://www.mathjax.org/) for LaTeX.
 - Fonts from [Google Fonts](https://www.google.com/fonts). I use
 	[Tinos](https://www.google.com/fonts/specimen/Tinos) as my primary font and
 	[Inconsolata](http://levien.com/type/myfonts/inconsolata.html) for code.
@@ -46,12 +46,13 @@ build their own from scratch.
 
 - <s>Switch from Apache to nginx</s>
 - <s>Switch from nginx to node.js</s>
-- Create custom grammar for writing posts
+- <s>Create custom grammar for writing posts</s>
 - Write a web GUI for writing posts
+- <s>Setup SSL</s>
 - <s>Make custom error pages</s>
 - <s>Use lower resolution images on pages</s>
 - Setup an email server
 - <s>Setup media queries for RWD</s>
-- Create dynamic blog page
+- <s>Create dynamic blog page</s>
 - <s>Move all media (images, video, audio) out of repo into single media folder</s>
 - <s>Fix gallery RWD bug with photo galleries.</s>

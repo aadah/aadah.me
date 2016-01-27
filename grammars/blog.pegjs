@@ -41,6 +41,7 @@ Main 'Main'
 Component 'Component'
     = !Footer
     vComponent:(
+        Comment /
         SectionTitle /
         Code /
         Output /
@@ -52,6 +53,7 @@ Component 'Component'
         Blockquote /
         Table /
         List /
+        HorizontalLine /
         Paragraph
     ) {
         return vComponent;
@@ -455,10 +457,32 @@ UnorderedStart 'UnorderedStart'
 
 ////////////////////////////////////////////////////////////////////////////////
 
+HorizontalLine 'HorizontalLine'
+    = Hyphen Hyphen Hyphen+ Blankline* {
+        return '<hr>';
+    }
+
+////////////////////////////////////////////////////////////////////////////////
+
+Comment 'Comment'
+    = vLines:CommentLine+ Blankline* {
+        return '';
+    }
+
+CommentLine 'CommentLine'
+    = CommentStart NonBlankline
+
+CommentStart 'CommentStart'
+    = '#'
+
+////////////////////////////////////////////////////////////////////////////////
+
 Paragraph 'Paragraph'
     = vLines:NonBlankline+ Blankline* {
         return parser.createParagraph(vLines);
     }
+
+////////////////////////////////////////////////////////////////////////////////
 
 NonBlankline 'NonBlankline'
     = vLine:(InlineElement / NonWhitespace / InlineWhitespace)+ Newline {
@@ -503,6 +527,9 @@ RightArgDelimiter 'RightArgDelimiter'
 
 Colon 'Colon'
     = ':'
+
+Hyphen 'Hyphen'
+    = '-'
 
 Space 'Space'
     = '\u0020' / '\u3000' // latin and CJK

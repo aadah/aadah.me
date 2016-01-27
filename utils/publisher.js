@@ -33,15 +33,17 @@ publisher.publish = function (dir, callback, manuscript) {
         if (err) {
             callback(err);
         } else {
-            models.Post.findOne({_id: dir}, 'public posted updated manuscript', function (err, post) {
+            models.Post.findOne({
+                _id: dir
+            }, 'public posted updated manuscript', function (err, post) {
                 if (err) {
                     callback(err);
                 } else {
-                    if (!post.public) {
-                        post.public = true;
+                    if (!post.posted) {
                         post.posted = post.updated;
                     }
-                    post.html = parser.parse(dir, post.manuscript, post).html;
+                    post.html = parser.parse(post._id, post.manuscript, post).html;
+                    post.public = true;
                     post.save(callback);
                 }
             });
