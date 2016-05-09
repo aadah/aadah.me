@@ -6,15 +6,16 @@ var parser = require('./parser');
 
 var publisher = {};
 
+// Update the post internally (doesn't show changes).
 publisher.update = function (dir, callback, manuscript) {
     try {
+        // this is to check that the manuscript is valid.
         var result = parser.parse(dir, manuscript);
-
         var post = models.Post({
             manuscript: manuscript,
-            title: result.title,
-            subtitle: result.subtitle,
-            author: result.author,
+            // title: result.title,
+            // subtitle: result.subtitle,
+            // author: result.author,
             updated: Date.now()
         });
 
@@ -28,6 +29,7 @@ publisher.update = function (dir, callback, manuscript) {
     }
 };
 
+// Display post on the blog page and log when it was published, or make changes public.
 publisher.publish = function (dir, callback, manuscript) {
     publisher.update(dir, function (err, raw) {
         if (err) {
@@ -39,10 +41,16 @@ publisher.publish = function (dir, callback, manuscript) {
                 if (err) {
                     callback(err);
                 } else {
+                    var result = parser.parse(post._id, post.manuscript, post);
+
                     if (!post.posted) {
                         post.posted = post.updated;
                     }
-                    post.html = parser.parse(post._id, post.manuscript, post).html;
+                    
+                    post.title = result.title;
+                    post.subtitle = result.subtitle;
+                    post.author = result.author;
+                    post.html = result.html;
                     post.public = true;
                     post.save(callback);
                 }
@@ -51,18 +59,21 @@ publisher.publish = function (dir, callback, manuscript) {
     }, manuscript);
 };
 
+// Take down the post from the blog page.
 publisher.hide = function (dir, callback) {
     models.Post.findOneAndUpdate({_id: dir}, {
         $set: {public: false}
     }, callback);
 };
 
+// Show the post on the blog page.
 publisher.show = function (dir, callback) {
     models.Post.findOneAndUpdate({_id: dir}, {
         $set: {public: true}
     }, callback);
 };
 
+// Take down the post and delete it from the database.
 publisher.remove = function (dir, callback) {
     models.Post.findByIdAndRemove(dir, callback);
 };

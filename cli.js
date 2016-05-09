@@ -1,3 +1,5 @@
+// usage: node cli.js path/to/manuscript [-u] [-p] [-s] [-h] [-r]
+
 var path = require('path');
 var fs = require('fs');
 var mongoose = require('mongoose');
