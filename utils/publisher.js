@@ -9,13 +9,10 @@ var publisher = {};
 // Update the post internally (doesn't show changes).
 publisher.update = function (dir, callback, manuscript) {
     try {
-        // this is to check that the manuscript is valid.
+        // parse manuscript o check it's valid.
         var result = parser.parse(dir, manuscript);
         var post = models.Post({
             manuscript: manuscript,
-            // title: result.title,
-            // subtitle: result.subtitle,
-            // author: result.author,
             updated: Date.now()
         });
 
@@ -37,7 +34,7 @@ publisher.publish = function (dir, callback, manuscript) {
         } else {
             models.Post.findOne({
                 _id: dir
-            }, 'public posted updated manuscript', function (err, post) {
+            }, function (err, post) {
                 if (err) {
                     callback(err);
                 } else {
@@ -46,7 +43,7 @@ publisher.publish = function (dir, callback, manuscript) {
                     if (!post.posted) {
                         post.posted = post.updated;
                     }
-                    
+
                     post.title = result.title;
                     post.subtitle = result.subtitle;
                     post.author = result.author;
@@ -73,7 +70,7 @@ publisher.show = function (dir, callback) {
     }, callback);
 };
 
-// Take down the post and delete it from the database.
+// Delete the post from the database.
 publisher.remove = function (dir, callback) {
     models.Post.findByIdAndRemove(dir, callback);
 };
