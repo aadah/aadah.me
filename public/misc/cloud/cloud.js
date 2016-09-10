@@ -121,9 +121,9 @@ function repaint(hex) {
 function Color(red, green, blue) {
 	'use strict';
 
-	var r,
-		g,
-		b;
+	var r = red,
+		g = green,
+		b = blue;
 
 	this.getRed = function () {
 		return r;
@@ -277,7 +277,7 @@ function Particle() {
 		pos = new Vector(rand(radius, getCanvasWidth() - radius), rand(radius, getCanvasHeight()) - radius),
 		vel = new Vector(speed * Math.cos(theta), speed * Math.sin(theta)),
 
-		color = new Color(speed / MAX_SPEED * 255),
+		color = new Color(speed / MAX_SPEED * 255, randInt(0, 255), randInt(0, 255)),
 
 		attracted = false,
 		repelled = false,
@@ -446,10 +446,12 @@ function Particle() {
 	};
 
 	// special functions
-	this.update = function () {
+	this.update = function (mouse_x, mouse_y) {
 		var r,
 			g,
 			b;
+
+		this.interaction(mouse_x, mouse_y);
 
 		if (this.isAlive()) {
 			this.setTheta(theta + omega * rand(-1, 1));
@@ -468,16 +470,44 @@ function Particle() {
 		pos.setYCoor(pos.getYCoor() + vel.getYCoor());
 
 		r = speed / MAX_SPEED * 255;
-		g = pos.getYCoor() / getCanvasHeight() * 255;
-		b = (1 - pos.getYCoor() / getCanvasHeight()) * 255;
+		color.setRed(r);
+	};
 
-		color.setColor(r, g, b);
+	this.interaction = function (mouse_x, mouse_y) {
+		var dx,
+			dy,
+			desired,
+			angdiff,
+			atan2;
+
+		dx = mouse_x - this.getX();
+		dy = mouse_y - this.getY();
+		atan2 = Math.atan2(dy, dx);
+		if (this.isAttracted() && !this.isRepelled()) {
+			desired = atan2;
+			angdiff = desired - this.getTheta();
+			this.adjustAngle(angdiff);
+		} else if (!this.isAttracted() && this.isRepelled()) {
+			desired = atan2 > 0 ? atan2 - Math.PI : atan2 + Math.PI;
+			angdiff = desired - this.getTheta();
+			this.adjustAngle(angdiff);
+		} else if (this.isAttracted() && this.isRepelled()) {
+			this.setSpeed(this.getSpeed() - rand(0,1)*this.getAccel());
+		}
+	};
+
+	this.adjustAngle = function (angdiff) {
+		if ((angdiff > 0 && Math.abs(angdiff) <= Math.PI) || (angdiff < 0 && Math.abs(angdiff) > Math.PI)) {
+			this.setTheta(this.getTheta() + this.getOmega());
+		} else if ((angdiff > 0 && Math.abs(angdiff) > Math.PI) || (angdiff < 0 && Math.abs(angdiff) <= Math.PI)){
+			this.setTheta(this.getTheta() - this.getOmega());
+		}
 	};
 
 	this.draw = function () {
 		ctx.beginPath();
 		ctx.fillStyle = color.toHex();
-		ctx.arc(pos.getXCoor(), getCanvasHeight() - pos.getYCoor(), radius, 0, 2 * Math.PI);
+		ctx.arc(pos.getXCoor(), pos.getYCoor(), radius, 0, 2 * Math.PI);
 		ctx.fill();
 	};
 
@@ -494,7 +524,7 @@ function Particle() {
 		pos = new Vector(rand(radius, getCanvasWidth() - radius), rand(radius, getCanvasHeight()) - radius);
 		vel = new Vector(speed * Math.cos(theta), speed * Math.sin(theta));
 
-		color = new Color(speed / MAX_SPEED * 255);
+		color = new Color(speed / MAX_SPEED * 255, randInt(0, 255), randInt(0, 255));
 
 		attracted = false;
 		repelled = false;
@@ -502,10 +532,11 @@ function Particle() {
 	};
 
 	this.printInfo = function () {
-		print('Speed:\t', speed, '\t', 'Theta:\t', theta);
-		print('Accel:\t', accel, '\t', 'Omega:\t', omega);
-		print('Radius:\t', radius, '\t', 'Breath:\t', breath);
-		print('Position:\t(', pos.getXCoor(), ',', pos.getYCoor(), ')');
+		print('\n');
+		print('Speed:\t', speed.toFixed(3), '\t', 'Accel:\t', accel.toFixed(3));
+		print('Theta:\t', theta.toFixed(3), '\t', 'Omega:\t', omega.toFixed(3));
+		print('Radius:\t', radius.toFixed(3), '\t', 'Breath:\t', breath.toFixed(3));
+		print('Position:\t', this.getX().toFixed(3), '\t', this.getY().toFixed(3));
 		print('Color:\t', color.toRGB());
 	};
 }
@@ -514,19 +545,22 @@ function App() {
 	'use strict';
 
 	var inView = false,
-
-		particles = [];
+		num_particles = 500,
+		particles = [],
+		mouse_x = getCanvasWidth()/2,
+		mouse_y = getCanvasHeight()/2;
 
 	// main three
 	this.setup = function () {
-		$(window).resize(this.resize);
-		$(window).keypress(this.keyPress);
+		$(document).resize(this.resize);
+		$(document).keypress(this.keyPress);
+		$('#cloud').mousemove(this.mousemove);
 
 		resize();
 		repaint();
 
 		var i;
-		for (i = 0; i < 50; i += 1) {
+		for (i = 0; i < num_particles; i += 1) {
 			particles[i] = new Particle();
 		}
 	};
@@ -534,7 +568,7 @@ function App() {
 	this.update = function () {
 		var i;
 		for (i = 0; i < particles.length; i += 1) {
-			particles[i].update();
+			particles[i].update(mouse_x, mouse_y);
 		}
 	};
 
@@ -549,22 +583,21 @@ function App() {
 
 	// event handlers
 	this.keyPress = function (event) {
-		print(event.charCode);
 		var i;
 		switch (event.charCode) {
-		case 97:
+		case 97: // a[live]
 			for (i = 0; i < particles.length; i += 1) {
 				particles[i].setAlive(!particles[i].isAlive());
 			}
 			break;
 
-		case 114:
+		case 114: // r[eset]
 			for (i = 0; i < particles.length; i += 1) {
 				particles[i].reset();
 			}
 			break;
 
-		case 118:
+		case 118: // v[iew]
 			if (inView) {
 				$('#cloud').animate({
 					opacity: 0
@@ -579,6 +612,20 @@ function App() {
 			}
 			inView = !inView;
 			break;
+
+		case 49: // [1] attract
+			for (i = 0; i < particles.length; i += 1) {
+				var attracted = particles[i].isAttracted();
+				particles[i].setAttracted(!attracted);
+			}
+			break;
+
+		case 50: // [2] repel
+			for (i = 0; i < particles.length; i += 1) {
+				var repelled = particles[i].isRepelled();
+				particles[i].setRepelled(!repelled);
+			}
+			break;
 		}
 	};
 
@@ -589,6 +636,11 @@ function App() {
 		for (i = 0; i < particles.length; i += 1) {
 			particles[i].reset();
 		}
+	};
+
+	this.mousemove = function (event) {
+		mouse_x = event.pageX;
+		mouse_y = event.pageY;
 	};
 }
 

@@ -45,6 +45,7 @@ Component 'Component'
         SectionTitle /
         Code /
         Output /
+        Embed /
         Gallery /
         Image /
         Video /
@@ -141,7 +142,7 @@ AudioFlag 'AudioFlag'
 
 Code 'Code'
     = CodeStartFlag LeftArgDelimiter vLang:NotArgDelimiter* RightArgDelimiter Newline
-    vLines:CodeChar+ CodeEnd  Blankline* {
+    vLines:CodeChar+ CodeEnd Blankline* {
         var lang = vLang.join('');
         var code = vLines.join('');
         return parser.createCode(lang, code);
@@ -150,11 +151,6 @@ Code 'Code'
 CodeChar 'CodeChar'
     = !CodeEnd vChar:(Whitespace / NonWhitespace) {
         return vChar;
-    }
-
-CodeLine 'CodeLine'
-    = !CodeEnd vLine:(NonBlankline / Blankline) {
-        return vLine;
     }
 
 CodeEnd 'CodeEnd'
@@ -190,6 +186,28 @@ OutputStartFlag 'OutputStartFlag'
 
 OutputEndFlag 'OutputEndFlag'
     = '@TUO'
+
+////////////////////////////////////////////////////////////////////////////////
+
+Embed 'Embed'
+= EmbedStartFlag Newline vLines:EmbedChar+ EmbedEnd Blankline* {
+    var html = vLines.join('');
+    return html;
+}
+
+EmbedChar 'EmbedChar'
+= !EmbedEnd vChar:(Whitespace / NonWhitespaceNoEscape) {
+    return vChar;
+}
+
+EmbedEnd 'EmbedEnd'
+= EmbedEndFlag Newline
+
+EmbedStartFlag 'EmbedStartFlag'
+= '@EMBED'
+
+EmbedEndFlag 'EmbedEndFlag'
+= '@DEBME'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -497,6 +515,11 @@ Blankline 'Blankline'
 NonWhitespace 'NonWhitespace'
     = !Whitespace vNonWhitespace:. {
         return parser.escapeHTML(vNonWhitespace);
+    }
+
+NonWhitespaceNoEscape 'NonWhitespaceNoEscape'
+    = !Whitespace vNonWhitespaceNoEscape:. {
+        return vNonWhitespaceNoEscape;
     }
 
 Whitespace 'Whitespace'

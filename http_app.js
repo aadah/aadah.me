@@ -1,5 +1,6 @@
 var path = require('path');
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -18,6 +19,10 @@ app.use('/blog', blog);
 app.use('/works', works);
 app.use('/about', about);
 
+// for my puzzle
+var puzzle = require('./routes/puzzle');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use('/misc/puzzle', puzzle);
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
 
