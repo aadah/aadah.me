@@ -12,6 +12,7 @@
 	}
 
 	q.pquoter, q.pquotel {
+    text-align: justify;
 		float: none;
 		width: inherit;
 		margin-left: 0;

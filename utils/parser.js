@@ -1,179 +1,181 @@
-var fs = require('fs');
-var peg = require("pegjs");
-var moment = require("moment");
+var fs = require('fs')
+var peg = require('pegjs')
+var moment = require('moment')
 
-var models = require('./models');
+var blogGrammar = fs.readFileSync('grammars/blog.pegjs', 'utf8')
+var pegParser = peg.buildParser(blogGrammar)
 
-var blogGrammar = fs.readFileSync('grammars/blog.pegjs', 'utf8');
-var pegParser = peg.buildParser(blogGrammar);
+var parser = {}
 
-parser = {};
+parser._parse = function (manuscript) {
+  return pegParser.parse(manuscript)
+}
 
 parser.parse = function (dir, manuscript, post) {
-    var result = pegParser.parse(manuscript);
-    var url_rgx = new RegExp('\\[URL\\]', 'g');
-    var posted_rgx = new RegExp('\\[POSTED\\]', 'g');
-    var updated_rgx = new RegExp('\\[UPDATED\\]', 'g');
+  var result = parser._parse(manuscript)
+  var urlRgx = new RegExp('\\[URL\\]', 'g')
+  var postedRgx = new RegExp('\\[POSTED\\]', 'g')
+  var updatedRgx = new RegExp('\\[UPDATED\\]', 'g')
 
-    result.html = result.html.replace(url_rgx, 'blog/' + dir + '/');
+  result.html = result.html.replace(urlRgx, 'blog/' + dir + '/')
 
-    if (post) {
-        result.html = result.html.replace(posted_rgx, parser.formatTimestamp(post.posted, true));
-        result.html = result.html.replace(updated_rgx, parser.formatTimestamp(post.updated, true));
-    }
+  if (post) {
+    result.html = result.html.replace(postedRgx, parser.formatTimestamp(post.posted, true))
+    result.html = result.html.replace(updatedRgx, parser.formatTimestamp(post.updated, true))
+  }
 
-    return result;
-};
+  return result
+}
 
-////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 
 parser.formatTimestamp = function (date, withTime) {
-    var mdate = date ? moment.utc(date) : moment.utc();
+  var mdate = date ? moment.utc(date) : moment.utc()
+  var template = 'dddd D MMMM YYYY'
 
-	var template = 'dddd D MMMM YYYY';
-	template = withTime ? template + ' [at] H:mm:ss UTC' : template;
+  template = withTime ? template + ' [at] H:mm:ss UTC' : template
 
-    var formattedDate = mdate.format(template);
+  var formattedDate = mdate.format(template)
 
-    return formattedDate;
-};
+  return formattedDate
+}
 
 parser.createBlogPost = function (post) {
-    var template = fs.readFileSync('grammars/templates/blog_post.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/blog_post.html', 'utf8').trim()
 
-    template = template.replace('[DIR]', post._id);
-    template = template.replace('[TITLE]', post.title);
-    template = template.replace('[SUBTITLE]', post.subtitle);
-    template = template.replace('[AUTHOR]', post.author);
-    template = template.replace('[DATE]', parser.formatTimestamp(post.posted));
+  template = template.replace('[DIR]', post._id)
+  template = template.replace('[TITLE]', post.title)
+  template = template.replace('[SUBTITLE]', post.subtitle)
+  template = template.replace('[AUTHOR]', post.author)
+  template = template.replace('[DATE]', parser.formatTimestamp(post.posted))
 
-    return template;
-};
+  return template
+}
 
 parser.escapeHTML = function (text) {
-    var ampersand_rgx = new RegExp('&', 'g');
-    var left_angle_bracket_rgx = new RegExp('<', 'g');
-    var right_angle_bracket_rgx = new RegExp('>', 'g');
+  var ampersandRgx = new RegExp('&', 'g')
+  var leftAngleBracketRgx = new RegExp('<', 'g')
+  var rightAngleBracketRgx = new RegExp('>', 'g')
 
-    text = text.replace(ampersand_rgx, '&amp;');
-    text = text.replace(left_angle_bracket_rgx, '&lt;');
-    text = text.replace(right_angle_bracket_rgx, '&gt;');
+  text = text.replace(ampersandRgx, '&amp;')
+  text = text.replace(leftAngleBracketRgx, '&lt;')
+  text = text.replace(rightAngleBracketRgx, '&gt;')
 
-    return text;
-};
+  return text
+}
 
-////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 
 parser.createStrong = function (text) {
-    var template = fs.readFileSync('grammars/templates/strong.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/strong.html', 'utf8').trim()
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createEmphasis = function (text) {
-    var template = fs.readFileSync('grammars/templates/em.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/em.html', 'utf8').trim()
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createSalutation = function (text) {
-    var template = fs.readFileSync('grammars/templates/salutation.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/salutation.html', 'utf8').trim()
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createFootnote = function (text) {
-    var template = fs.readFileSync('grammars/templates/footnote.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/footnote.html', 'utf8').trim()
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createQuote = function (quote) {
-    var template = fs.readFileSync('grammars/templates/quote.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/quote.html', 'utf8').trim()
 
-    template = template.replace('[QUOTE]', quote);
+  template = template.replace('[QUOTE]', quote)
 
-    return template;
-};
+  return template
+}
 
 parser.createLink = function (target, link, text) {
-    var template = fs.readFileSync('grammars/templates/a.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/a.html', 'utf8').trim()
 
-    if (target == 'in') {
-        target = '_self';
-    } else if (target == 'out') {
-        target = '_blank';
-    }
+  if (target === 'in') {
+    target = '_self'
+  } else if (target === 'out') {
+    target = '_blank'
+  }
 
-    template = template.replace('[TARGET]', target);
-    template = template.replace('[LINK]', link);
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TARGET]', target)
+  template = template.replace('[LINK]', link)
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createBlockquote = function (paragraphs) {
-    var template = fs.readFileSync('grammars/templates/blockquote.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/blockquote.html', 'utf8')
 
-    paragraphs = paragraphs.join('\n');
-    template = template.replace('[PARAGRAPHS]', paragraphs);
+  paragraphs = paragraphs.join('\n')
+  template = template.replace('[PARAGRAPHS]', paragraphs)
 
-    return template;
-};
+  return template
+}
 
 parser.createPullQuote = function (side, lines) {
-    var template = fs.readFileSync('grammars/templates/q.html', 'utf8');
-    side = side[0];
-    lines = lines.join('\n');
+  var template = fs.readFileSync('grammars/templates/q.html', 'utf8')
+  side = side[0]
+  lines = lines.join('\n')
 
-    template = template.replace('[SIDE]', side);
-    template = template.replace('[LINES]', lines);
+  template = template.replace('[SIDE]', side)
+  template = template.replace('[LINES]', lines)
 
-    return template;
-};
+  return template
+}
 
 parser.createKeyboard = function (input) {
-    var template = fs.readFileSync('grammars/templates/kbd.html', 'utf8').trim();
+  var template = fs.readFileSync('grammars/templates/kbd.html', 'utf8').trim()
 
-    template = template.replace('[INPUT]', input);
+  template = template.replace('[INPUT]', input)
 
-    return template;
-};
+  return template
+}
 
 parser.createHTML = function (head, body) {
-    var template = fs.readFileSync('grammars/templates/html.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/html.html', 'utf8')
 
-    template = template.replace('[HEAD]', head);
-    template = template.replace('[BODY]', body);
+  template = template.replace('[HEAD]', head)
+  template = template.replace('[BODY]', body)
 
-    return template;
-};
+  return template
+}
 
 parser.createHead = function (title, subtitle, author) {
-    var template = fs.readFileSync('grammars/templates/head.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/head.html', 'utf8')
 
-    var title_rgx = new RegExp('\\[TITLE\\]', 'g');
-    var subtitle_rgx = new RegExp('\\[SUBTITLE\\]', 'g');
-    var author_rgx = new RegExp('\\[AUTHOR\\]', 'g');
+  var titleRgx = new RegExp('\\[TITLE\\]', 'g')
+  var subtitleRgx = new RegExp('\\[SUBTITLE\\]', 'g')
+  var authorRgx = new RegExp('\\[AUTHOR\\]', 'g')
 
-    template = template.replace(title_rgx, title);
-    template = template.replace(subtitle_rgx, subtitle);
-    template = template.replace(author_rgx, author);
+  template = template.replace(titleRgx, title)
+  template = template.replace(subtitleRgx, subtitle)
+  template = template.replace(authorRgx, author)
 
-    // var url = formatBlogURL(title);
-    // var url_rgx = new RegExp('\\[URL\\]', 'g');
-    // template = template.replace(url_rgx, url);
+  // var url = formatBlogURL(title)
+  // var urlRgx = new RegExp('\\[URL\\]', 'g')
+  // template = template.replace(urlRgx, url)
 
-    return template;
-};
+  return template
+}
 
 parser.createBody = function (header, main, footer) {
     var template = fs.readFileSync('grammars/templates/body.html', 'utf8');
@@ -304,17 +306,17 @@ parser.createStandardCell = function (text) {
 };
 
 parser.createSection = function (num, text) {
-    var template = fs.readFileSync('grammars/templates/h.html', 'utf8');
-    var num_rgx = new RegExp('\\[NUM\\]', 'g');
+    var template = fs.readFileSync('grammars/templates/h.html', 'utf8')
+    var num_rgx = new RegExp('\\[NUM\\]', 'g')
 
-    template = template.replace(num_rgx, num);
-    template = template.replace('[TEXT]', text);
+    template = template.replace(num_rgx, num)
+    template = template.replace('[TEXT]', text)
 
-    return template;
-};
+    return template
+}
 
 parser.createList = function (tag, lines) {
-    var template = fs.readFileSync('grammars/templates/list.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/list.html', 'utf8')
 
     // TODO: Finish parser for lists.
     // while (lines.length > 1) {
@@ -325,15 +327,15 @@ parser.createList = function (tag, lines) {
     //     }
     // }
 
-    return lines;
-};
+  return lines
+}
 
 parser.createListElement = function (content) {
-    var template = fs.readFileSync('grammars/templates/list_element.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/list_element.html', 'utf8')
 
-    template = template.replace('[CONTENT]', content);
+  template = template.replace('[CONTENT]', content)
 
-    return template;
-};
+  return template
+}
 
-module.exports = parser;
+module.exports = parser

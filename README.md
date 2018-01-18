@@ -1,4 +1,4 @@
-# [aadah.me](http://aadah.me/)
+## [aadah.me](http://aadah.me/)
 
 Welcome to my blog.
 
@@ -32,8 +32,8 @@ Along with the standard HTML/CSS/JS, the site uses:
 - [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/)
 	for code.
 - [MathJax](http://www.mathjax.org/) for LaTeX.
-- Fonts from [Google Fonts](https://www.google.com/fonts). I use
-	[Tinos](https://www.google.com/fonts/specimen/Tinos) as my primary font and
+- Fonts from [Google Fonts](https://fonts.google.com). I use
+	[Spectral](https://fonts.google.com/specimen/Spectral) as my primary font and
 	[Inconsolata](http://levien.com/type/myfonts/inconsolata.html) for code.
 
 ### License

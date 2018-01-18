@@ -1,15 +1,14 @@
 /* This stylesheet was written by Abdi-Hakin Dirie. */
 
-@import url(//fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic);
-@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700);
+@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700|Spectral:400,400i,700,700i);
 
 body {
 	color: #ffffff;
 	background-color: #202020;
-	font-family: "Tinos", serif;
+  font-family: "Spectral", serif;
 	width: 750px;
 	margin: auto;
-	padding: 50px 0;
+	padding: 3em 0;
 }
 
 /* NAVIGATION */
@@ -20,7 +19,6 @@ nav {
 	right: 0;
 	background-color: inherit;
 	text-align: center;
-	font-style: italic;
 	padding: 1em;
 	z-index: 1;
 	opacity: 0.25;
@@ -114,7 +112,7 @@ header .subtitle {
 	font-style: italic;
 	text-align: center;
 	padding: 0;
-	margin: .5em 0;
+	margin: .25em 0;
 }
 
 header .author {
@@ -131,6 +129,7 @@ header .author:before {
 
 /* CONTENT */
 main {
+  position: relative; /* for #fn-box width */
 	clear: both;
 	margin: .5em 0;
 }
@@ -248,25 +247,31 @@ q.pquoter, q.pquotel {
 	width: 250px;
 	font-size: 1.25em;
 	line-height: 1.25em;
-	text-align: center;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 	padding: 1em;
 }
 
 q.pquoter {
+  text-align: right;
 	float: right;
 	margin-left: 1em;
 }
 
 q.pquotel {
+  text-align: left;
 	float: left;
 	margin-right: 1em;
 }
 
-q.pquoter::before, q.pquoter::after, q.pquotel::before, q.pquotel::after {
-	font-size: 2em;
+q.pquoter::before, q.pquotel::before {
+	font-size: 5em;
 	vertical-align: text-top;
+  content: '“';
+}
+
+q.pquoter::after, q.pquotel::after {
+  content: none;
 }
 
 span.salutation {
@@ -417,12 +422,12 @@ table ul {
 	list-style-type: decimal;
 }
 
-#fn-box {
-	position: fixed;
+main #fn-box {
+  box-sizing: border-box;
+  position: absolute;
 	background-color: #101010;
-	font-size: smaller;
-	max-width: 25%;
-
+  max-width: 50%;
+  font-size: smaller;
 	z-index: -1;
 	opacity: 0;
 	padding: 1em;
@@ -479,6 +484,8 @@ figcaption {
 
 img, video, audio {
 	display: block;
+  /*box-sizing: border-box;
+	max-width: 100%;*/
 	max-width: 98%;
 	background-color: #000000;
 	margin: auto;
