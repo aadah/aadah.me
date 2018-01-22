@@ -11,6 +11,6 @@ httpApp.listen(config.http_port, function () {
 })
 
 // HTTPS
-httpsApp.listen(config.https_port, function () {
-  console.log('Listening on port', config.https_port)
-})
+// httpsApp.listen(config.https_port, function () {
+//   console.log('Listening on port', config.https_port)
+// })
