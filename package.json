@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "sudo nodemon start/server.js"
+    "test": "sudo nodemon start/server.js",
+    "start": "sudo node start/server.js"
   },
   "dependencies": {
     "body-parser": "~1.8.1",

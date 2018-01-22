@@ -10,7 +10,7 @@ httpApp.listen(config.http_port, function () {
   console.log('Listening on port', config.http_port)
 })
 
-// // HTTPS
-// httpsApp.listen(config.https_port, function () {
-//   console.log('Listening on port', config.https_port)
-// })
+// HTTPS
+httpsApp.listen(config.https_port, function () {
+  console.log('Listening on port', config.https_port)
+})

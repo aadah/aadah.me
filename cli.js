@@ -13,6 +13,7 @@ var args = minimist(process.argv.slice(2))
 var func
 func = args.s ? publisher.save : func
 func = args.p ? publisher.publish : func
+func = args.f ? publisher.fix : func
 func = args.r ? publisher.reveal : func
 func = args.h ? publisher.hide : func
 func = args.d ? publisher.delete : func

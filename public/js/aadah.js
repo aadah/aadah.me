@@ -363,97 +363,82 @@ function footnoteHoverExit () {
 
 // /////////////////////////////////////////////////////////////////////////////
 
-function toggleImage() {
-	$img = $(this);
-	$fig = $img.closest('figure');
-	$img.data('expanded?', !$img.data('expanded?'));
-	if ($img.data('expanded?')) {
-		var img_width = $img.data('width');
-		var img_height = $img.data('height');
-		$fig.animate({
-			'width': img_width,
-			'height': img_height
-		}, 500, 'easeOutCubic');
-	} else {
-		$fig.animate({
-			'width': '230px',
-			'height': '230px'
-		}, 500, 'easeOutCubic');
-	}
+function toggleImage () {
+  var $img = $(this)
+  var $fig = $img.closest('figure')
+  $img.data('expanded?', !$img.data('expanded?'))
+  if ($img.data('expanded?')) {
+    var imgWidth = $img.data('width')
+    var imgHeight = $img.data('height')
+    $fig.animate({
+      'width': imgWidth,
+      'height': imgHeight
+    }, 500, 'easeOutCubic')
+  } else {
+    $fig.animate({
+      'width': '230px',
+      'height': '230px'
+    }, 500, 'easeOutCubic')
+  }
 }
 
-function imageResize($img, $fig) {
-	if ($img.data('expanded?')) {
-		var img_width = $img.data('width');
-		var img_height = $img.data('height');
-		$fig.css('width', img_width);
-		$fig.css('height', img_height);
-		// $fig.css('width', '100%');
-		// $fig.css('height', '100%');
-	} else {
-		$fig.css('width', '230px');
-		$fig.css('height', '230px');
-	}
+function imageResize ($img, $fig) {
+  if ($img.data('expanded?')) {
+    var imgWidth = $img.data('width')
+    var imgHeight = $img.data('height')
+    $fig.css('width', imgWidth)
+    $fig.css('height', imgHeight)
+    // $fig.css('width', '100%');
+    // $fig.css('height', '100%');
+  } else {
+    $fig.css('width', '230px')
+    $fig.css('height', '230px')
+  }
 }
 
-function storeImageSizes() {
-	if ($('body').data('imageSizesStored?')) return;
-	$('img', '.gallery').each(function () {
-		$img = $(this);
-		$img.data('width', $img.css('width'));
-		$img.data('height', $img.css('height'));
-	});
-	$('body').data('imageSizesStored?', true);
+function storeImageSizes () {
+  if ($('body').data('imageSizesStored?')) return
+  $('img', '.gallery').each(function () {
+    var $img = $(this)
+    $img.data('width', $img.css('width'))
+    $img.data('height', $img.css('height'))
+  })
+  $('body').data('imageSizesStored?', true)
 }
 
-function windowResize() {
-	if (window.innerWidth <= 850) {
-		$('img', '.gallery').off('click', toggleImage);
-		$('figure', '.gallery').css('width', 'auto');
-		$('figure', '.gallery').css('height', 'auto');
-	} else {
-		storeImageSizes();
-		$('img', '.gallery').off('click', toggleImage);
-		$('img', '.gallery').click(toggleImage);
-		$('img', '.gallery').each(function () {
-			$img = $(this);
-			$fig = $img.closest('figure');
-			imageResize($img, $fig);
-		});
-	}
+function windowResize () {
+  if (window.innerWidth <= 850) {
+    $('img', '.gallery').off('click', toggleImage)
+    $('figure', '.gallery').css('width', 'auto')
+    $('figure', '.gallery').css('height', 'auto')
+  } else {
+    storeImageSizes()
+    $('img', '.gallery').off('click', toggleImage)
+    $('img', '.gallery').click(toggleImage)
+    $('img', '.gallery').each(function () {
+      var $img = $(this)
+      var $fig = $img.closest('figure')
+      imageResize($img, $fig)
+    })
+  }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-function makeGalleryGrid() {
-	$('.gallery').masonry({
-		// options
-		itemSelector: '.gallery figure',
-		gutter: 5,
-		// columnWidth: 250
-		// percentPosition: true,
-		// gutter: 5,
-	});
-}
-
-////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 
 $(function () {
-	$('body').data('theme', 'main');
-	$('body').data('imageSizesStored?', false);
-	$('img', '.gallery').data('expanded?', false);
+  $('body').data('theme', 'main')
+  $('body').data('imageSizesStored?', false)
+  $('img', '.gallery').data('expanded?', false)
 
-	createFootnotesList();
-});
+  createFootnotesList()
+})
 
 $(window).load(function () {
-	windowResize();
-	$(window).resize(windowResize);
+  windowResize()
+  $(window).resize(windowResize)
 
-	// makeGalleryGrid();
-
-	setHourlyTheme(true);
-	setInterval(function () {
-		setHourlyTheme();
-	}, 60000);
-});
+  setHourlyTheme(true)
+  setInterval(function () {
+    setHourlyTheme()
+  }, 60000)
+})

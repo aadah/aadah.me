@@ -48,6 +48,24 @@ publisher.publish = function (dir, callback, manuscript) {
   }, manuscript)
 }
 
+function fixHelper (post, callback) {
+  var result = parser.parse(post._id, post.manuscript, post)
+
+  post.html = result.html
+  post.save(callback)
+}
+
+// Fix the headers of a public post
+publisher.fix = function (dir, callback, manuscript) {
+  models.Post.findOne({_id: dir, public: true}, function (err, post) {
+    if (err) {
+      callback(err)
+    } else {
+      fixHelper(post, callback)
+    }
+  })
+}
+
 // Show the post on the blog page.
 publisher.reveal = function (dir, callback) {
   models.Post.findOneAndUpdate({_id: dir}, {
@@ -57,7 +75,7 @@ publisher.reveal = function (dir, callback) {
 
 // Take down the post from the blog page.
 publisher.hide = function (dir, callback) {
-  models.Post.findOneAndUpdate({_id: dir}, {
+  models.Post.findOneAndUpdate({_id: dir, public: true}, {
     $set: {public: false}
   }, callback)
 }
@@ -67,7 +85,7 @@ publisher.delete = function (dir, callback) {
   models.Post.findByIdAndRemove(dir, callback)
 }
 
-// Update all posts at once (usually to update headers)
+// Fix all public posts at once (usually to update headers)
 publisher.batch = function (dir, callback) {
   models.Post.find({public: true}, function (err, posts) {
     if (err) {
@@ -75,11 +93,9 @@ publisher.batch = function (dir, callback) {
     } else {
       for (var i = 0; i < posts.length; i++) {
         var post = posts[i]
-        var result = parser.parse(post._id, post.manuscript, post)
         var errs = []
 
-        post.html = result.html
-        post.save(function (err2) {
+        fixHelper(post, function (err2) {
           if (err2) {
             errs.push(err2)
           }
@@ -88,7 +104,7 @@ publisher.batch = function (dir, callback) {
 
       setTimeout(function () {
         callback(errs)
-      }, 5000)
+      }, 10000)
     }
   })
 }

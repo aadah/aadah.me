@@ -178,154 +178,153 @@ parser.createHead = function (title, subtitle, author) {
 }
 
 parser.createBody = function (header, main, footer) {
-    var template = fs.readFileSync('grammars/templates/body.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/body.html', 'utf8')
 
-    footer = footer || parser.createFooter([]);
+  footer = footer || parser.createFooter([])
 
-    template = template.replace('[HEADER]', header);
-    template = template.replace('[MAIN]', main);
-    template = template.replace('[FOOTER]', footer);
+  template = template.replace('[HEADER]', header)
+  template = template.replace('[MAIN]', main)
+  template = template.replace('[FOOTER]', footer)
 
-    return template;
-};
+  return template
+}
 
 parser.createHeader = function (title, subtitle, author) {
-    var template = fs.readFileSync('grammars/templates/header.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/header.html', 'utf8')
 
-    template = template.replace('[TITLE]', title);
-    template = template.replace('[SUBTITLE]', subtitle);
-    template = template.replace('[AUTHOR]', author);
+  template = template.replace('[TITLE]', title)
+  template = template.replace('[SUBTITLE]', subtitle)
+  template = template.replace('[AUTHOR]', author)
 
-    return template;
-};
+  return template
+}
 
 parser.createMain = function (components) {
-    var template = fs.readFileSync('grammars/templates/main.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/main.html', 'utf8')
 
-    components = components.join('\n');
-    template = template.replace('[COMPONENTS]', components);
+  components = components.join('\n')
+  template = template.replace('[COMPONENTS]', components)
 
-    return template;
-};
+  return template
+}
 
 parser.createFooter = function (paragraphs) {
-    var template = fs.readFileSync('grammars/templates/footer.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/footer.html', 'utf8')
 
-    paragraphs = paragraphs.join('\n');
-    template = template.replace('[PARAGRAPHS]', paragraphs);
+  paragraphs = paragraphs.join('\n')
+  template = template.replace('[PARAGRAPHS]', paragraphs)
 
-    return template;
-};
+  return template
+}
 
 parser.createMedia = function (type, path, caption) {
-    var filename;
-    var template;
+  var filename
+  var template
 
-    if (caption) {
-        filename = 'grammars/templates/' + type + '.html';
-    } else {
-        filename = 'grammars/templates/' + type + '_no_caption.html';
-    }
+  if (caption) {
+    filename = 'grammars/templates/' + type + '.html'
+  } else {
+    filename = 'grammars/templates/' + type + '_no_caption.html'
+  }
 
-    template = fs.readFileSync(filename, 'utf8');
-    template = template.replace('[PATH]', path);
-    template = template.replace('[CAPTION]', caption);
+  template = fs.readFileSync(filename, 'utf8')
+  template = template.replace('[PATH]', path)
+  template = template.replace('[CAPTION]', caption)
 
-    return template;
-};
+  return template
+}
 
 parser.createParagraph = function (lines) {
-    var template = fs.readFileSync('grammars/templates/paragraph.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/paragraph.html', 'utf8')
 
-    lines = lines.join('\n');
-    template = template.replace('[LINES]', lines);
+  lines = lines.join('\n')
+  template = template.replace('[LINES]', lines)
 
-    return template;
-};
+  return template
+}
 
 parser.createGallery = function (images) {
-    var template = fs.readFileSync('grammars/templates/gallery.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/gallery.html', 'utf8')
 
-    images = images.join('\n');
-    template = template.replace('[IMAGES]', images);
+  images = images.join('\n')
+  template = template.replace('[IMAGES]', images)
 
-    return template;
-};
+  return template
+}
 
 parser.createCode = function (lang, code) {
-    var template = fs.readFileSync('grammars/templates/code.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/code.html', 'utf8')
 
-    template = template.replace('[LANG]', lang);
-    template = template.replace('[CODE]', code);
+  template = template.replace('[LANG]', lang)
+  template = template.replace('[CODE]', code)
 
-    return template;
-};
+  return template
+}
 
 parser.createSample = function (samp) {
-    var template = fs.readFileSync('grammars/templates/samp.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/samp.html', 'utf8')
 
-    template = template.replace('[SAMPLE]', samp);
+  template = template.replace('[SAMPLE]', samp)
 
-    return template;
-};
+  return template
+}
 
 parser.createTable = function (caption, rows) {
-    var template = fs.readFileSync('grammars/templates/table.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/table.html', 'utf8')
 
-    rows = rows.join('\n');
-    template = template.replace('[CAPTION]', caption);
-    template = template.replace('[ROWS]', rows);
+  rows = rows.join('\n')
+  template = template.replace('[CAPTION]', caption)
+  template = template.replace('[ROWS]', rows)
 
-    return template;
-
-};
+  return template
+}
 
 parser.createTableRow = function (cells) {
-    var template = fs.readFileSync('grammars/templates/tr.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/tr.html', 'utf8')
 
-    cells = cells.join(' ');
-    template = template.replace('[CELLS]', cells);
+  cells = cells.join(' ')
+  template = template.replace('[CELLS]', cells)
 
-    return template;
-};
+  return template
+}
 
 parser.createHeaderCell = function (text) {
-    var template = fs.readFileSync('grammars/templates/th.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/th.html', 'utf8')
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createStandardCell = function (text) {
-    var template = fs.readFileSync('grammars/templates/td.html', 'utf8');
+  var template = fs.readFileSync('grammars/templates/td.html', 'utf8')
 
-    template = template.replace('[TEXT]', text);
+  template = template.replace('[TEXT]', text)
 
-    return template;
-};
+  return template
+}
 
 parser.createSection = function (num, text) {
-    var template = fs.readFileSync('grammars/templates/h.html', 'utf8')
-    var num_rgx = new RegExp('\\[NUM\\]', 'g')
+  var template = fs.readFileSync('grammars/templates/h.html', 'utf8')
+  var numRgx = new RegExp('\\[NUM\\]', 'g')
 
-    template = template.replace(num_rgx, num)
-    template = template.replace('[TEXT]', text)
+  template = template.replace(numRgx, num)
+  template = template.replace('[TEXT]', text)
 
-    return template
+  return template
 }
 
 parser.createList = function (tag, lines) {
-  var template = fs.readFileSync('grammars/templates/list.html', 'utf8')
+  // var template = fs.readFileSync('grammars/templates/list.html', 'utf8')
 
-    // TODO: Finish parser for lists.
-    // while (lines.length > 1) {
-    //     var i = 0;
-    //     level = lines[i]['indentLevel'];
-    //     for (var j = 0; j < lines.length; j++) {
-    //
-    //     }
-    // }
+  // TODO: Finish parser for lists.
+  // while (lines.length > 1) {
+  //   var i = 0
+  //   var level = lines[i]['indentLevel']
+  //   for (var j = 0; j < lines.length; j++) {
+  //     continue
+  //   }
+  // }
 
   return lines
 }

@@ -1,3 +1,5 @@
+/* global $ */
+
 var ctx
 
 window.requestAnimationFrame =
@@ -37,15 +39,15 @@ function clampInt (num, min, max) {
 }
 
 function rand (lower, upper) {
-  var diff = upper - lower,
-    delta = Math.random() * diff
+  var diff = upper - lower
+  var delta = Math.random() * diff
 
   return lower + delta
 }
 
 function randInt (lower, upper) {
-  var diff = upper - lower,
-    delta = Math.random() * diff
+  var diff = upper - lower
+  var delta = Math.random() * diff
 
   return Math.round(lower + delta)
 }
@@ -87,8 +89,10 @@ assign random RGB values.
 
 param red: An integer. If a Number is given, it will be clamped to the
 range [0,255]. Anything else will cause a random integer assignment.
+
 param green: An integer. If a Number is given, it will be clamped to the
 range [0,255]. Anything else will cause a random integer assignment.
+
 param blue: An integer. If a Number is given, it will be clamped to the
 range [0,255]. Anything else will cause a random integer assignment.
 */
@@ -140,11 +144,11 @@ function Color (red, green, blue) {
   }
 
   this.setColor = function (red, green, blue) {
-    var r_bool = this.setRed(red),
-      g_bool = this.setGreen(green),
-      b_bool = this.setBlue(blue)
+    var rBool = this.setRed(red)
+    var gBool = this.setGreen(green)
+    var bBool = this.setBlue(blue)
 
-    return r_bool && g_bool && b_bool
+    return rBool && gBool && bBool
   }
 
   this.toRGB = function () {
@@ -154,15 +158,15 @@ function Color (red, green, blue) {
   }
 
   this.toHex = function () {
-    var rhex = this.getRed().toString(16),
-      ghex = this.getGreen().toString(16),
-      bhex = this.getBlue().toString(16),
-      hex
+    var rHex = this.getRed().toString(16)
+    var gHex = this.getGreen().toString(16)
+    var bHex = this.getBlue().toString(16)
+    var hex
 
-    rhex = rhex.length === 1 ? '0' + rhex : rhex
-    ghex = ghex.length === 1 ? '0' + ghex : ghex
-    bhex = bhex.length === 1 ? '0' + bhex : bhex
-    hex = '#' + rhex + ghex + bhex
+    rHex = rHex.length === 1 ? '0' + rHex : rHex
+    gHex = gHex.length === 1 ? '0' + gHex : gHex
+    bHex = bHex.length === 1 ? '0' + bHex : bHex
+    hex = '#' + rHex + gHex + bHex
 
     return hex
   }
@@ -171,43 +175,44 @@ function Color (red, green, blue) {
 }
 
 /*
-	Class: Vector
+Class: Vector
 
-	An abstract class for representing vectors. Representation is through
-	the use of an x coordinate and a y coordinate.
+An abstract class for representing vectors. Representation is through
+the use of an x coordinate and a y coordinate.
 
-	param x: A number. If something other than a Number is passed in (including
-		nothing at all), a random number in the range [0,getCanvasWidth()]
-		will be assigned.
-	param y: A number. If something other than a Number is passed in (including
-		nothing at all), a random number in the range [0,getCanvasHeight()]
-		will be assigned.
+param x: A number. If something other than a Number is passed in (including
+nothing at all), a random number in the range [0,getCanvasWidth()]
+will be assigned.
+
+param y: A number. If something other than a Number is passed in (including
+nothing at all), a random number in the range [0,getCanvasHeight()]
+will be assigned.
 */
 function Vector (x, y) {
-  var x_coor,
-    y_coor
+  var xCoor
+  var yCoor
 
   this.getXCoor = function () {
-    return x_coor
+    return xCoor
   }
 
   this.getYCoor = function () {
-    return y_coor
+    return yCoor
   }
 
   this.setXCoor = function (x) {
     if (typeof x === 'number') {
-      x_coor = x
+      xCoor = x
     } else {
-      x_coor = rand(0, getCanvasWidth())
+      xCoor = rand(0, getCanvasWidth())
     }
   }
 
   this.setYCoor = function (y) {
     if (typeof y === 'number') {
-      y_coor = y
+      yCoor = y
     } else {
-      y_coor = rand(0, getCanvasHeight())
+      yCoor = rand(0, getCanvasHeight())
     }
   }
 
@@ -220,38 +225,38 @@ function Vector (x, y) {
 }
 
 function Particle () {
-  var	MIN_SPEED = 0,
-    MAX_SPEED = 20,
-    MIN_ABS_ACCEL = 0.1,
-    MAX_ABS_ACCEL = 1,
+  var MIN_SPEED = 0
+  var MAX_SPEED = 20
+  var MIN_ABS_ACCEL = 0.1
+  var MAX_ABS_ACCEL = 1
 
-    MIN_ABS_OMEGA = Math.PI / 180,
-    MAX_ABS_OMEGA = Math.PI / 18,
+  var MIN_ABS_OMEGA = Math.PI / 180
+  var MAX_ABS_OMEGA = Math.PI / 18
 
-    MIN_RADIUS = 1,
-    MAX_RADIUS = 5,
-    MIN_ABS_BREATH = 0.01,
-    MAX_ABS_BREATH = 1.0,
+  var MIN_RADIUS = 1
+  var MAX_RADIUS = 5
+  var MIN_ABS_BREATH = 0.01
+  var MAX_ABS_BREATH = 1.0
 
-    speed = rand(MIN_SPEED, MAX_SPEED),
-    accel = rand(MIN_ABS_ACCEL, MAX_ABS_ACCEL),
+  var speed = rand(MIN_SPEED, MAX_SPEED)
+  var accel = rand(MIN_ABS_ACCEL, MAX_ABS_ACCEL)
 
-    theta = rand(-Math.PI, Math.PI),
-    omega = rand(MIN_ABS_OMEGA, MAX_ABS_OMEGA),
+  var theta = rand(-Math.PI, Math.PI)
+  var omega = rand(MIN_ABS_OMEGA, MAX_ABS_OMEGA)
 
-    radius = rand(MIN_RADIUS, MAX_RADIUS),
-    breath = rand(MIN_ABS_BREATH, MAX_ABS_BREATH),
+  var radius = rand(MIN_RADIUS, MAX_RADIUS)
+  var breath = rand(MIN_ABS_BREATH, MAX_ABS_BREATH)
 
-    pos = new Vector(rand(radius, getCanvasWidth() - radius), rand(radius, getCanvasHeight()) - radius),
-    vel = new Vector(speed * Math.cos(theta), speed * Math.sin(theta)),
+  var pos = new Vector(rand(radius, getCanvasWidth() - radius), rand(radius, getCanvasHeight()) - radius)
+  var vel = new Vector(speed * Math.cos(theta), speed * Math.sin(theta))
 
-    color = new Color(speed / MAX_SPEED * 255, randInt(0, 255), randInt(0, 255)),
+  var color = new Color(speed / MAX_SPEED * 255, randInt(0, 255), randInt(0, 255))
 
-    attracted = false,
-    repelled = false,
-    alive = true
+  var attracted = false
+  var repelled = false
+  var alive = true
 
-	// getters
+  // getters
   this.getSpeed = function () {
     return speed
   }
@@ -300,10 +305,10 @@ function Particle () {
     return alive
   }
 
-	// setters
-  this.setSpeed = function (new_speed) {
-    if (typeof new_speed === 'number') {
-      speed = clamp(new_speed, MIN_SPEED, MAX_SPEED)
+  // setters
+  this.setSpeed = function (newSpeed) {
+    if (typeof newSpeed === 'number') {
+      speed = clamp(newSpeed, MIN_SPEED, MAX_SPEED)
       vel.setXCoor(speed * Math.cos(theta))
       vel.setYCoor(speed * Math.sin(theta))
       return true
@@ -312,24 +317,24 @@ function Particle () {
     }
   }
 
-  this.setAccel = function (new_accel) {
-    if (typeof new_accel === 'number') {
-      speed = clamp(new_accel, MIN_ABS_ACCEL, MAX_ABS_ACCEL)
+  this.setAccel = function (newAccel) {
+    if (typeof newAccel === 'number') {
+      speed = clamp(newAccel, MIN_ABS_ACCEL, MAX_ABS_ACCEL)
       return true
     } else {
       return false
     }
   }
 
-  this.setTheta = function (new_theta) {
-    if (typeof new_theta === 'number') {
-      while (new_theta > Math.PI) {
-        new_theta -= 2 * Math.PI
+  this.setTheta = function (newTheta) {
+    if (typeof newTheta === 'number') {
+      while (newTheta > Math.PI) {
+        newTheta -= 2 * Math.PI
       }
-      while (new_theta < -Math.PI) {
-        new_theta += 2 * Math.PI
+      while (newTheta < -Math.PI) {
+        newTheta += 2 * Math.PI
       }
-      theta = new_theta
+      theta = newTheta
       this.setSpeed(this.getSpeed())
       return true
     } else {
@@ -337,27 +342,27 @@ function Particle () {
     }
   }
 
-  this.setOmega = function (new_omega) {
-    if (typeof new_omega === 'number') {
-      omega = clamp(new_omega, MIN_ABS_OMEGA, MAX_ABS_OMEGA)
+  this.setOmega = function (newOmega) {
+    if (typeof newOmega === 'number') {
+      omega = clamp(newOmega, MIN_ABS_OMEGA, MAX_ABS_OMEGA)
       return true
     } else {
       return false
     }
   }
 
-  this.setRadius = function (new_radius) {
-    if (typeof new_radius === 'number') {
-      radius = clamp(new_radius, MIN_RADIUS, MAX_RADIUS)
+  this.setRadius = function (newRadius) {
+    if (typeof newRadius === 'number') {
+      radius = clamp(newRadius, MIN_RADIUS, MAX_RADIUS)
       return true
     } else {
       return false
     }
   }
 
-  this.setBreath = function (new_breath) {
-    if (typeof new_breath === 'number') {
-      breath = clamp(new_breath, MIN_ABS_BREATH, MAX_ABS_BREATH)
+  this.setBreath = function (newBreath) {
+    if (typeof newBreath === 'number') {
+      breath = clamp(newBreath, MIN_ABS_BREATH, MAX_ABS_BREATH)
       return true
     } else {
       return false
@@ -386,40 +391,38 @@ function Particle () {
     return color.setColor(r, g, b)
   }
 
-  this.setAttracted = function (new_attracted) {
-    if (typeof new_attracted === 'boolean') {
-      attracted = new_attracted
+  this.setAttracted = function (newAttracted) {
+    if (typeof newAttracted === 'boolean') {
+      attracted = newAttracted
       return true
     } else {
       return false
     }
   }
 
-  this.setRepelled = function (new_repelled) {
-    if (typeof new_repelled === 'boolean') {
-      repelled = new_repelled
+  this.setRepelled = function (newRepelled) {
+    if (typeof newRepelled === 'boolean') {
+      repelled = newRepelled
       return true
     } else {
       return false
     }
   }
 
-  this.setAlive = function (new_alive) {
-    if (typeof new_alive === 'boolean') {
-      alive = new_alive
+  this.setAlive = function (newAlive) {
+    if (typeof newAlive === 'boolean') {
+      alive = newAlive
       return true
     } else {
       return false
     }
   }
 
-	// special functions
-  this.update = function (mouse_x, mouse_y) {
-    var r,
-      g,
-      b
+  // special functions
+  this.update = function (mouseX, mouseY) {
+    var r
 
-    this.interaction(mouse_x, mouse_y)
+    this.interaction(mouseX, mouseY)
 
     if (this.isAlive()) {
       this.setTheta(theta + omega * rand(-1, 1))
@@ -441,15 +444,15 @@ function Particle () {
     color.setRed(r)
   }
 
-  this.interaction = function (mouse_x, mouse_y) {
+  this.interaction = function (mouseX, mouseY) {
     var dx,
       dy,
       desired,
       angdiff,
       atan2
 
-    dx = mouse_x - this.getX()
-    dy = mouse_y - this.getY()
+    dx = mouseX - this.getX()
+    dy = mouseY - this.getY()
     atan2 = Math.atan2(dy, dx)
     if (this.isAttracted() && !this.isRepelled()) {
       desired = atan2
@@ -510,11 +513,11 @@ function Particle () {
 }
 
 function App () {
-  var inView = false,
-    num_particles = 500,
-    particles = [],
-    mouse_x = getCanvasWidth() / 2,
-    mouse_y = getCanvasHeight() / 2
+  var inView = false
+  var numParticles = 500
+  var particles = []
+  var mouseX = getCanvasWidth() / 2
+  var mouseY = getCanvasHeight() / 2
 
   // main three
   this.setup = function () {
@@ -526,7 +529,7 @@ function App () {
     repaint()
 
     var i
-    for (i = 0; i < num_particles; i += 1) {
+    for (i = 0; i < numParticles; i += 1) {
       particles[i] = new Particle()
     }
   }
@@ -534,7 +537,7 @@ function App () {
   this.update = function () {
     var i
     for (i = 0; i < particles.length; i += 1) {
-      particles[i].update(mouse_x, mouse_y)
+      particles[i].update(mouseX, mouseY)
     }
   }
 
@@ -615,8 +618,8 @@ function App () {
   }
 
   this.mousemove = function (event) {
-    mouse_x = event.pageX
-    mouse_y = event.pageY
+    mouseX = event.pageX
+    mouseY = event.pageY
   }
 }
 
