@@ -239,7 +239,8 @@ InlineElement 'InlineElement'
     Input /
     Footnote /
     Salutation /
-    Link
+    Link /
+    EmDash
 
 Bold 'Bold'
     = BoldTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
@@ -288,6 +289,11 @@ Salutation 'Salutation'
 
 SalutationTag 'SalutationTag'
     = '@SALU'
+
+EmDash 'EmDash'
+    = '---' {
+      return '—';
+    }
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -449,9 +455,8 @@ OrderedList 'OrderedList'
 OrderedLine 'OrderedLine'
     = tabs:Tab* OrderedStart InlineWhitespace+ vLine:NonBlankline {
         return {
-            indentLevel: tabs.length,
-            lineContent: vLine,
-            parsed: false
+            level: tabs.length,
+            content: vLine
         };
     }
 
@@ -466,9 +471,8 @@ UnorderedList 'UnorderedList'
 UnorderedLine 'UnorderedLine'
     = tabs:Tab* UnorderedStart InlineWhitespace+ vLine:NonBlankline {
         return {
-            indentLevel: tabs.length,
-            lineContent: vLine,
-            parsed: false
+            level: tabs.length,
+            content: vLine
         };
     }
 
@@ -490,10 +494,10 @@ Comment 'Comment'
     }
 
 CommentLine 'CommentLine'
-    = CommentStart NonBlankline
+    = CommentStart NonBlankline?
 
 CommentStart 'CommentStart'
-    = '#'
+    = '#' InlineWhitespace*
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -560,7 +564,7 @@ Space 'Space'
     = '\u0020' / '\u3000' // latin and CJK
 
 Tab 'Tab'
-    = '\t' / '    '
+    = '\t' / '  '
 
 Newline 'Newline'
     = '\n'

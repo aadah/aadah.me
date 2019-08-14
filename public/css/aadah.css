@@ -157,7 +157,6 @@ main h1, main h2, main h3, main h4, main h5, main h6 {
 footer {
 	clear: both;
 	color: #b0b0b0;
-	padding-top: .5em;
 	border-top: #ffffff 1px solid;
 	margin: .5em 0;
 	padding: 0;
@@ -367,7 +366,6 @@ main li {
 
 ol, ul {
 	line-height: 1.5em;
-	font-size: inherit;
 }
 
 ol {
@@ -573,16 +571,15 @@ iframe {
 
 hr {
 	width: 50%;
-	border-width: 1px;
-	border-style: solid;
+	text-align: center;
+  line-height: 0em;
 
 	border: none;
 	border-top-width: 1px;
 	border-top-style: solid;
-	text-align: center;
 
 	margin-top: 3em;
-	margin-bottom: 0em;
+	margin-bottom: 2em;
 }
 
 hr:after {

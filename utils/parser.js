@@ -315,18 +315,42 @@ parser.createSection = function (num, text) {
 }
 
 parser.createList = function (tag, lines) {
-  // var template = fs.readFileSync('grammars/templates/list.html', 'utf8')
+  var listTempl = fs.readFileSync('grammars/templates/list.html', 'utf8')
+  var liTempl = fs.readFileSync('grammars/templates/list_element.html', 'utf8')
+  var tagRgx = new RegExp('\\[TAG\\]', 'g')
 
-  // TODO: Finish parser for lists.
-  // while (lines.length > 1) {
-  //   var i = 0
-  //   var level = lines[i]['indentLevel']
-  //   for (var j = 0; j < lines.length; j++) {
-  //     continue
-  //   }
-  // }
+  function formatLine (line) {
+    return liTempl.replace('[CONTENT]', line['content'])
+  }
 
-  return lines
+  while (lines.length > 1) {
+    var deepestLevel = -1
+    var i = 0
+    var j = lines.length
+    for (var k = 0; k < lines.length; k++) {
+      var level = lines[k]['level']
+      if (level > deepestLevel) {
+        deepestLevel = level
+        i = k
+      } else if (level < deepestLevel) {
+        j = k
+        break
+      }
+    }
+
+    var newLines = lines.slice(0, Math.max(i - 1, 0))
+    var sublistHeader = i > 0 ? lines[i - 1]['content'] : ''
+    var sublistContent = lines.slice(i, j).map(formatLine).join('')
+    sublistContent = listTempl.replace('[CONTENT]', sublistContent)
+    var sublist = [sublistHeader, sublistContent].join('\n')
+    newLines.push({
+      level: deepestLevel - 1,
+      content: sublist.replace(tagRgx, tag)
+    })
+    lines = newLines.concat(lines.slice(j))
+  }
+
+  return lines[0]['content']
 }
 
 parser.createListElement = function (content) {

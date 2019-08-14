@@ -28,8 +28,7 @@
 	/* CONTENT */
 
 	main h1, main h2, main h3, main h4, main h5, main h6 {
-		padding-left: 0 !important;
-		border: none !important;
+    border-color: #000000 !important;
 	}
 
 	hr:after {
@@ -38,9 +37,7 @@
 
 	/* FOOTER */
 	footer {
-		color: #000000 !important;
-		border-top-color: #000000 !important;
-		margin-bottom: 0;
+    display: none !important;
 	}
 
 	/* AESTHETICS */
@@ -95,10 +92,13 @@
 	/* -------------------------------------------------------*/
 
 	ol, ul {
-		color: #000000 !important;
 		line-height: 1.5em;
 		font-size: inherit;
 	}
+
+  li {
+    color: #000000 !important;
+  }
 
 	/* -------------------------------------------------------*/
 
@@ -157,7 +157,8 @@
 	samp,
 	table,
 	ol,
-	ul {
-		page-break-inside: avoid;
+	ul,
+  div.item {
+		page-break-inside: avoid !important;
 	}
 }

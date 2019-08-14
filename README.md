@@ -51,7 +51,6 @@ build their own from scratch.
 - <s>Setup SSL</s>
 - <s>Make custom error pages</s>
 - <s>Use lower resolution images on pages</s>
-- Setup an email server
 - <s>Setup media queries for RWD</s>
 - <s>Create dynamic blog page</s>
 - <s>Move all media (images, video, audio) out of repo into single media folder</s>
