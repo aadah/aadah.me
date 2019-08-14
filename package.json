@@ -3,18 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "sudo nodemon start/server.js",
-    "start": "sudo node start/server.js"
+    "test": "npx nodemon start/server.js",
+    "start": "npx nodemon start/server.js"
   },
   "dependencies": {
-    "body-parser": "~1.8.1",
-    "ejs": "^1.0.0",
+    "body-parser": "^1.8.1",
+    "ejs": "^2.5.5",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "kerberos": "0.0.17",
+    "kerberos": "^0.0.17",
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
     "mongoose": "^4.3.4",
     "pegjs": "^0.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
