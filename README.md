@@ -1,57 +1,28 @@
-## [aadah.me](http://aadah.me/)
+# [aadah.me](http://aadah.me/)
 
-Welcome to my blog.
+Resources for hosting my site.
 
-### Design
+## Design
 
-The design for the blog looked into some considerations.
-Dynamic blog posts were unnecessary, so a static file serving
-paradigm was best. All content on one page, with new
-content loading with bloated AJAX requests, was unwanted.
-The site should present material simply with each page
-being a standalone entity.
+I had some desirable features when I was making the site:
 
-The theme depends on the time of day. It automatically inverts every twelve
-hours. The minimalism was ultimately appealing. Despite the simple look, it is
-meticulously crafted.
+- Minimal design. Text is principal.
+- Any page could be printed legibly.
+- Posts could be written in plain text but I could extend the syntax to enable extra display elements as desired.
+- I could embed math and code easily.
+- Media elements (video/audio/images) are simple to display.
+- With respect to images, a way to display a gallery without taking too much space.
 
-Galleries expand their displayed images for better viewing
-instead of revealing a new frame that obscures the view of
-the page.
+## Details
 
-It should be possible to write an academic piece of work
-in a presentable manner. Displaying code and LaTeX was
-thus very important. CSS takes care of formatting when
-printing or saving as a PDF.
-
-### How It's Built
-
-Along with the standard HTML/CSS/JS, the site uses:
+The site uses:
 
 - [Node.js](http://nodejs.org/) as the server.
-- [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/)
-	for code.
+- [MongoDB](https://www.mongodb.com/) for backend storage.
+  - Uses MongoDB's [images](https://hub.docker.com/_/mongo/) with external volume for persistent storage.
+- [PEG.js](pegjs.org/) for designing custom blog syntax and parsing to HTML.
+- [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/) for code.
 - [MathJax](http://www.mathjax.org/) for LaTeX.
-- Fonts from [Google Fonts](https://fonts.google.com). I use
-	[Spectral](https://fonts.google.com/specimen/Spectral) as my primary font and
-	[Inconsolata](http://levien.com/type/myfonts/inconsolata.html) for code.
-
-### License
-
-The blog is under the [GNU GPL v3.0 license](https://www.gnu.org/copyleft/gpl.html).
-I enjoyed building it, and I hope anyone who sees the code can get an idea of how to
-build their own from scratch.
-
-### TODO
-
-- <s>Switch from Apache to nginx</s>
-- <s>Switch from nginx to node.js</s>
-- <s>Create custom grammar for writing posts</s>
-- Write a web GUI for writing posts
-- <s>Setup SSL</s>
-- <s>Make custom error pages</s>
-- <s>Use lower resolution images on pages</s>
-- <s>Setup media queries for RWD</s>
-- <s>Create dynamic blog page</s>
-- <s>Move all media (images, video, audio) out of repo into single media folder</s>
-- <s>Fix gallery RWD bug with photo galleries.</s>
+- Fonts from [Google Fonts](https://fonts.google.com).
+	- [Spectral](https://fonts.google.com/specimen/Spectral) as primary font.
+	- [Inconsolata](http://levien.com/type/myfonts/inconsolata.html) for code.
