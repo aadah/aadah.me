@@ -24,9 +24,6 @@ var postSchema = new Schema({
     type: String,
     required: true
   },
-  html: {
-    type: String
-  },
   public: {
     type: Boolean,
     required: true

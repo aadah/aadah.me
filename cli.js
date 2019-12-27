@@ -1,4 +1,4 @@
-// usage: node cli.js path/to/manuscript -[s|p|r|h|d|b]
+// usage: node cli.js path/to/manuscript -[s|p|r|h|d]
 
 var path = require('path')
 var fs = require('fs')
@@ -13,11 +13,9 @@ var args = minimist(process.argv.slice(2))
 var func
 func = args.s ? publisher.save : func
 func = args.p ? publisher.publish : func
-func = args.f ? publisher.fix : func
 func = args.r ? publisher.reveal : func
 func = args.h ? publisher.hide : func
 func = args.d ? publisher.delete : func
-func = args.b ? publisher.batch : func
 
 try {
   var file = path.resolve(args._[0])
