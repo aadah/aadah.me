@@ -290,9 +290,13 @@ function extractFootnoteText (f, i) {
 function createFootnotesListElement (text, i) {
   var elem = $('<li>')
   var num = i.toString()
+  var span = $('<span>')
   var link = $('<a>')
 
-  link.html(text)
+  span.html(text)
+  elem.append(span)
+
+  link.text('↩️')
   link.attr('href', '#d' + num)
   link.attr('id', 'f' + num)
   elem.append(link)
@@ -327,7 +331,8 @@ function footnoteHoverEnter (event) {
   var box = $('#fn-box')
   var fn = $('a', this)
   var id = fn.attr('href')
-  var html = $(id).html()
+  var span = $(id).siblings('span')
+  var html = span.html()
   box.html(html)
 
   var width = box.width()
@@ -371,13 +376,13 @@ function toggleImage () {
     var imgWidth = $img.data('width')
     var imgHeight = $img.data('height')
     $fig.animate({
-      'width': imgWidth,
-      'height': imgHeight
+      width: imgWidth,
+      height: imgHeight
     }, 500, 'easeOutCubic')
   } else {
     $fig.animate({
-      'width': '230px',
-      'height': '230px'
+      width: '230px',
+      height: '230px'
     }, 500, 'easeOutCubic')
   }
 }

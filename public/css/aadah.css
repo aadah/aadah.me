@@ -211,9 +211,9 @@ a:link, a:visited {
 }
 
 main a, footer a {
-	border-bottom-color: inherit;
-	border-bottom-width: 1px;
-	border-bottom-style: dotted;
+	text-decoration-line: underline;
+	text-decoration-style: solid;
+	text-decoration-color: inherit;
 }
 
 /* -------------------------------------------------------*/
@@ -236,7 +236,7 @@ q, quote {
 	font-style: italic;
 }
 
-q i, q em, quote i, quote em {
+q i, q em, quote i, quote em, blockquote em, em em {
 	font-style: normal;
 }
 
@@ -416,6 +416,11 @@ table ul {
 	border: none;
 }
 
+.footnotes li > span {
+	padding-right: 0.5em;
+	border: none;
+}
+
 .footnotes {
 	font-size: smaller;
 	list-style-type: decimal;
@@ -440,8 +445,11 @@ main #fn-box {
 }
 
 .post {
-	width: 50%;
 	margin: 1em auto;
+}
+
+.post a {
+	text-decoration-style: double;
 }
 
 .post .t {
@@ -450,7 +458,6 @@ main #fn-box {
 }
 
 .post p {
-	text-align: center;
 	margin: 0;
 }
 
@@ -499,34 +506,6 @@ img, video, audio {
 	overflow: hidden;
 }
 
-/*.gallery figure {
-	width: 240px;
-	padding: 0;
-	margin: 7px auto;
-	padding: 1%;
-	padding: 0.5em;
-	border: none;
-	background-color: #000000;
-	border: #000000 5px solid;
-	margin: 5px;
-}
-
-.gallery figcaption {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	background-color: #000000;
-	padding: 0.5em;
-	margin: 4%;
-}
-
-.gallery img {
-	cursor: pointer;
-	border: none;
-	padding: 0;
-	margin: 0;
-}*/
-
 .gallery figure {
 	position: relative;
 	float: left;
@@ -535,7 +514,7 @@ img, video, audio {
 	overflow: hidden;
 	background-color: #000000;
 	border: #000000 5px solid;
-	margin: 5px;
+	margin: 4px;
 }
 
 .gallery figcaption {
