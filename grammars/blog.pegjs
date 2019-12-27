@@ -321,7 +321,7 @@ OutLinkTag 'OutLinkTag'
 ////////////////////////////////////////////////////////////////////////////////
 
 SectionTitle 'SectionTitle'
-    = vSection:(Section / SuperSection / SubSection) Blankline* {
+    = vSection:(Section / SuperSection / SubSection) Blankline+ {
         return vSection;
     }
 
@@ -564,7 +564,7 @@ Space 'Space'
     = '\u0020' / '\u3000' // latin and CJK
 
 Tab 'Tab'
-    = '\t' / '  '
+    = '\t' / '  ' / '    '
 
 Newline 'Newline'
     = '\n'
