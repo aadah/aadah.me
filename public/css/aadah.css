@@ -488,7 +488,7 @@ figcaption {
 
 /* -------------------------------------------------------*/
 
-img, video, audio {
+figure img, figure video, figure audio {
 	display: block;
   /*box-sizing: border-box;
 	max-width: 100%;*/
@@ -548,32 +548,34 @@ iframe {
 
 /* -------------------------------------------------------*/
 
-hr {
-	width: 50%;
-	text-align: center;
-  line-height: 0em;
-
-	border: none;
-	border-top-width: 1px;
-	border-top-style: solid;
-
-	margin-top: 3em;
-	margin-bottom: 2em;
-}
-
-hr:after {
-	content: url(/favicon_mini.ico);
+.separator {
 	position: relative;
-	top: -0.5em;
+	margin: 3em auto;
+	width: 50%;
+}
+
+.separator .line {
+	display: block;
+	width: 100%;
+
+	height: 2px;
+
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+.separator .icon {
+	position: absolute;
+	top: -1000%;
+	bottom: -1000%;
+	right: -1000%;
+	left: -1000%;
+	width: 1em;
+	height: 1em;
 	padding: 0 0.5em;
-}
-
-hr.main:after {
+	margin: auto;
 	background-color: #202020;
-}
-
-hr.alt:after {
-	background-color: #e0e0e0;
+	z-index: 1;
 }
 
 /* -------------------------------------------------------*/

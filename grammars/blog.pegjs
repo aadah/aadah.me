@@ -482,8 +482,8 @@ UnorderedStart 'UnorderedStart'
 ////////////////////////////////////////////////////////////////////////////////
 
 HorizontalLine 'HorizontalLine'
-    = Hyphen Hyphen Hyphen+ Blankline* {
-        return '<hr>';
+    = Hyphen Hyphen Hyphen+ Blankline+ {
+        return parser.createSeparator();
     }
 
 ////////////////////////////////////////////////////////////////////////////////

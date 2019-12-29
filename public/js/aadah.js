@@ -73,7 +73,7 @@ var THEME = {
       'color': '#000000'
     }
   },
-  'img, audio, video': {
+  'figure img, figure audio, figure video': {
     'main': {
       'background-color': '#000000'
     },
@@ -137,6 +137,32 @@ var THEME = {
     },
     'alt': {
       'background-color': '#f0f0f0'
+    }
+  },
+  'iframe': {
+    'main': {
+      'border-color': '#000000'
+    },
+    'alt': {
+      'border-color': '#ffffff'
+    }
+  },
+  '.separator .line': {
+    'main': {
+      'border-top-color': '#ffffff',
+      'border-bottom-color': '#ffffff'
+    },
+    'alt': {
+      'border-top-color': '#000000',
+      'border-bottom-color': '#000000'
+    }
+  },
+  '.separator .icon': {
+    'main': {
+      'background-color': '#202020'
+    },
+    'alt': {
+      'background-color': '#e0e0e0'
     }
   },
 
@@ -253,9 +279,7 @@ function switchTheme (theme, fadeOff) {
     changeColor(selector, THEME[selector][current], fadeOff)
   }
 
-  $('hr').removeClass($('body').data('theme'))
   $('body').data('theme', current)
-  $('hr').addClass($('body').data('theme'))
 }
 
 function changeColor (selector, attributes, fadeOff) {

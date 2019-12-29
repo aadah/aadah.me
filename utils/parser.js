@@ -320,7 +320,7 @@ parser.createList = function (tag, lines) {
   var tagRgx = new RegExp('\\[TAG\\]', 'g')
 
   function formatLine (line) {
-    return liTempl.replace('[CONTENT]', line['content'])
+    return liTempl.replace('[CONTENT]', line.content)
   }
 
   while (lines.length > 1) {
@@ -328,7 +328,7 @@ parser.createList = function (tag, lines) {
     var i = 0
     var j = lines.length
     for (var k = 0; k < lines.length; k++) {
-      var level = lines[k]['level']
+      var level = lines[k].level
       if (level > deepestLevel) {
         deepestLevel = level
         i = k
@@ -339,7 +339,7 @@ parser.createList = function (tag, lines) {
     }
 
     var newLines = lines.slice(0, Math.max(i - 1, 0))
-    var sublistHeader = i > 0 ? lines[i - 1]['content'] : ''
+    var sublistHeader = i > 0 ? lines[i - 1].content : ''
     var sublistContent = lines.slice(i, j).map(formatLine).join('')
     sublistContent = listTempl.replace('[CONTENT]', sublistContent)
     var sublist = [sublistHeader, sublistContent].join('\n')
@@ -350,7 +350,7 @@ parser.createList = function (tag, lines) {
     lines = newLines.concat(lines.slice(j))
   }
 
-  return lines[0]['content']
+  return lines[0].content
 }
 
 parser.createListElement = function (content) {
@@ -358,6 +358,11 @@ parser.createListElement = function (content) {
 
   template = template.replace('[CONTENT]', content)
 
+  return template
+}
+
+parser.createSeparator = function () {
+  var template = fs.readFileSync('grammars/templates/separator.html', 'utf8')
   return template
 }
 
