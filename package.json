@@ -13,7 +13,7 @@
     "express-session": "^1.12.1",
     "kerberos": "^0.0.17",
     "minimist": "^1.2.0",
-    "moment": "^2.11.1",
+    "moment": "^2.19.3",
     "mongoose": "^4.3.4",
     "pegjs": "^0.8.0"
   },
