@@ -14,7 +14,7 @@
     "kerberos": "^0.0.17",
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
-    "mongoose": "^4.3.4",
+    "mongoose": "^5.7.5",
     "pegjs": "^0.8.0"
   },
   "devDependencies": {
