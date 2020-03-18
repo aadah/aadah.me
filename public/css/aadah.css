@@ -408,17 +408,12 @@ table ul {
 
 /* -------------------------------------------------------*/
 
-.footnote > a {
-	border: none;
-}
-
-.footnotes li > a {
-	border: none;
+.footnote a {
+	font-size: smaller;
 }
 
 .footnotes li > span {
 	padding-right: 0.5em;
-	border: none;
 }
 
 .footnotes {
@@ -534,7 +529,6 @@ figure img, figure video, figure audio {
 	margin: auto;
 	max-width: 730px;
 	cursor: pointer;
-	border: none;
 }
 
 /* -------------------------------------------------------*/
