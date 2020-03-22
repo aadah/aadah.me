@@ -571,14 +571,3 @@ iframe {
 	background-color: #202020;
 	z-index: 1;
 }
-
-/* -------------------------------------------------------*/
-
-::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-}
-
-::-webkit-scrollbar-thumb, ::-webkit-scrollbar-corner {
-	background-color: #808080;
-}
