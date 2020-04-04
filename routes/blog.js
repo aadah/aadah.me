@@ -7,7 +7,7 @@ var router = express.Router()
 
 function logView (req, res, next) {
   models.Post.findOneAndUpdate({
-    _id: req.params.dir,
+    _id: req.params.postID,
     public: true
   }, {
     $inc: { views: 1 }
@@ -34,9 +34,9 @@ router.get('/', function (req, res, next) {
   })
 })
 
-router.get('/:dir', logView, function (req, res, next) {
+router.get('/:postID', logView, function (req, res, next) {
   models.Post.findOne({
-    _id: req.params.dir,
+    _id: req.params.postID,
     public: true
   }, 'manuscript posted updated', function (err, post) {
     if (err) {
@@ -54,9 +54,9 @@ router.get('/:dir', logView, function (req, res, next) {
   })
 })
 
-router.get('/:dir/manuscript', auth.checkAuthentication, function (req, res, next) {
+router.get('/:postID/manuscript', auth.checkAuthentication, function (req, res, next) {
   models.Post.findOne({
-    _id: req.params.dir,
+    _id: req.params.postID,
     public: true
   }, 'manuscript', function (err, post) {
     if (err) {

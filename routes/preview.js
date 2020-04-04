@@ -5,8 +5,8 @@ var auth = require('../utils/auth')
 
 var router = express.Router()
 
-router.get('/:dir', auth.checkAuthentication, function (req, res) {
-  models.Post.findOne({_id: req.params.dir}, function (err, post) {
+router.get('/:postID', auth.checkAuthentication, function (req, res) {
+  models.Post.findOne({_id: req.params.postID}, function (err, post) {
     if (err) {
       res.status(500).render('error/500')
     } else if (!post) {

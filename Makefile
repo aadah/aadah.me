@@ -45,24 +45,24 @@ enter:
 .PHONY: save
 save:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(ID).txt -s
+		node cli.js manuscripts/$(POSTID).txt -s
 
 .PHONY: publish
 publish:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(ID).txt -p
+		node cli.js manuscripts/$(POSTID).txt -p
 
 .PHONY: reveal
 reveal:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(ID).txt -r
+		node cli.js manuscripts/$(POSTID).txt -r
 
 .PHONY: hide
 hide:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(ID).txt -h
+		node cli.js manuscripts/$(POSTID).txt -h
 
 .PHONY: delete
 delete:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(ID).txt -d
+		node cli.js manuscripts/$(POSTID).txt -d

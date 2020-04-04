@@ -11,13 +11,13 @@ parser._parse = function (manuscript) {
   return pegParser.parse(manuscript)
 }
 
-parser.parse = function (dir, manuscript, post) {
+parser.parse = function (postID, manuscript, post) {
   var result = parser._parse(manuscript)
   var urlRgx = new RegExp('\\[URL\\]', 'g')
   var postedRgx = new RegExp('\\[POSTED\\]', 'g')
   var updatedRgx = new RegExp('\\[UPDATED\\]', 'g')
 
-  result.html = result.html.replace(urlRgx, 'blog/' + dir + '/')
+  result.html = result.html.replace(urlRgx, 'blog/' + postID)
 
   if (post) {
     result.html = result.html.replace(postedRgx, parser.formatTimestamp(post.posted, true))
@@ -43,7 +43,7 @@ parser.formatTimestamp = function (date, withTime) {
 parser.createBlogPost = function (post) {
   var template = fs.readFileSync('grammars/templates/blog_post.html', 'utf8').trim()
 
-  template = template.replace('[DIR]', post._id)
+  template = template.replace('[POSTID]', post._id)
   template = template.replace('[TITLE]', post.title)
   template = template.replace('[SUBTITLE]', post.subtitle)
   template = template.replace('[AUTHOR]', post.author)

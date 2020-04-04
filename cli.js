@@ -20,7 +20,7 @@ func = args.d ? publisher.delete : func
 try {
   var file = path.resolve(args._[0])
   var manuscript = fs.readFileSync(file, 'utf-8')
-  var dir = path.basename(file, path.extname(file))
+  var postID = path.basename(file, path.extname(file))
 } catch (err) {
   console.log('No file path given.')
 }
@@ -34,4 +34,4 @@ function callback (err) {
   mongoose.connection.close()
 }
 
-func(dir, callback, manuscript)
+func(postID, callback, manuscript)

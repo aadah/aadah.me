@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var postSchema = new Schema({
-  _id: { // will be dir name
+  _id: { // will be post id
     type: String,
     required: true
   },
