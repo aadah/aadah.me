@@ -66,3 +66,8 @@ hide:
 delete:
 	docker exec -it $(CONTAINER) \
 		node cli.js manuscripts/$(POSTID).txt -d
+
+# Used to make writing flow simpler. Not for use on main site.
+.PHONY: live-edit
+live-edit:
+	while inotifywait -e modify manuscripts/$(POSTID).txt; do make publish; done
