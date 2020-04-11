@@ -345,16 +345,17 @@ th {
 	background-color: #202020;
 	font-weight: normal;
 	padding: 0.5em;
+	text-align: left;
 }
 
 td {
 	vertical-align: text-top;
-	text-align: center;
 	padding: 0.5em;
 }
 
 caption {
-	text-align: right;
+	font-variant: small-caps;
+	text-align: center;
 	margin: 0.5em 0;
 }
 
