@@ -1,6 +1,7 @@
 /* This stylesheet was written by Abdi-Hakin Dirie. */
 
 @import url(//fonts.googleapis.com/css?family=Inconsolata:400,700|Spectral:400,400i,700,700i);
+@import url(//fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap);
 
 body {
 	color: #ffffff;
@@ -289,10 +290,13 @@ span.salutation::before {
 
 /* -------------------------------------------------------*/
 
+code, samp, kbd {
+	font-family: "Fira Code", monospace;
+}
+
 code, samp {
 	display: block;
-	font-family: "Inconsolata", monospace;
-	font-size: smaller;
+	font-size: 11pt;
 	line-height: 1.5em;
 	max-height: 50em;
 	white-space: pre;
@@ -319,11 +323,8 @@ p kbd, samp {
 	background-color: #303030;
 }
 
-kbd {
-	font-family: "Inconsolata", monospace;
-}
-
 p kbd {
+	font-size: smaller;
 	padding: 0.25em;
 }
 
