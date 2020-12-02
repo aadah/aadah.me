@@ -271,10 +271,6 @@ q.pquoter::before, q.pquotel::before {
   content: '“';
 }
 
-q.pquoter::after, q.pquotel::after {
-  content: none;
-}
-
 span.salutation {
 	display: block;
 	text-align: right;

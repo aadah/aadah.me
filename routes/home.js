@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
       })
       var index = Math.floor(Math.random() * images.length)
       var image = images[index]
-      res.status(200).render('main/home', {image: image})
+      res.status(200).render('main/home', { image: image })
     }
   })
 })
