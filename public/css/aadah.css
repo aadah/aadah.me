@@ -475,8 +475,15 @@ figure {
 
 figcaption {
 	font-size: smaller;
-	text-align: center;
+	text-align: left;
 	margin-top: 0.5em;
+
+	-webkit-transition: opacity .25s ease;
+	transition: opacity .25s ease;
+}
+
+figcaption:hover {
+	opacity: 0.1;
 }
 
 /* -------------------------------------------------------*/
