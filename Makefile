@@ -14,11 +14,12 @@ clean: stop remove
 .PHONY: build
 build:
 	npm install
+	mkdir -p $(DB_DIR)
+	sudo chown -R $(USER) $(DB_DIR)
 	docker build -t $(IMAGE) ./
 
 .PHONY: serve
 serve:
-	mkdir -p $(DB_DIR)
 	@docker run \
 		--name $(CONTAINER) \
 		-d \
