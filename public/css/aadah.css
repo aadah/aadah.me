@@ -468,6 +468,23 @@ main #fn-box {
 
 /* -------------------------------------------------------*/
 
+.unit {
+	font-variant: small-caps;
+}
+
+li .amount {
+	display: inline-block;
+	width: 2em;
+	text-align: right;
+}
+
+li .measurement {
+	display: inline-block;
+	width: 5em;
+}
+
+/* -------------------------------------------------------*/
+
 figure {
 	display: block;
 	margin: 0.5em auto;

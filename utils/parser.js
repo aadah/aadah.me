@@ -98,6 +98,31 @@ parser.createFootnote = function (text) {
   return template
 }
 
+parser.createSmallCaps = function (text) {
+  var template = fs.readFileSync('grammars/templates/small_caps.html', 'utf8').trim()
+
+  template = template.replace('[TEXT]', text)
+
+  return template
+}
+
+parser.createMeasurement = function (amount, unit) {
+  var filename
+  var template
+
+  if (unit) {
+    filename = 'grammars/templates/measurement' + '.html'
+  } else {
+    filename = 'grammars/templates/measurement' + '_no_unit.html'
+  }
+
+  template = fs.readFileSync(filename, 'utf8')
+  template = template.replace('[AMOUNT]', amount)
+  template = template.replace('[UNIT]', unit)
+
+  return template
+}
+
 parser.createQuote = function (quote) {
   var template = fs.readFileSync('grammars/templates/quote.html', 'utf8').trim()
 

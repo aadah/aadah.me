@@ -238,6 +238,8 @@ InlineElement 'InlineElement'
     Quote /
     Input /
     Footnote /
+    SmallCaps /
+    Measurement /
     Salutation /
     Link /
     EmDash
@@ -281,6 +283,23 @@ Footnote 'Footnote'
 
 FootnoteTag 'FootnoteTag'
     = '@FN'
+
+SmallCaps 'SmallCaps'
+    = SmallCapsTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
+        return parser.createSmallCaps(vElements.join(''));
+    }
+
+SmallCapsTag 'SmallCapsTag'
+    = '@SC'
+
+Measurement 'Measurement'
+    = MeasurementTag LeftArgDelimiter vUnit:NotArgDelimiter* RightArgDelimiter
+    LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
+        return parser.createMeasurement(vElements.join(''), vUnit.join(''));
+    }
+
+MeasurementTag 'MeasurementTag'
+    = '@MEAS'
 
 Salutation 'Salutation'
     = SalutationTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
