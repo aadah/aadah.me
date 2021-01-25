@@ -196,10 +196,6 @@ parser.createHead = function (title, subtitle, author) {
   template = template.replace(subtitleRgx, subtitle)
   template = template.replace(authorRgx, author)
 
-  // var url = formatBlogURL(title)
-  // var urlRgx = new RegExp('\\[URL\\]', 'g')
-  // template = template.replace(urlRgx, url)
-
   return template
 }
 
