@@ -117,6 +117,10 @@ header .subtitle {
 	margin: .25em 0;
 }
 
+header .subtitle em {
+	font-style: normal;
+}
+
 header .author {
 	color: #b0b0b0;
 	font-size: smaller;
