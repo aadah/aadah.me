@@ -14,14 +14,15 @@ parser._parse = function (manuscript) {
 parser.parse = function (postID, manuscript, post) {
   var result = parser._parse(manuscript)
   var urlRgx = new RegExp('\\[URL\\]', 'g')
-  var postedRgx = new RegExp('\\[POSTED\\]', 'g')
-  var updatedRgx = new RegExp('\\[UPDATED\\]', 'g')
+  var timesRgx = new RegExp('\\[TIMES\\]', 'g')
 
   result.html = result.html.replace(urlRgx, 'blog/' + postID)
 
   if (post) {
-    result.html = result.html.replace(postedRgx, parser.formatTimestamp(post.posted, true))
-    result.html = result.html.replace(updatedRgx, parser.formatTimestamp(post.updated, true))
+    times = parser.createTimes(post.posted, post.updated)
+    result.html = result.html.replace(timesRgx, times)
+  } else {
+    result.html = result.html.replace(timesRgx, '')
   }
 
   return result
@@ -238,6 +239,17 @@ parser.createFooter = function (paragraphs) {
 
   paragraphs = paragraphs.join('\n')
   template = template.replace('[PARAGRAPHS]', paragraphs)
+
+  return template
+}
+
+parser.createTimes = function (posted, updated) {
+  var template = fs.readFileSync('grammars/templates/times.html', 'utf8')
+  var postedRgx = new RegExp('\\[POSTED\\]', 'g')
+  var updatedRgx = new RegExp('\\[UPDATED\\]', 'g')
+
+  template = template.replace(postedRgx, parser.formatTimestamp(posted, true))
+  template = template.replace(updatedRgx, parser.formatTimestamp(updated, true))
 
   return template
 }
