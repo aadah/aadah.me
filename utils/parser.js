@@ -83,6 +83,14 @@ parser.createEmphasis = function (text) {
   return template
 }
 
+parser.createStrikethrough = function (text) {
+  var template = fs.readFileSync('grammars/templates/s.html', 'utf8').trim()
+
+  template = template.replace('[TEXT]', text)
+
+  return template
+}
+
 parser.createSalutation = function (text) {
   var template = fs.readFileSync('grammars/templates/salutation.html', 'utf8').trim()
 

@@ -235,6 +235,7 @@ FooterFlag 'FooterFlag'
 InlineElement 'InlineElement'
     = Bold /
     Italic /
+    Strikethrough /
     Quote /
     Input /
     Footnote /
@@ -259,6 +260,14 @@ Italic 'Italic'
 
 ItalicTag 'ItalicTag'
     = '@I'
+
+Strikethrough 'Strikethrough'
+    = StrikethroughTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
+        return parser.createStrikethrough(vElements.join(''));
+    }
+
+StrikethroughTag 'StrikethroughTag'
+    = '@S'
 
 Quote 'Quote'
     = QuoteTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
