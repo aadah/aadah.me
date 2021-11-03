@@ -507,10 +507,6 @@ audio ~ figcaption {
 	text-align: center;
 }
 
-figcaption:hover {
-	opacity: 0.1;
-}
-
 /* -------------------------------------------------------*/
 
 figure img, figure video, figure audio {
@@ -548,6 +544,10 @@ figure img, figure video, figure audio {
 	background-color: #000000;
 	padding: 0.5em;
 	margin: 0.5em;
+}
+
+.gallery figcaption:hover {
+	opacity: 0.1;
 }
 
 .gallery img {
