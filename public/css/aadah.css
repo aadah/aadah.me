@@ -503,6 +503,10 @@ figcaption {
 	transition: opacity .25s ease;
 }
 
+audio ~ figcaption {
+	text-align: center;
+}
+
 figcaption:hover {
 	opacity: 0.1;
 }
