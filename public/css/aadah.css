@@ -6,11 +6,11 @@
 body {
 	color: #ffffff;
 	background-color: #202020;
-  font-family: "Spectral", serif;
+	font-family: "Spectral", serif;
 	width: 750px;
 	margin: auto;
 	padding: 3em 0;
-  font-size: larger;
+	font-size: larger;
 }
 
 /* NAVIGATION */
@@ -76,7 +76,8 @@ nav a:hover {
 	color: #ff00ff;
 }
 
-nav span.prev a, nav span.next a {
+nav span.prev a,
+nav span.next a {
 	display: inline-block;
 	vertical-align: middle;
 	max-width: 250px;
@@ -135,12 +136,18 @@ header .author:before {
 
 /* CONTENT */
 main {
-  position: relative; /* for #fn-box width */
+	position: relative;
+	/* for #fn-box width */
 	clear: both;
 	margin: .5em 0;
 }
 
-main h1, main h2, main h3, main h4, main h5, main h6 {
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
 	/*display: inline-block;
 	float: left;
 	clear: both;
@@ -198,7 +205,12 @@ p {
 	margin: 1.5em auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: normal;
 }
 
@@ -211,11 +223,13 @@ a {
 	transition: all .25s ease;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
 	color: inherit;
 }
 
-main a, footer a {
+main a,
+footer a {
 	text-decoration-line: underline;
 	text-decoration-style: solid;
 	text-decoration-color: inherit;
@@ -237,15 +251,22 @@ blockquote i {
 	font-style: normal;
 }
 
-q, quote {
+q,
+quote {
 	font-style: italic;
 }
 
-q i, q em, quote i, quote em, blockquote em, em em {
+q i,
+q em,
+quote i,
+quote em,
+blockquote em,
+em em {
 	font-style: normal;
 }
 
-q.pquoter, q.pquotel {
+q.pquoter,
+q.pquotel {
 	display: block;
 	color: #c0c0c0;
 	background-color: #101010;
@@ -258,21 +279,22 @@ q.pquoter, q.pquotel {
 }
 
 q.pquoter {
-  text-align: right;
+	text-align: right;
 	float: right;
 	margin-left: 1em;
 }
 
 q.pquotel {
-  text-align: left;
+	text-align: left;
 	float: left;
 	margin-right: 1em;
 }
 
-q.pquoter::before, q.pquotel::before {
+q.pquoter::before,
+q.pquotel::before {
 	font-size: 5em;
 	vertical-align: text-top;
-  content: '“';
+	content: '“';
 }
 
 span.salutation {
@@ -290,11 +312,14 @@ span.salutation::before {
 
 /* -------------------------------------------------------*/
 
-code, samp, kbd {
+code,
+samp,
+kbd {
 	font-family: "Fira Code", monospace;
 }
 
-code, samp {
+code,
+samp {
 	display: block;
 	font-size: 11pt;
 	line-height: 1.5em;
@@ -311,7 +336,8 @@ code, samp {
 	tab-size: 4;
 }
 
-code:hover, samp:hover {
+code:hover,
+samp:hover {
 	overflow: auto;
 }
 
@@ -319,7 +345,8 @@ code {
 	background-color: #000000;
 }
 
-p kbd, samp {
+p kbd,
+samp {
 	background-color: #303030;
 }
 
@@ -366,7 +393,8 @@ main li {
 	color: #ffffff;
 }
 
-ol, ul {
+ol,
+ul {
 	line-height: 1.5em;
 }
 
@@ -414,7 +442,7 @@ table ul {
 	font-size: smaller;
 }
 
-.footnotes li > span {
+.footnotes li>span {
 	padding-right: 0.5em;
 }
 
@@ -424,11 +452,11 @@ table ul {
 }
 
 main #fn-box {
-  box-sizing: border-box;
-  position: absolute;
+	box-sizing: border-box;
+	position: absolute;
 	background-color: #101010;
-  max-width: 50%;
-  font-size: smaller;
+	max-width: 50%;
+	font-size: smaller;
 	z-index: -1;
 	opacity: 0;
 	padding: 1em;
@@ -462,7 +490,8 @@ main #fn-box {
 	font-style: italic;
 }
 
-.post .a, .post .d {
+.post .a,
+.post .d {
 	font-size: smaller;
 }
 
@@ -484,7 +513,7 @@ li .amount {
 
 li .measurement {
 	display: inline-block;
-	width: 5em;
+	width: 4em;
 }
 
 /* -------------------------------------------------------*/
@@ -503,15 +532,17 @@ figcaption {
 	transition: opacity .25s ease;
 }
 
-audio ~ figcaption {
+audio~figcaption {
 	text-align: center;
 }
 
 /* -------------------------------------------------------*/
 
-figure img, figure video, figure audio {
+figure img,
+figure video,
+figure audio {
 	display: block;
-  /*box-sizing: border-box;
+	/*box-sizing: border-box;
 	max-width: 100%;*/
 	max-width: 98%;
 	background-color: #000000;
