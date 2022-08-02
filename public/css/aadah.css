@@ -142,12 +142,32 @@ main {
 	margin: .5em 0;
 }
 
+main.with-aside {
+	clear: none;
+}
+
+aside {
+	font-size: small;
+	float: right;
+	margin-left: 1.5%;
+	padding: 1.5%;
+	padding-top: 0;
+	width: 18.5%;
+	background-color: #101010;
+}
+
 main h1,
 main h2,
 main h3,
 main h4,
 main h5,
-main h6 {
+main h6,
+aside h1,
+aside h2,
+aside h3,
+aside h4,
+aside h5,
+aside h6 {
 	/*display: inline-block;
 	float: left;
 	clear: both;
@@ -229,6 +249,7 @@ a:visited {
 }
 
 main a,
+aside a,
 footer a {
 	text-decoration-line: underline;
 	text-decoration-style: solid;
@@ -389,7 +410,8 @@ caption {
 
 /* -------------------------------------------------------*/
 
-main li {
+main li,
+aside li {
 	color: #ffffff;
 }
 

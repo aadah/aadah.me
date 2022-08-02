@@ -27,7 +27,7 @@ var THEME = {
       'color': '#505050'
     }
   },
-  'main h1, main h2, main h3, main h4, main h5, main h6': {
+  'main h1, main h2, main h3, main h4, main h5, main h6, aside h1, aside h2, aside h3, aside h4, aside h5, aside h6': {
     'main': {
       'border-left-color': '#ffffff'
     },
@@ -65,7 +65,7 @@ var THEME = {
       'background-color': '#f0f0f0'
     }
   },
-  'main li': {
+  'main li, aside li': {
     'main': {
       'color': '#ffffff'
     },
@@ -132,6 +132,14 @@ var THEME = {
     }
   },
   '#fn-box': {
+    'main': {
+      'background-color': '#101010'
+    },
+    'alt': {
+      'background-color': '#f0f0f0'
+    }
+  },
+  'aside': {
     'main': {
       'background-color': '#101010'
     },
