@@ -2,12 +2,14 @@ IMAGE ?= aadah
 CONTAINER ?= website
 DB_USER ?= user
 DB_PASS ?= pass
-DB_DIR ?= $(PWD)/db
+WORK_DIR ?= $(shell pwd)
+DB_DIR ?= $(WORK_DIR)/db
+PORT ?= 80
 
 .PHONY: all
 all: clean build serve
 
-# `clean` should *not* tamper with contents of DB_DIR.
+# `clean` SHOULD NOT access, delete, or otherwise alter the contents of DB_DIR.
 .PHONY: clean
 clean: stop remove
 
@@ -23,11 +25,14 @@ serve:
 	@docker run \
 		--name $(CONTAINER) \
 		-d \
-		-p 80:80 \
+		-p $(PORT):$(PORT) \
+		-e PORT=$(PORT) \
+		-e DB_USER=$(DB_USER) \
+		-e DB_PASS=$(DB_PASS) \
 		-e MONGO_INITDB_ROOT_USERNAME=$(DB_USER) \
 		-e MONGO_INITDB_ROOT_PASSWORD=$(DB_PASS) \
 		-v $(DB_DIR):/data/db \
-		-v $(PWD):/aadah \
+		-v $(WORK_DIR):/aadah \
 		$(IMAGE)
 	docker exec -it $(CONTAINER) npm start
 
