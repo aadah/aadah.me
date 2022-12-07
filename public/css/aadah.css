@@ -512,6 +512,10 @@ main #fn-box {
 	font-style: italic;
 }
 
+.post .s em {
+	font-style: normal;
+}
+
 .post .a,
 .post .d {
 	font-size: smaller;
@@ -617,6 +621,7 @@ figure audio {
 /* -------------------------------------------------------*/
 
 iframe {
+	width: 100%;
 	margin: auto;
 	display: block;
 	max-width: 98%;
