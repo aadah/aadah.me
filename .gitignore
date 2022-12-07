@@ -40,9 +40,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-/utils/config.js
 /public/media
 /public/debug
 /manuscripts
-/creds
 /db

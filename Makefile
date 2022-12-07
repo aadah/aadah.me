@@ -1,23 +1,28 @@
 IMAGE ?= aadah
 CONTAINER ?= website
-DB_USER ?= user
-DB_PASS ?= pass
 WORK_DIR ?= $(shell pwd)
-DB_DIR ?= $(WORK_DIR)/db
-PORT ?= 80
+
+AADAH_PORT ?= port
+AADAH_DB ?= db
+AADAH_DB_USER ?= user
+AADAH_DB_PASS ?= pass
+AADAH_DB_HOST ?= host
+AADAH_DB_PORT ?= port
+AADAH_DB_DIR ?= $(WORK_DIR)/db
+
 
 .PHONY: all
 all: clean build serve
 
-# `clean` SHOULD NOT access, delete, or otherwise alter the contents of DB_DIR.
+# `clean` SHOULD NOT access, delete, or otherwise alter the contents of AADAH_DB_DIR.
 .PHONY: clean
 clean: stop remove
 
 .PHONY: build
 build:
 	npm install
-	mkdir -p $(DB_DIR)
-	sudo chown -R $(USER) $(DB_DIR)
+	mkdir -p $(AADAH_DB_DIR)
+	sudo chown -R $(USER) $(AADAH_DB_DIR)
 	docker build -t $(IMAGE) ./
 
 .PHONY: serve
@@ -25,13 +30,16 @@ serve:
 	@docker run \
 		--name $(CONTAINER) \
 		-d \
-		-p $(PORT):$(PORT) \
-		-e PORT=$(PORT) \
-		-e DB_USER=$(DB_USER) \
-		-e DB_PASS=$(DB_PASS) \
-		-e MONGO_INITDB_ROOT_USERNAME=$(DB_USER) \
-		-e MONGO_INITDB_ROOT_PASSWORD=$(DB_PASS) \
-		-v $(DB_DIR):/data/db \
+		-p $(AADAH_PORT):$(AADAH_PORT) \
+		-e AADAH_PORT=$(AADAH_PORT) \
+		-e AADAH_DB=$(AADAH_DB) \
+		-e AADAH_DB_USER=$(AADAH_DB_USER) \
+		-e AADAH_DB_PASS=$(AADAH_DB_PASS) \
+		-e AADAH_DB_HOST=$(AADAH_DB_HOST) \
+		-e AADAH_DB_PORT=$(AADAH_DB_PORT) \
+		-e MONGO_INITDB_ROOT_USERNAME=$(AADAH_DB_USER) \
+		-e MONGO_INITDB_ROOT_PASSWORD=$(AADAH_DB_PASS) \
+		-v $(AADAH_DB_DIR):/data/db \
 		-v $(WORK_DIR):/aadah \
 		$(IMAGE)
 	docker exec -it $(CONTAINER) npm start
