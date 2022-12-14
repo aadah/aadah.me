@@ -264,8 +264,12 @@ blockquote {
 	font-style: italic;
 	text-align: justify;
 	border-left: #b0b0b0 1px solid;
-	margin: 0.5em 1em;
+	margin: 1.5em 1em;
 	padding-left: 1em;
+}
+
+blockquote p {
+	margin: 1em auto;
 }
 
 blockquote i {
