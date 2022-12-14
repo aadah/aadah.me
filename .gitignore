@@ -41,6 +41,5 @@ jspm_packages
 .node_repl_history
 
 /public/media
-/public/debug
 /manuscripts
 /db
