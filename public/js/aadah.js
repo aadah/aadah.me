@@ -328,7 +328,7 @@ function createFootnotesListElement (text, i) {
   span.html(text)
   elem.append(span)
 
-  link.text('↩️')
+  link.text('⇑')
   link.attr('href', '#d' + num)
   link.attr('id', 'f' + num)
   elem.append(link)
