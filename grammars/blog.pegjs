@@ -592,7 +592,7 @@ Space 'Space'
     = '\u0020' / '\u3000' // latin and CJK
 
 Tab 'Tab'
-    = '\t' / '  ' / '    '
+    = '\t' / '    '
 
 Newline 'Newline'
     = '\n'
