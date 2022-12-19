@@ -634,32 +634,23 @@ iframe {
 
 /* -------------------------------------------------------*/
 
-.separator {
-	position: relative;
-	margin: 3em auto;
-	width: 50%;
-}
-
-.separator .line {
-	display: block;
-	width: 100%;
-
+hr {
 	height: 2px;
-
+	width: 50%;
+	border: none;
 	border-top: 1px solid #ffffff;
 	border-bottom: 1px solid #ffffff;
 }
 
-.separator .icon {
-	position: absolute;
-	top: -1000%;
-	bottom: -1000%;
-	right: -1000%;
-	left: -1000%;
-	width: 1em;
-	height: 1em;
-	padding: 0 0.5em;
-	margin: auto;
+hr::before {
+	content: "両";
+	color: #ffffff;
 	background-color: #202020;
-	z-index: 1;
+	text-align: center;
+	position: absolute;
+	left: -1000%;
+	right: -1000%;
+	width: 2em;
+	margin: auto;
+	transform: translateY(-45%);
 }

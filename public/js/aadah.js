@@ -155,7 +155,7 @@ var THEME = {
       'border-color': '#ffffff'
     }
   },
-  '.separator .line': {
+  'hr': {
     'main': {
       'border-top-color': '#ffffff',
       'border-bottom-color': '#ffffff'
@@ -165,7 +165,7 @@ var THEME = {
       'border-bottom-color': '#000000'
     }
   },
-  '.separator .icon': {
+  'hr::before': {
     'main': {
       'background-color': '#202020'
     },
@@ -474,8 +474,8 @@ $(window).load(function () {
   windowResize()
   $(window).resize(windowResize)
 
-  setHourlyTheme(true)
-  setInterval(function () {
-    setHourlyTheme()
-  }, 60000)
+  // setHourlyTheme(true)
+  // setInterval(function () {
+  //   setHourlyTheme()
+  // }, 60000)
 })
