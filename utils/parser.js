@@ -356,50 +356,53 @@ parser.createSection = function (num, text) {
 }
 
 parser.createList = function (tag, lines) {
-  var listTempl = fs.readFileSync('grammars/templates/list.html', 'utf8')
-  var liTempl = fs.readFileSync('grammars/templates/list_element.html', 'utf8')
-  var tagRgx = new RegExp('\\[TAG\\]', 'g')
-
-  function formatLine (line) {
-    return liTempl.replace('[CONTENT]', line.content)
-  }
-
-  while (lines.length > 1) {
+  while (true) {
     var deepestLevel = -1
-    var i = 0
-    var j = lines.length
+    var i = undefined
+    var j = undefined
     for (var k = 0; k < lines.length; k++) {
       var level = lines[k].level
       if (level > deepestLevel) {
         deepestLevel = level
         i = k
+        j = i + 1
       } else if (level < deepestLevel) {
-        j = k
         break
+      } else {
+        j++
       }
     }
 
-    var newLines = lines.slice(0, Math.max(i - 1, 0))
-    var sublistHeader = i > 0 ? lines[i - 1].content : ''
-    var sublistContent = lines.slice(i, j).map(formatLine).join('')
-    sublistContent = listTempl.replace('[CONTENT]', sublistContent)
-    var sublist = [sublistHeader, sublistContent].join('\n')
-    newLines.push({
-      level: deepestLevel - 1,
-      content: sublist.replace(tagRgx, tag)
-    })
-    lines = newLines.concat(lines.slice(j))
-  }
+    linesBefore = lines.slice(0, i)
+    subList = formatList(tag, lines.slice(i, j))
+    linesAfter = lines.slice(j)
 
-  return lines[0].content
+    lineHeader = linesBefore.pop()
+    if (lineHeader) {
+      lineHeader.content = [lineHeader.content, subList].join('\n')
+      linesBefore.push(lineHeader)
+    } else {
+      return subList
+    }
+
+    lines = linesBefore.concat(linesAfter)
+  }
 }
 
-parser.createListElement = function (content) {
-  var template = fs.readFileSync('grammars/templates/list_element.html', 'utf8')
+function formatList(tag, lines) {
+  var listTempl = fs.readFileSync('grammars/templates/list.html', 'utf8')
+  var tagRgx = new RegExp('\\[TAG\\]', 'g')
 
-  template = template.replace('[CONTENT]', content)
+  bullets = lines.map(formatLine).join('\n')
+  list = listTempl.replace(tagRgx, tag)
+  list = list.replace('[CONTENT]', bullets)
 
-  return template
+  return list
+}
+
+function formatLine(line) {
+  var liTempl = fs.readFileSync('grammars/templates/list_element.html', 'utf8')
+  return liTempl.replace('[CONTENT]', line.content)
 }
 
 parser.createSeparator = function () {
