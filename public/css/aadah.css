@@ -178,7 +178,7 @@ aside h6 {
 	padding-bottom: 0.5em;
 	border-bottom: #ffffff 1px solid;*/
 
-	margin-top: 2em;
+	margin-top: 1.5em;
 	margin-bottom: 1em;
 	line-height: 1.5em;
 	padding-left: 0.5em;
@@ -222,7 +222,6 @@ footer time.updated:before {
 p {
 	line-height: 1.5em;
 	text-align: justify;
-	margin: 1.5em auto;
 }
 
 h1,
@@ -266,10 +265,6 @@ blockquote {
 	border-left: #b0b0b0 1px solid;
 	margin: 1.5em 1em;
 	padding-left: 1em;
-}
-
-blockquote p {
-	margin: 1em auto;
 }
 
 blockquote i {
@@ -640,6 +635,7 @@ hr {
 	border: none;
 	border-top: 1px solid #ffffff;
 	border-bottom: 1px solid #ffffff;
+	margin: 1.5em auto;
 }
 
 hr::before {
