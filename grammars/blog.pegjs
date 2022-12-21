@@ -354,7 +354,13 @@ SectionTitle 'SectionTitle'
     }
 
 Section 'Section'
-    = SectionTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
+    = SectionTag vLevel:(LeftArgDelimiter SectionLevel RightArgDelimiter)? LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
+        if (vLevel) {
+            // We increment by 1 because `h1` is only for title. Use
+            // @SUPERSECTION if you want `h1` in the body.
+            level = parseInt(vLevel[1]) + 1
+            return parser.createSection(level, vElements.join(''));
+        }
         return parser.createSection(2, vElements.join(''));
     }
 
@@ -373,6 +379,9 @@ SubSection 'SubSection'
     = SubSectionTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
         return parser.createSection(3, vElements.join(''));
     }
+
+SectionLevel 'SectionLevel'
+    = [1-3]
 
 SubSectionTag 'SubSectionTag'
     = '@SUBSECTION'
