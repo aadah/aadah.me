@@ -394,8 +394,11 @@ Table 'Table'
     }
 
 TableHeader 'TableHeader'
-    = TableFlag LeftArgDelimiter vCaption:(InlineElement / NotArgDelimiter)* RightArgDelimiter Newline {
-        return vCaption.join('');
+    = TableFlag vCaption:(LeftArgDelimiter (InlineElement / NotArgDelimiter)* RightArgDelimiter)? Newline {
+        if (vCaption) {
+            return parser.createTableCaption(vCaption[1].join(''));
+        }
+        return '';
     }
 
 TableFlag 'TableFlag'

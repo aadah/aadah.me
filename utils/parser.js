@@ -320,6 +320,14 @@ parser.createTable = function (caption, rows) {
   return template
 }
 
+parser.createTableCaption = function (caption) {
+  var template = fs.readFileSync('grammars/templates/caption.html', 'utf8')
+
+  template = template.replace('[CAPTION]', caption)
+
+  return template
+}
+
 parser.createTableRow = function (cells) {
   var template = fs.readFileSync('grammars/templates/tr.html', 'utf8')
 
