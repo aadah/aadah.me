@@ -23,7 +23,7 @@ nav {
 	text-align: center;
 	padding: 1em;
 	z-index: 1;
-	opacity: 0.25;
+	opacity: 0.5;
 
 	-webkit-transition: opacity .25s ease;
 	transition: opacity .25s ease;
