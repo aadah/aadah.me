@@ -11,8 +11,8 @@ router.get('/:ID', function (req, res, next) {
       res.status(500).render('error/500')
     } else {
       try {
-        var result = parser.parse(req.params.ID, manuscript)
-        result.html = result.html.replace(`/blog/${req.params.ID}`, `/works/comedy/${req.params.ID}`)
+        var path = `${req.baseUrl}${req.path}`
+        var result = parser.parse(path, manuscript)
         res.status(200).type('text/html').send(result.html)
       } catch (err) {
         res.status(500).render('error/500')

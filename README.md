@@ -1,4 +1,4 @@
-# [aadah.me](http://aadah.me/)
+# [aadah.me](https://aadah.me/)
 
 Resources for hosting my site.
 

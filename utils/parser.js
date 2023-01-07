@@ -11,12 +11,12 @@ parser._parse = function (manuscript) {
   return pegParser.parse(manuscript)
 }
 
-parser.parse = function (postID, manuscript, post) {
+parser.parse = function (path, manuscript, post) {
   var result = parser._parse(manuscript)
-  var urlRgx = new RegExp('\\[URL\\]', 'g')
+  var pathRgx = new RegExp('\\[PATH\\]', 'g')
   var timesRgx = new RegExp('\\[TIMES\\]', 'g')
 
-  result.html = result.html.replace(urlRgx, 'blog/' + postID)
+  result.html = result.html.replace(pathRgx, path)
 
   if (post) {
     times = parser.createTimes(post.posted, post.updated)
@@ -202,7 +202,7 @@ parser.createHead = function (title, subtitle, author) {
 
   template = template.replace(titleRgx, title)
   template = template.replace(subtitleRgx, subtitle)
-  template = template.replace(authorRgx, author)
+  template = template.replace(authorRgx, author || '')
 
   return template
 }
@@ -224,8 +224,21 @@ parser.createHeader = function (title, subtitle, author) {
 
   template = template.replace('[TITLE]', title)
   template = template.replace('[SUBTITLE]', subtitle)
-  template = template.replace('[AUTHOR]', author)
 
+  if (author) {
+    template = template.replace('[AUTHOR]', parser.createAuthor(author))
+  } else {
+    template = template.replace('[AUTHOR]', '')
+  }
+
+  return template
+}
+
+parser.createAuthor = function (author) {
+  var template = fs.readFileSync('grammars/templates/author.html', 'utf8')
+  
+  template = template.replace('[AUTHOR]', author)
+  
   return template
 }
 

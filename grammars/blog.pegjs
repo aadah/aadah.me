@@ -63,7 +63,7 @@ Component 'Component'
 ////////////////////////////////////////////////////////////////////////////////
 
 Header 'Header'
-    = vTitle:TitleLine vSubtitle:SubtitleLine vAuthor:AuthorLine Blankline* {
+    = vTitle:TitleLine vSubtitle:SubtitleLine vAuthor:AuthorLine? Blankline* {
         title = vTitle;
         subtitle = vSubtitle;
         author = vAuthor;
