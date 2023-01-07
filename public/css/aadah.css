@@ -69,35 +69,6 @@ nav span {
 	transition: all .25s ease;
 }
 
-nav span:hover {
-	color: #b000b0;
-}
-
-nav a:hover {
-	color: #ff00ff;
-}
-
-nav span.prev a,
-nav span.next a {
-	display: inline-block;
-	vertical-align: middle;
-	max-width: 250px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	font-size: smaller;
-}
-
-nav span.prev {
-	left: 1em;
-	float: left;
-}
-
-nav span.next {
-	right: 1em;
-	float: right;
-}
-
 /* HEADER */
 header {
 	clear: both;
