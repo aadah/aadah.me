@@ -194,18 +194,16 @@ footer {
 
 footer p {
 	font-style: italic;
-	text-align: center;
 }
 
 footer div.times {
 	line-height: 1.5em;
-	margin: 1em;
+	margin-top: 1em;
 }
 
 footer time {
 	display: block;
 	font-size: smaller;
-	text-align: center;
 }
 
 footer time.posted:before {
