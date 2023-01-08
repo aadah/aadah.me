@@ -24,10 +24,6 @@ var puzzle = require('./routes/puzzle')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/misc/puzzle', puzzle)
 
-// for humor writing
-var comedy = require('./routes/comedy')
-app.use('/works/comedy', comedy)
-
 // static files
 app.use(express.static(path.join(__dirname, 'public')))
 
