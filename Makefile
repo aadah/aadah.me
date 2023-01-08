@@ -59,29 +59,29 @@ enter:
 .PHONY: save
 save:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(POSTID).txt -s
+		node cli.js manuscripts/blog/$(POSTID).txt -s
 
 .PHONY: publish
 publish:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(POSTID).txt -p
+		node cli.js manuscripts/blog/$(POSTID).txt -p
 
 .PHONY: reveal
 reveal:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(POSTID).txt -r
+		node cli.js manuscripts/blog/$(POSTID).txt -r
 
 .PHONY: hide
 hide:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(POSTID).txt -h
+		node cli.js manuscripts/blog/$(POSTID).txt -h
 
 .PHONY: delete
 delete:
 	docker exec -it $(CONTAINER) \
-		node cli.js manuscripts/$(POSTID).txt -d
+		node cli.js manuscripts/blog/$(POSTID).txt -d
 
 # Used to make writing flow simpler. Not for use on main site.
 .PHONY: live-edit
 live-edit:
-	while inotifywait -e modify manuscripts/$(POSTID).txt; do make publish; done
+	while inotifywait -e modify manuscripts/blog/$(POSTID).txt; do make publish; done
