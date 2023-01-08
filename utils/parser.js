@@ -28,6 +28,24 @@ parser.parse = function (path, manuscript, post) {
   return result
 }
 
+parser.handler = function (filePath) {
+  return function (req, res, next) {
+    fs.readFile(filePath, 'utf8', function (err, manuscript) {
+      if (err) {
+        res.status(500).render('error/500')
+      } else {
+        try {
+          var path = `${req.baseUrl}${req.path}`
+          var result = parser.parse(path, manuscript)
+          res.status(200).type('text/html').send(result.html)
+        } catch (err) {
+          res.status(500).render('error/500')
+        }
+      }
+    })
+  }
+}
+
 // /////////////////////////////////////////////////////////////////////////////
 
 parser.formatTimestamp = function (date, withTime) {
@@ -236,9 +254,9 @@ parser.createHeader = function (title, subtitle, author) {
 
 parser.createAuthor = function (author) {
   var template = fs.readFileSync('grammars/templates/author.html', 'utf8')
-  
+
   template = template.replace('[AUTHOR]', author)
-  
+
   return template
 }
 
