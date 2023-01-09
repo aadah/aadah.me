@@ -3,8 +3,6 @@ var express = require('express')
 
 var router = express.Router()
 
-var IMAGE_DIR = 'public/media/images/'
-
 var IMAGES = [
   'bbg-lilies.png',
   'blm_protest/blm_protest_1.png',
@@ -22,11 +20,8 @@ var IMAGES = [
 ]
 
 router.get('/', function (req, res, next) {
-  var images = IMAGES.filter(function (image) {
-    return IMAGE_DIR + image
-  })
-  var index = Math.floor(Math.random() * images.length)
-  var image = images[index]
+  var index = Math.floor(Math.random() * IMAGES.length)
+  var image = IMAGES[index]
   res.status(200).render('main/home', { image: image })
 })
 
