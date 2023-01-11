@@ -10,6 +10,7 @@
     "body-parser": "^1.8.1",
     "ejs": "^2.5.5",
     "express": "^4.13.3",
+    "feed": "^4.2.2",
     "kerberos": "^1.1.4",
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
