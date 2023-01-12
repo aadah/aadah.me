@@ -128,4 +128,19 @@ router.get('/:postID', logView, function (req, res, next) {
   })
 })
 
+router.get('/:postID/manuscript', logView, function (req, res, next) {
+  models.Post.findOne({
+    _id: req.params.postID,
+    public: true
+  }, 'manuscript', function (err, post) {
+    if (err) {
+      res.status(500).render('error/500')
+    } else if (!post) {
+      res.status(404).render('error/404')
+    } else {
+      res.status(200).type('text/plain').send(post.manuscript)
+    }
+  })
+})
+
 module.exports = router
