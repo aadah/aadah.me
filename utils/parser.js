@@ -183,6 +183,15 @@ parser.createBlockquote = function (paragraphs) {
   return template
 }
 
+parser.createStatement = function (paragraphs) {
+  var template = fs.readFileSync('grammars/templates/statement.html', 'utf8')
+
+  paragraphs = paragraphs.join('\n')
+  template = template.replace('[PARAGRAPHS]', paragraphs)
+
+  return template
+}
+
 parser.createPullQuote = function (side, lines) {
   var template = fs.readFileSync('grammars/templates/q.html', 'utf8')
   side = side[0]

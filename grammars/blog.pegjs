@@ -52,6 +52,7 @@ Component 'Component'
         Audio /
         PullQuote /
         Blockquote /
+        Statement /
         Table /
         List /
         HorizontalLine /
@@ -450,6 +451,29 @@ BlockquoteBlankline 'BlockquoteLine'
 
 BlockquoteLineStart 'BlockquoteLineStart'
     = '|'
+
+////////////////////////////////////////////////////////////////////////////////
+
+Statement 'Statement'
+    = vParagraphs:StatementParagraph+ Blankline* {
+        return parser.createStatement(vParagraphs);
+    }
+
+StatementParagraph 'StatementParagraph'
+    = vLines:StatementNonBlankline+ StatementBlankline* {
+        return parser.createParagraph(vLines);
+    }
+
+StatementNonBlankline 'StatementNonBlankline'
+    = StatementLineStart InlineWhitespace+ vLine:NonBlankline {
+        return vLine;
+    }
+
+StatementBlankline 'StatementLine'
+    = StatementLineStart Blankline
+
+StatementLineStart 'StatementLineStart'
+    = '*'
 
 ////////////////////////////////////////////////////////////////////////////////
 

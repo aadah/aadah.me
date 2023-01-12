@@ -225,13 +225,20 @@ footer a {
 /* -------------------------------------------------------*/
 
 blockquote {
-	display: block;
 	color: #b0b0b0;
-	font-style: italic;
-	text-align: justify;
 	border-left: #b0b0b0 1px solid;
-	margin: 1.5em 1em;
+	font-style: italic;
+}
+
+div.statement {
+	border: 1px solid;
+	padding-right: 1em;
+}
+
+blockquote, div.statement {
+	display: block;
 	padding-left: 1em;
+	margin: 1.5em 1em;
 }
 
 blockquote i {
