@@ -16,7 +16,26 @@ publisher.save = function (postID, callback, manuscript) {
       updated: Date.now()
     })
 
-    models.Post.update({ _id: postID }, post, { upsert: true }, callback)
+    models.Post.updateOne({ _id: postID }, post, { upsert: true }, callback)
+  } catch (err) {
+    callback(err)
+  }
+}
+
+// Like save, but doesn't update the update timestamp. Used when a change is
+// particularly minor/cosmetic.
+publisher.tweak = function (postID, callback, manuscript) {
+  try {
+    var result = parser.parse(`/blog/${postID}`, manuscript)
+
+    var post = models.Post({
+      title: result.title,
+      subtitle: result.subtitle,
+      author: result.author,
+      manuscript: manuscript,
+    })
+
+    models.Post.updateOne({ _id: postID }, post, { upsert: true }, callback)
   } catch (err) {
     callback(err)
   }

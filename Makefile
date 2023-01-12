@@ -61,6 +61,11 @@ save:
 	docker exec -it $(CONTAINER) \
 		node cli.js manuscripts/blog/$(POSTID).txt -s
 
+.PHONY: tweak
+tweak:
+	docker exec -it $(CONTAINER) \
+		node cli.js manuscripts/blog/$(POSTID).txt -t
+
 .PHONY: publish
 publish:
 	docker exec -it $(CONTAINER) \
