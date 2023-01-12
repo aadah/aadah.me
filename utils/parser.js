@@ -2,8 +2,8 @@ var fs = require('fs')
 var peg = require('pegjs')
 var moment = require('moment')
 
-var blogGrammar = fs.readFileSync('grammars/blog.pegjs', 'utf8')
-var pegParser = peg.buildParser(blogGrammar)
+var grammar = fs.readFileSync('grammars/manuscript.pegjs', 'utf8')
+var pegParser = peg.buildParser(grammar)
 
 var parser = {}
 
