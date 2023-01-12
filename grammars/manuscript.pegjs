@@ -395,7 +395,7 @@ Table 'Table'
     }
 
 TableHeader 'TableHeader'
-    = TableFlag vCaption:(LeftArgDelimiter (InlineElement / NotArgDelimiter)* RightArgDelimiter)? Newline {
+    = TableFlag vCaption:(LeftDelimiter (InlineElement / NotDelimiter)* RightDelimiter)? Newline {
         if (vCaption) {
             return parser.createTableCaption(vCaption[1].join(''));
         }
