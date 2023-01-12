@@ -25,4 +25,4 @@ The site uses:
 - [MathJax](http://www.mathjax.org/) for LaTeX.
 - Fonts from [Google Fonts](https://fonts.google.com).
 	- [Spectral](https://fonts.google.com/specimen/Spectral) as primary font.
-	- [Inconsolata](http://levien.com/type/myfonts/inconsolata.html) for code.
+	- [Fira Code](https://github.com/tonsky/FiraCode) for code.
