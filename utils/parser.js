@@ -198,6 +198,10 @@ Parser.prototype.createStatement = function (paragraphs) {
 }
 
 Parser.prototype.createPullQuote = function (side, lines) {
+  if (this.forFeed) {
+    return ''
+  }
+
   var template = fs.readFileSync('grammars/templates/q.html', 'utf8')
   side = side[0]
   lines = lines.join('\n')
