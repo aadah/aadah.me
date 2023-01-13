@@ -73,10 +73,10 @@ function feedFactory(feedType) {
             link: `https://aadah.me${path}`,
             description: post.subtitle,
             content: result.html,
-            author: {
+            author: [{
               name: post.author,
               link: 'https://aadah.me/about'
-            },
+            }],
             published: post.posted,
             date: post.updated,
           });
