@@ -46,7 +46,7 @@ router.get('/', function (req, res, next) {
     if (err) {
       res.status(500).render('error/500')
     } else {
-      res.locals.createBlogPost = parser.createBlogPost
+      res.locals.createBlogPost = (post => parser.web.createBlogPost(post))
       res.status(200).render('main/blog', { posts: posts })
     }
   })
@@ -66,7 +66,7 @@ function feedFactory(feedType) {
         posts.forEach(post => {
           dates.push(new Date(post.updated))
           var path = `/blog/${post._id}`
-          var result = parser.parse(path, post.manuscript, post)
+          var result = parser.feed.parse(path, post.manuscript, post)
           feed.addItem({
             title: post.title,
             id: `https://aadah.me${path}`,
@@ -119,9 +119,10 @@ router.get('/:postID', logView, function (req, res, next) {
     } else {
       try {
         var path = `${req.baseUrl}${req.path}`
-        var result = parser.parse(path, post.manuscript, post)
+        var result = parser.web.parse(path, post.manuscript, post)
         res.status(200).type('text/html').send(result.html)
       } catch (err) {
+        console.log(err);
         res.status(500).render('error/500')
       }
     }

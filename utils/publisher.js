@@ -6,7 +6,7 @@ var publisher = {}
 // Save the post. If post is already public then changes will be live on site.
 publisher.save = function (postID, callback, manuscript) {
   try {
-    var result = parser.parse(`/blog/${postID}`, manuscript)
+    var result = parser.web.parse(`/blog/${postID}`, manuscript)
 
     var post = models.Post({
       title: result.title,
@@ -26,7 +26,7 @@ publisher.save = function (postID, callback, manuscript) {
 // particularly minor/cosmetic.
 publisher.tweak = function (postID, callback, manuscript) {
   try {
-    var result = parser.parse(`/blog/${postID}`, manuscript)
+    var result = parser.web.parse(`/blog/${postID}`, manuscript)
 
     var post = models.Post({
       title: result.title,

@@ -15,7 +15,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.11.1",
     "mongoose": "^5.12.2",
-    "pegjs": "^0.8.0"
+    "pegjs": "^0.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

@@ -1,10 +1,7 @@
 // Initialize //////////////////////////////////////////////////////////////////
 
 {
-    var path = require('path');
-
-    var parser_path = path.join(process.cwd(), 'utils/parser')
-    var parser = require(parser_path);
+    var parser = options.parser;
 
     var title;
     var subtitle;
@@ -359,7 +356,7 @@ Section 'Section'
         if (vLevel) {
             // We increment by 1 because `h1` is only for title. Use
             // @SUPERSECTION if you want `h1` in the body.
-            level = parseInt(vLevel[1]) + 1
+            var level = parseInt(vLevel[1]) + 1
             return parser.createSection(level, vElements.join(''));
         }
         return parser.createSection(2, vElements.join(''));

@@ -3,23 +3,27 @@ var peg = require('pegjs')
 var moment = require('moment')
 
 var grammar = fs.readFileSync('grammars/manuscript.pegjs', 'utf8')
-var pegParser = peg.buildParser(grammar)
+var pegParser = peg.generate(grammar)
 
-var parser = {}
-
-parser._parse = function (manuscript) {
-  return pegParser.parse(manuscript)
+class Parser {
+  constructor(forFeed) {
+    this.forFeed = forFeed
+  }
 }
 
-parser.parse = function (path, manuscript, post) {
-  var result = parser._parse(manuscript)
+Parser.prototype._parse = function (manuscript) {
+  return pegParser.parse(manuscript, { parser: this })
+}
+
+Parser.prototype.parse = function (path, manuscript, post) {
+  var result = this._parse(manuscript)
   var pathRgx = new RegExp('\\[PATH\\]', 'g')
   var timesRgx = new RegExp('\\[TIMES\\]', 'g')
 
   result.html = result.html.replace(pathRgx, path)
 
   if (post) {
-    times = parser.createTimes(post.posted, post.updated)
+    times = this.createTimes(post.posted, post.updated)
     result.html = result.html.replace(timesRgx, times)
   } else {
     result.html = result.html.replace(timesRgx, '')
@@ -28,7 +32,8 @@ parser.parse = function (path, manuscript, post) {
   return result
 }
 
-parser.handler = function (filePath) {
+Parser.prototype.handler = function (filePath) {
+  var parser = this;
   return function (req, res, next) {
     fs.readFile(filePath, 'utf8', function (err, manuscript) {
       if (err) {
@@ -48,7 +53,7 @@ parser.handler = function (filePath) {
 
 // /////////////////////////////////////////////////////////////////////////////
 
-parser.formatTimestamp = function (date, withTime) {
+Parser.prototype.formatTimestamp = function (date, withTime) {
   var mdate = date ? moment.utc(date) : moment.utc()
   var template = 'dddd D MMMM YYYY'
 
@@ -59,19 +64,19 @@ parser.formatTimestamp = function (date, withTime) {
   return formattedDate
 }
 
-parser.createBlogPost = function (post) {
+Parser.prototype.createBlogPost = function (post) {
   var template = fs.readFileSync('grammars/templates/blog_post.html', 'utf8').trim()
 
   template = template.replace('[POSTID]', post._id)
   template = template.replace('[TITLE]', post.title)
   template = template.replace('[SUBTITLE]', post.subtitle)
   template = template.replace('[AUTHOR]', post.author)
-  template = template.replace('[DATE]', parser.formatTimestamp(post.posted))
+  template = template.replace('[DATE]', this.formatTimestamp(post.posted))
 
   return template
 }
 
-parser.escapeHTML = function (text) {
+Parser.prototype.escapeHTML = function (text) {
   var ampersandRgx = new RegExp('&', 'g')
   var leftAngleBracketRgx = new RegExp('<', 'g')
   var rightAngleBracketRgx = new RegExp('>', 'g')
@@ -85,7 +90,7 @@ parser.escapeHTML = function (text) {
 
 // /////////////////////////////////////////////////////////////////////////////
 
-parser.createStrong = function (text) {
+Parser.prototype.createStrong = function (text) {
   var template = fs.readFileSync('grammars/templates/strong.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -93,7 +98,7 @@ parser.createStrong = function (text) {
   return template
 }
 
-parser.createEmphasis = function (text) {
+Parser.prototype.createEmphasis = function (text) {
   var template = fs.readFileSync('grammars/templates/em.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -101,7 +106,7 @@ parser.createEmphasis = function (text) {
   return template
 }
 
-parser.createStrikethrough = function (text) {
+Parser.prototype.createStrikethrough = function (text) {
   var template = fs.readFileSync('grammars/templates/s.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -109,7 +114,7 @@ parser.createStrikethrough = function (text) {
   return template
 }
 
-parser.createSalutation = function (text) {
+Parser.prototype.createSalutation = function (text) {
   var template = fs.readFileSync('grammars/templates/salutation.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -117,7 +122,7 @@ parser.createSalutation = function (text) {
   return template
 }
 
-parser.createFootnote = function (text) {
+Parser.prototype.createFootnote = function (text) {
   var template = fs.readFileSync('grammars/templates/footnote.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -125,7 +130,7 @@ parser.createFootnote = function (text) {
   return template
 }
 
-parser.createSmallCaps = function (text) {
+Parser.prototype.createSmallCaps = function (text) {
   var template = fs.readFileSync('grammars/templates/small_caps.html', 'utf8').trim()
 
   template = template.replace('[TEXT]', text)
@@ -133,7 +138,7 @@ parser.createSmallCaps = function (text) {
   return template
 }
 
-parser.createMeasurement = function (amount, unit) {
+Parser.prototype.createMeasurement = function (amount, unit) {
   var filename
   var template
 
@@ -150,7 +155,7 @@ parser.createMeasurement = function (amount, unit) {
   return template
 }
 
-parser.createQuote = function (quote) {
+Parser.prototype.createQuote = function (quote) {
   var template = fs.readFileSync('grammars/templates/quote.html', 'utf8').trim()
 
   template = template.replace('[QUOTE]', quote)
@@ -158,7 +163,7 @@ parser.createQuote = function (quote) {
   return template
 }
 
-parser.createLink = function (target, link, text) {
+Parser.prototype.createLink = function (target, link, text) {
   var template = fs.readFileSync('grammars/templates/a.html', 'utf8').trim()
 
   if (target === 'in') {
@@ -174,7 +179,7 @@ parser.createLink = function (target, link, text) {
   return template
 }
 
-parser.createBlockquote = function (paragraphs) {
+Parser.prototype.createBlockquote = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/blockquote.html', 'utf8')
 
   paragraphs = paragraphs.join('\n')
@@ -183,7 +188,7 @@ parser.createBlockquote = function (paragraphs) {
   return template
 }
 
-parser.createStatement = function (paragraphs) {
+Parser.prototype.createStatement = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/statement.html', 'utf8')
 
   paragraphs = paragraphs.join('\n')
@@ -192,7 +197,7 @@ parser.createStatement = function (paragraphs) {
   return template
 }
 
-parser.createPullQuote = function (side, lines) {
+Parser.prototype.createPullQuote = function (side, lines) {
   var template = fs.readFileSync('grammars/templates/q.html', 'utf8')
   side = side[0]
   lines = lines.join('\n')
@@ -203,7 +208,7 @@ parser.createPullQuote = function (side, lines) {
   return template
 }
 
-parser.createKeyboard = function (input) {
+Parser.prototype.createKeyboard = function (input) {
   var template = fs.readFileSync('grammars/templates/kbd.html', 'utf8').trim()
 
   template = template.replace('[INPUT]', input)
@@ -211,7 +216,11 @@ parser.createKeyboard = function (input) {
   return template
 }
 
-parser.createHTML = function (head, body) {
+Parser.prototype.createHTML = function (head, body) {
+  if (this.forFeed) {
+    return body
+  }
+
   var template = fs.readFileSync('grammars/templates/html.html', 'utf8')
 
   template = template.replace('[HEAD]', head)
@@ -220,7 +229,7 @@ parser.createHTML = function (head, body) {
   return template
 }
 
-parser.createHead = function (title, subtitle, author) {
+Parser.prototype.createHead = function (title, subtitle, author) {
   var template = fs.readFileSync('grammars/templates/head.html', 'utf8')
 
   var titleRgx = new RegExp('\\[TITLE\\]', 'g')
@@ -234,10 +243,14 @@ parser.createHead = function (title, subtitle, author) {
   return template
 }
 
-parser.createBody = function (header, main, footer) {
+Parser.prototype.createBody = function (header, main, footer) {
+  if (this.forFeed) {
+    return main
+  }
+
   var template = fs.readFileSync('grammars/templates/body.html', 'utf8')
 
-  footer = footer || parser.createFooter([])
+  footer = footer || this.createFooter([])
 
   template = template.replace('[HEADER]', header)
   template = template.replace('[MAIN]', main)
@@ -246,14 +259,14 @@ parser.createBody = function (header, main, footer) {
   return template
 }
 
-parser.createHeader = function (title, subtitle, author) {
+Parser.prototype.createHeader = function (title, subtitle, author) {
   var template = fs.readFileSync('grammars/templates/header.html', 'utf8')
 
   template = template.replace('[TITLE]', title)
   template = template.replace('[SUBTITLE]', subtitle)
 
   if (author) {
-    template = template.replace('[AUTHOR]', parser.createAuthor(author))
+    template = template.replace('[AUTHOR]', this.createAuthor(author))
   } else {
     template = template.replace('[AUTHOR]', '')
   }
@@ -261,7 +274,7 @@ parser.createHeader = function (title, subtitle, author) {
   return template
 }
 
-parser.createAuthor = function (author) {
+Parser.prototype.createAuthor = function (author) {
   var template = fs.readFileSync('grammars/templates/author.html', 'utf8')
 
   template = template.replace('[AUTHOR]', author)
@@ -269,16 +282,21 @@ parser.createAuthor = function (author) {
   return template
 }
 
-parser.createMain = function (components) {
+Parser.prototype.createMain = function (components) {
   var template = fs.readFileSync('grammars/templates/main.html', 'utf8')
 
   components = components.join('\n')
+
+  if (this.forFeed) {
+    return components
+  }
+
   template = template.replace('[COMPONENTS]', components)
 
   return template
 }
 
-parser.createFooter = function (paragraphs) {
+Parser.prototype.createFooter = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/footer.html', 'utf8')
 
   paragraphs = paragraphs.join('\n')
@@ -287,18 +305,18 @@ parser.createFooter = function (paragraphs) {
   return template
 }
 
-parser.createTimes = function (posted, updated) {
+Parser.prototype.createTimes = function (posted, updated) {
   var template = fs.readFileSync('grammars/templates/times.html', 'utf8')
   var postedRgx = new RegExp('\\[POSTED\\]', 'g')
   var updatedRgx = new RegExp('\\[UPDATED\\]', 'g')
 
-  template = template.replace(postedRgx, parser.formatTimestamp(posted, true))
-  template = template.replace(updatedRgx, parser.formatTimestamp(updated, true))
+  template = template.replace(postedRgx, this.formatTimestamp(posted, true))
+  template = template.replace(updatedRgx, this.formatTimestamp(updated, true))
 
   return template
 }
 
-parser.createMedia = function (type, path, caption) {
+Parser.prototype.createMedia = function (type, path, caption) {
   var filename
   var template
 
@@ -315,7 +333,7 @@ parser.createMedia = function (type, path, caption) {
   return template
 }
 
-parser.createParagraph = function (lines) {
+Parser.prototype.createParagraph = function (lines) {
   var template = fs.readFileSync('grammars/templates/paragraph.html', 'utf8')
 
   lines = lines.join('\n')
@@ -324,7 +342,7 @@ parser.createParagraph = function (lines) {
   return template
 }
 
-parser.createGallery = function (images) {
+Parser.prototype.createGallery = function (images) {
   var template = fs.readFileSync('grammars/templates/gallery.html', 'utf8')
 
   images = images.join('\n')
@@ -333,7 +351,7 @@ parser.createGallery = function (images) {
   return template
 }
 
-parser.createCode = function (lang, code) {
+Parser.prototype.createCode = function (lang, code) {
   var template = fs.readFileSync('grammars/templates/code.html', 'utf8')
 
   template = template.replace('[LANG]', lang)
@@ -342,7 +360,7 @@ parser.createCode = function (lang, code) {
   return template
 }
 
-parser.createSample = function (samp) {
+Parser.prototype.createSample = function (samp) {
   var template = fs.readFileSync('grammars/templates/samp.html', 'utf8')
 
   template = template.replace('[SAMPLE]', samp)
@@ -350,7 +368,7 @@ parser.createSample = function (samp) {
   return template
 }
 
-parser.createTable = function (caption, rows) {
+Parser.prototype.createTable = function (caption, rows) {
   var template = fs.readFileSync('grammars/templates/table.html', 'utf8')
 
   rows = rows.join('\n')
@@ -360,7 +378,7 @@ parser.createTable = function (caption, rows) {
   return template
 }
 
-parser.createTableCaption = function (caption) {
+Parser.prototype.createTableCaption = function (caption) {
   var template = fs.readFileSync('grammars/templates/caption.html', 'utf8')
 
   template = template.replace('[CAPTION]', caption)
@@ -368,7 +386,7 @@ parser.createTableCaption = function (caption) {
   return template
 }
 
-parser.createTableRow = function (cells) {
+Parser.prototype.createTableRow = function (cells) {
   var template = fs.readFileSync('grammars/templates/tr.html', 'utf8')
 
   cells = cells.join(' ')
@@ -377,7 +395,7 @@ parser.createTableRow = function (cells) {
   return template
 }
 
-parser.createHeaderCell = function (text) {
+Parser.prototype.createHeaderCell = function (text) {
   var template = fs.readFileSync('grammars/templates/th.html', 'utf8')
 
   template = template.replace('[TEXT]', text)
@@ -385,7 +403,7 @@ parser.createHeaderCell = function (text) {
   return template
 }
 
-parser.createStandardCell = function (text) {
+Parser.prototype.createStandardCell = function (text) {
   var template = fs.readFileSync('grammars/templates/td.html', 'utf8')
 
   template = template.replace('[TEXT]', text)
@@ -393,7 +411,7 @@ parser.createStandardCell = function (text) {
   return template
 }
 
-parser.createSection = function (num, text) {
+Parser.prototype.createSection = function (num, text) {
   var template = fs.readFileSync('grammars/templates/h.html', 'utf8')
   var numRgx = new RegExp('\\[NUM\\]', 'g')
 
@@ -403,7 +421,7 @@ parser.createSection = function (num, text) {
   return template
 }
 
-parser.createList = function (tag, lines) {
+Parser.prototype.createList = function (tag, lines) {
   while (true) {
     var deepestLevel = -1
     var i = undefined
@@ -453,9 +471,12 @@ function formatLine(line) {
   return liTempl.replace('[CONTENT]', line.content)
 }
 
-parser.createSeparator = function () {
+Parser.prototype.createSeparator = function () {
   var template = fs.readFileSync('grammars/templates/separator.html', 'utf8')
   return template
 }
 
-module.exports = parser
+module.exports = {
+  web: new Parser(false),
+  feed: new Parser(true)
+}
