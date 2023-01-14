@@ -575,7 +575,12 @@ NonBlankline 'NonBlankline'
     }
 
 Blankline 'Blankline'
-    = vLine:InlineWhitespace* Newline
+    = vLine:InlineWhitespace* Newline {
+        if (vLine) {
+            return vLine;
+        }
+        return '';
+    }
 
 NonWhitespace 'NonWhitespace'
     = !Whitespace vNonWhitespace:. {
