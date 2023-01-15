@@ -413,8 +413,8 @@ function toggleImage () {
     }, 500, 'easeOutCubic')
   } else {
     $fig.animate({
-      width: '230px',
-      height: '230px'
+      width: '10.5em',
+      height: '10.5em'
     }, 500, 'easeOutCubic')
   }
 }
@@ -428,8 +428,8 @@ function imageResize ($img, $fig) {
     // $fig.css('width', '100%');
     // $fig.css('height', '100%');
   } else {
-    $fig.css('width', '230px')
-    $fig.css('height', '230px')
+    $fig.css('width', '10.5em')
+    $fig.css('height', '10.5em')
   }
 }
 
@@ -471,8 +471,10 @@ $(function () {
 })
 
 $(window).load(function () {
-  windowResize()
-  $(window).resize(windowResize)
+  // windowResize()
+  // $(window).resize(windowResize)
+  storeImageSizes()
+  $('img', '.gallery').click(toggleImage)
 
   // setHourlyTheme(true)
   // setInterval(function () {

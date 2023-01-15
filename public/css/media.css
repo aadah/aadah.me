@@ -1,45 +1,63 @@
-@media (max-width: 850px) {
+@media screen and (max-width: 50rem) {
 	body {
-		width: 90%;
+		/* width: 90%;
+		font-size: 2em; */
 	}
 
-	nav span.prev, nav span.next {
-		font-size: large;
-	}
-
-	nav span.prev a, nav span.next a {
-		max-width: 100px;
-	}
-
-	q.pquoter, q.pquotel {
-    text-align: justify;
+	q.pquoter,
+	q.pquotel {
+		/* text-align: justify;
 		float: none;
 		width: inherit;
 		margin-left: 0;
-		margin-right: 0;
+		margin-right: 0; */
 	}
 
 	.gallery figure {
-		float: none;
+		/* float: none;
 		max-width: 100%;
 		width: auto;
 		height: auto;
-		margin: 0.5em 0;
+		margin: 0.5em 0; */
 	}
 
 	.gallery img {
-		position: static;
+		/* position: static;
 		max-width: 98%;
-		cursor: auto;
-		/*top: 0;
-		bottom: 0;
-		right: 0;
-		left: 0;*/
+		cursor: auto; */
 	}
 }
 
-@media (max-width: 500px) {
-	nav span.prev a, nav span.next a {
-		max-width: 50px;
+@media screen and (min-width: 150rem) {
+	body {
+		/* font-size: 2.5em;
+		width: 90%; */
+	}
+
+	iframe {
+		/* height: ; */
+	}
+
+	q.pquoter,
+	q.pquotel {
+		/* text-align: justify;
+		float: none;
+		width: inherit;
+		margin-left: 0;
+		margin-right: 0; */
+	}
+
+	.gallery figure {
+		/* float: none;
+		max-width: 100%;
+		width: auto;
+		height: auto;
+		margin: 0.5em 0; */
+	}
+
+	.gallery img {
+		/* position: static;
+		max-width: 98%;
+		cursor: auto; */
 	}
 }

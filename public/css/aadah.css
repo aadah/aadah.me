@@ -8,7 +8,7 @@ body {
 	color: #ffffff;
 	background-color: #202020;
 	font-family: "Spectral", serif;
-	width: 750px;
+	width: 36em;
 	margin: auto;
 	padding: 3em 0;
 	font-size: larger;
@@ -73,7 +73,7 @@ nav span {
 header {
 	clear: both;
 	padding-bottom: .5em;
-	border-bottom: #ffffff 1px solid;
+	border-bottom: #ffffff 0.1em solid;
 	margin: .5em 0;
 }
 
@@ -137,28 +137,17 @@ aside h3,
 aside h4,
 aside h5,
 aside h6 {
-	/*display: inline-block;
-	float: left;
-	clear: both;
-	max-width: 50%;
-	margin-top: 2em;
-	line-height: 1em;
-	padding-right: 1em;
-	padding-bottom: 0.5em;
-	border-bottom: #ffffff 1px solid;*/
-
 	margin-top: 1.5em;
 	margin-bottom: 1em;
-	line-height: 1.5em;
 	padding-left: 0.5em;
-	border-left: #ffffff 1px solid;
+	border-left: #ffffff 0.075em solid;
 }
 
 /* FOOTER */
 footer {
 	clear: both;
 	color: #b0b0b0;
-	border-top: #ffffff 1px solid;
+	border-top: #ffffff 0.1em solid;
 	margin: .5em 0;
 	padding: 0;
 }
@@ -168,7 +157,6 @@ footer p {
 }
 
 footer div.times {
-	line-height: 1.5em;
 	margin-top: 1em;
 }
 
@@ -187,7 +175,6 @@ footer time.updated:before {
 
 /* AESTHETICS */
 p {
-	line-height: 1.5em;
 	text-align: justify;
 }
 
@@ -226,16 +213,17 @@ footer a {
 
 blockquote {
 	color: #b0b0b0;
-	border-left: #b0b0b0 1px solid;
+	border-left: #b0b0b0 0.1em solid;
 	font-style: italic;
 }
 
 div.statement {
-	border: 1px solid;
+	border: 0.1em solid;
 	padding-right: 1em;
 }
 
-blockquote, div.statement {
+blockquote,
+div.statement {
 	display: block;
 	padding-left: 1em;
 	margin: 1.5em 1em;
@@ -264,8 +252,8 @@ q.pquotel {
 	display: block;
 	color: #c0c0c0;
 	background-color: #101010;
-	width: 250px;
-	font-size: 1.25em;
+	width: 30%;
+	font-size: larger;
 	line-height: 1.25em;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
@@ -315,7 +303,7 @@ kbd {
 code,
 samp {
 	display: block;
-	font-size: 11pt;
+	font-size: smaller;
 	line-height: 1.5em;
 	max-height: 50em;
 	white-space: pre;
@@ -355,24 +343,27 @@ samp kbd {
 
 /* -------------------------------------------------------*/
 
+table,
+th,
+td {
+	padding: 0.5em;
+}
+
 table {
 	background-color: #000000;
 	border-spacing: 0;
 	font-size: smaller;
-	padding: 0.5em;
 	margin: 0.5em auto;
 }
 
 th {
 	background-color: #202020;
 	font-weight: normal;
-	padding: 0.5em;
 	text-align: left;
 }
 
 td {
 	vertical-align: text-top;
-	padding: 0.5em;
 }
 
 caption {
@@ -386,11 +377,6 @@ caption {
 main li,
 aside li {
 	color: #ffffff;
-}
-
-ol,
-ul {
-	line-height: 1.5em;
 }
 
 ol {
@@ -531,41 +517,40 @@ figcaption {
 	transition: opacity .25s ease;
 }
 
-audio~figcaption {
-	text-align: center;
-}
-
 /* -------------------------------------------------------*/
 
 figure img,
 figure video,
 figure audio {
 	display: block;
-	/*box-sizing: border-box;
-	max-width: 100%;*/
-	max-width: 98%;
+	max-width: 35em;
 	background-color: #000000;
 	margin: auto;
-	padding: 1%;
+	padding: 0.5em;
+}
+
+figure audio {
+	width: 100%;
 }
 
 /* -------------------------------------------------------*/
 
 .gallery {
 	position: relative;
-	margin: 0.5em auto;
+	margin: auto;
 	overflow: hidden;
 }
 
 .gallery figure {
 	position: relative;
 	float: left;
-	width: 230px;
-	height: 230px;
+	width: 10.5em;
+	height: 10.5em;
 	overflow: hidden;
 	background-color: #000000;
-	border: #000000 5px solid;
-	margin: 4px;
+	border: #000000 0.5em solid;
+	margin: 0.25em;
+	padding: 0;
 }
 
 .gallery figcaption {
@@ -586,8 +571,7 @@ figure audio {
 	bottom: -1000%;
 	right: -1000%;
 	left: -1000%;
-	margin: auto;
-	max-width: 730px;
+	max-width: 34.5em;
 	cursor: pointer;
 }
 
@@ -597,18 +581,18 @@ iframe {
 	width: 100%;
 	margin: auto;
 	display: block;
-	max-width: 98%;
-	border: 5px #000000 solid;
+	max-width: 35em;
+	border: #000000 0.5em solid;
 }
 
 /* -------------------------------------------------------*/
 
 hr {
-	height: 2px;
+	height: 0.2em;
 	width: 50%;
 	border: none;
-	border-top: 1px solid #ffffff;
-	border-bottom: 1px solid #ffffff;
+	border-top: 0.1em solid #ffffff;
+	border-bottom: 0.1em solid #ffffff;
 	margin: 1.5em auto;
 }
 
@@ -622,5 +606,5 @@ hr::before {
 	right: -1000%;
 	width: 2em;
 	margin: auto;
-	transform: translateY(-45%);
+	transform: translateY(-40%);
 }
