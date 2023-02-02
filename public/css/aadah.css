@@ -3,7 +3,6 @@
 @import url(//fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap);
 @import url(//fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap);
 
-
 body {
 	color: #ffffff;
 	background-color: #202020;
@@ -214,23 +213,17 @@ footer a {
 blockquote {
 	color: #b0b0b0;
 	border-left: #b0b0b0 0.1em solid;
-	font-style: italic;
-}
-
-div.statement {
-	border: 0.1em solid;
-	padding-right: 1em;
-}
-
-blockquote,
-div.statement {
 	display: block;
 	padding-left: 1em;
 	margin: 1.5em 1em;
+	font-style: italic;
 }
 
-blockquote i {
-	font-style: normal;
+.statement {
+	color: inherit;
+	font-style: inherit;
+	border: 0.1em solid;
+	padding-right: 1em;
 }
 
 q,
@@ -242,6 +235,7 @@ q i,
 q em,
 quote i,
 quote em,
+blockquote i,
 blockquote em,
 em em {
 	font-style: normal;
