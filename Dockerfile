@@ -1,5 +1,5 @@
 # Base mongo image.
-FROM mongo:3.4-xenial
+FROM ubuntu:focal
 
 # Install Node/NPM/NPX.
 RUN apt-get update && apt-get install -y curl

@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "npx nodemon start/server.js",
-    "start": "npx nodemon start/server.js"
+    "start": "npm install && npx nodemon start/server.js"
   },
   "dependencies": {
     "body-parser": "^1.8.1",

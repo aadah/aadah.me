@@ -1,17 +1,7 @@
 var config = {}
 
-config.db_connection_string =
-    'mongodb://' +
-    process.env.AADAH_DB_USER +
-    ':' +
-    process.env.AADAH_DB_PASS +
-    '@' +
-    process.env.AADAH_DB_HOST +
-    ':' +
-    process.env.AADAH_DB_PORT +
-    '/' +
-    process.env.AADAH_DB
+config.db_connection_string =`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@mongodb/${process.env.DB}`
 
-config.port = process.env.AADAH_PORT
+config.port = process.env.HTTP_PORT
 
 module.exports = config

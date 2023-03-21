@@ -1,89 +1,94 @@
-IMAGE ?= aadah
-CONTAINER ?= website
+IMAGE = aadah
+SERVICE = website
+
 WORK_DIR ?= $(shell pwd)
 
-AADAH_PORT ?= port
-AADAH_DB ?= db
-AADAH_DB_USER ?= user
-AADAH_DB_PASS ?= pass
-AADAH_DB_HOST ?= host
-AADAH_DB_PORT ?= port
-AADAH_DB_DIR ?= $(WORK_DIR)/db
+# Used within `docker compose` YAML config.
+HTTP_PORT ?= 80
+DB_USER ?= user
+DB_PASS ?= pass
+DB ?= admin
+DB_DIR ?= $(WORK_DIR)/db
 
+# Exported so present in `env` when `docker compose` is run.
+export HTTP_PORT
+export DB_USER
+export DB_PASS
+export DB
+export DB_DIR
 
 .PHONY: all
-all: clean build serve
+all: clean build start
 
-# `clean` SHOULD NOT access, delete, or otherwise alter the contents of AADAH_DB_DIR.
+# `clean` SHOULD NOT access, delete, or otherwise alter the contents of DB_DIR.
 .PHONY: clean
-clean: stop remove
+clean: stop
 
 .PHONY: build
 build:
-	npm install
-	mkdir -p $(AADAH_DB_DIR)
-	sudo chown -R $(USER) $(AADAH_DB_DIR)
-	docker build -t $(IMAGE) ./
+	mkdir -p $(DB_DIR)
+	sudo chown -R $(USER) $(DB_DIR)
+	docker build -t $(IMAGE) $(WORK_DIR)
 
-.PHONY: serve
-serve:
-	@docker run \
-		--name $(CONTAINER) \
-		-d \
-		-p $(AADAH_PORT):$(AADAH_PORT) \
-		-e AADAH_PORT=$(AADAH_PORT) \
-		-e AADAH_DB=$(AADAH_DB) \
-		-e AADAH_DB_USER=$(AADAH_DB_USER) \
-		-e AADAH_DB_PASS=$(AADAH_DB_PASS) \
-		-e AADAH_DB_HOST=$(AADAH_DB_HOST) \
-		-e AADAH_DB_PORT=$(AADAH_DB_PORT) \
-		-e MONGO_INITDB_ROOT_USERNAME=$(AADAH_DB_USER) \
-		-e MONGO_INITDB_ROOT_PASSWORD=$(AADAH_DB_PASS) \
-		-v $(AADAH_DB_DIR):/data/db \
-		-v $(WORK_DIR):/aadah \
-		$(IMAGE)
-	docker exec -it $(CONTAINER) npm start
+.PHONY: start
+start:
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		up
 
 .PHONY: stop
 stop:
-	-docker container stop $(CONTAINER)
-
-.PHONY: remove
-remove:
-	-docker container rm $(CONTAINER)
+	-docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		down
 
 .PHONY: enter
 enter:
-	docker exec -it $(CONTAINER) bash
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
+		bash
 
 .PHONY: save
 save:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -s
 
 .PHONY: tweak
 tweak:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -t
 
 .PHONY: publish
 publish:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -p
 
 .PHONY: reveal
 reveal:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -r
 
 .PHONY: hide
 hide:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -h
 
 .PHONY: delete
 delete:
-	docker exec -it $(CONTAINER) \
+	docker compose \
+		-f $(WORK_DIR)/docker-compose.yaml \
+		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -d
 
 # Used to make writing flow simpler. Not for use on main site.
