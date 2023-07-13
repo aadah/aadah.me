@@ -233,16 +233,18 @@ Parser.prototype.createHTML = function (head, body) {
   return template
 }
 
-Parser.prototype.createHead = function (title, subtitle, author) {
+Parser.prototype.createHead = function (title, subtitle, author, headImage) {
   var template = fs.readFileSync('grammars/templates/head.html', 'utf8')
 
   var titleRgx = new RegExp('\\[TITLE\\]', 'g')
   var subtitleRgx = new RegExp('\\[SUBTITLE\\]', 'g')
   var authorRgx = new RegExp('\\[AUTHOR\\]', 'g')
+  var headImageRgx = new RegExp('\\[IMAGE\\]', 'g')
 
   template = template.replace(titleRgx, title)
   template = template.replace(subtitleRgx, subtitle)
   template = template.replace(authorRgx, author || '')
+  template = template.replace(headImageRgx, headImage || '/media/images/aadah.png')
 
   return template
 }

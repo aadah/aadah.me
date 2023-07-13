@@ -6,6 +6,7 @@
     var title;
     var subtitle;
     var author;
+    var headImage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +16,7 @@ start 'start'
 
 HTML 'HTML'
     = vBody:Body {
-        var vHead = parser.createHead(title, subtitle, author);
+        var vHead = parser.createHead(title, subtitle, author, headImage);
 
         return {
             html: parser.createHTML(vHead, vBody),
@@ -61,10 +62,11 @@ Component 'Component'
 ////////////////////////////////////////////////////////////////////////////////
 
 Header 'Header'
-    = vTitle:TitleLine vSubtitle:SubtitleLine vAuthor:AuthorLine? Blankline* {
+    = vTitle:TitleLine vSubtitle:SubtitleLine vAuthor:AuthorLine? vHeadImage:HeadImageLine? Blankline* {
         title = vTitle;
         subtitle = vSubtitle;
         author = vAuthor;
+        headImage = vHeadImage;
         return parser.createHeader(vTitle, vSubtitle, vAuthor);
     }
 
@@ -83,6 +85,11 @@ AuthorLine 'AuthorLine'
         return vAuthor;
     }
 
+HeadImageLine 'HeadImageLine'
+    = HeadImageFlag Colon InlineWhitespace+ vHeadImage:NonBlankline {
+        return vHeadImage;
+    }
+
 TitleFlag 'TitleFlag'
     = '@TITLE'
 
@@ -91,6 +98,9 @@ SubtitleFlag 'SubtitleFlag'
 
 AuthorFlag 'AuthorFlag'
     = '@AUTHOR'
+
+HeadImageFlag 'HeadImageFlag'
+    = '@IMAGE'
 
 ////////////////////////////////////////////////////////////////////////////////
 
