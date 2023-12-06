@@ -8,6 +8,7 @@ var home = require('./routes/home')
 var blog = require('./routes/blog')
 var works = require('./routes/works')
 var about = require('./routes/about')
+var misc = require('./routes/misc')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -18,6 +19,7 @@ app.use('/', home)
 app.use('/blog', blog)
 app.use('/works', works)
 app.use('/about', about)
+app.use('/misc', misc)
 
 // for my puzzle
 var puzzle = require('./routes/puzzle')
