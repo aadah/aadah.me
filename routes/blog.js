@@ -57,7 +57,7 @@ function feedFactory(feedType) {
     models.Post.find({
       public: true
     }, null, {
-      limit: 10
+      limit: 5
     }).select('title subtitle author posted updated manuscript').sort({
       posted: 'desc'
     }).exec(function (err, posts) {
