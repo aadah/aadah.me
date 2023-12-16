@@ -10,7 +10,7 @@ const feed = new Feed({
   link: 'https://aadah.me',
   language: 'en-US',
   image: 'https://aadah.me/media/images/aadah.png',
-  favicon: 'https://aadah.me/favicon.ico',
+  favicon: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>',
   copyright: `Copyright © ${new Date().getFullYear()} by Abdi-Hakin Dirie & Ahmed Ali Diriye`,
   feedLinks: {
     atom: 'https://aadah.me/blog/feed'
