@@ -22,7 +22,7 @@ Parser.prototype.parse = function (path, manuscript, post) {
 
   result.html = result.html.replace(pathRgx, path)
 
-  if (post) {
+  if (post && !this.forFeed) {
     times = this.createTimes(post.posted, post.updated)
     result.html = result.html.replace(timesRgx, times)
   } else {
