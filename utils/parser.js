@@ -251,7 +251,7 @@ Parser.prototype.createHead = function (title, subtitle, author, headImage) {
 
 Parser.prototype.createBody = function (header, main, footer) {
   if (this.forFeed) {
-    return main
+    return main + '\n' + footer
   }
 
   var template = fs.readFileSync('grammars/templates/body.html', 'utf8')
