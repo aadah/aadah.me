@@ -182,7 +182,7 @@ Parser.prototype.createLink = function (target, link, text) {
 Parser.prototype.createBlockquote = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/blockquote.html', 'utf8')
 
-  paragraphs = paragraphs.join('\n')
+  paragraphs = paragraphs.join('')
   template = template.replace('[PARAGRAPHS]', paragraphs)
 
   return template
@@ -191,7 +191,7 @@ Parser.prototype.createBlockquote = function (paragraphs) {
 Parser.prototype.createStatement = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/statement.html', 'utf8')
 
-  paragraphs = paragraphs.join('\n')
+  paragraphs = paragraphs.join('')
   template = template.replace('[PARAGRAPHS]', paragraphs)
 
   return template
@@ -251,7 +251,7 @@ Parser.prototype.createHead = function (title, subtitle, author, headImage) {
 
 Parser.prototype.createBody = function (header, main, footer) {
   if (this.forFeed) {
-    return main + '\n' + footer
+    return main + footer
   }
 
   var template = fs.readFileSync('grammars/templates/body.html', 'utf8')
@@ -291,7 +291,7 @@ Parser.prototype.createAuthor = function (author) {
 Parser.prototype.createMain = function (components) {
   var template = fs.readFileSync('grammars/templates/main.html', 'utf8')
 
-  components = components.join('\n')
+  components = components.join('')
 
   if (this.forFeed) {
     return components
@@ -305,7 +305,7 @@ Parser.prototype.createMain = function (components) {
 Parser.prototype.createFooter = function (paragraphs) {
   var template = fs.readFileSync('grammars/templates/footer.html', 'utf8')
 
-  paragraphs = paragraphs.join('\n')
+  paragraphs = paragraphs.join('')
   template = template.replace('[PARAGRAPHS]', paragraphs)
 
   return template
@@ -351,7 +351,7 @@ Parser.prototype.createParagraph = function (lines) {
 Parser.prototype.createGallery = function (images) {
   var template = fs.readFileSync('grammars/templates/gallery.html', 'utf8')
 
-  images = images.join('\n')
+  images = images.join('')
   template = template.replace('[IMAGES]', images)
 
   return template
@@ -377,7 +377,7 @@ Parser.prototype.createSample = function (samp) {
 Parser.prototype.createTable = function (caption, rows) {
   var template = fs.readFileSync('grammars/templates/table.html', 'utf8')
 
-  rows = rows.join('\n')
+  rows = rows.join('')
   template = template.replace('[CAPTION]', caption)
   template = template.replace('[ROWS]', rows)
 
@@ -451,7 +451,7 @@ Parser.prototype.createList = function (tag, lines) {
 
     lineHeader = linesBefore.pop()
     if (lineHeader) {
-      lineHeader.content = [lineHeader.content, subList].join('\n')
+      lineHeader.content = [lineHeader.content, subList].join('')
       linesBefore.push(lineHeader)
     } else {
       return subList
@@ -465,7 +465,7 @@ function formatList(tag, lines) {
   var listTempl = fs.readFileSync('grammars/templates/list.html', 'utf8')
   var tagRgx = new RegExp('\\[TAG\\]', 'g')
 
-  bullets = lines.map(formatLine).join('\n')
+  bullets = lines.map(formatLine).join('')
   list = listTempl.replace(tagRgx, tag)
   list = list.replace('[CONTENT]', bullets)
 
