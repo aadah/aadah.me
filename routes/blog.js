@@ -2,8 +2,12 @@ var express = require('express')
 var models = require('../utils/models')
 var parser = require('../utils/parser')
 
+const DEFAULT_NUM_ITEMS = 10
+const MAX_NUM_ITEMS = 30
+
 const Feed = require('feed').Feed;
-const feed = new Feed({
+
+const FEED_DETAILS = {
   title: 'aadah.me',
   description: 'Writings by Abdi-Hakin Dirie & Ahmed Ali Diriye',
   id: 'https://aadah.me',
@@ -13,13 +17,14 @@ const feed = new Feed({
   favicon: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>',
   copyright: `Copyright © ${new Date().getFullYear()} by Abdi-Hakin Dirie & Ahmed Ali Diriye`,
   feedLinks: {
-    atom: 'https://aadah.me/blog/feed'
+    atom: 'https://aadah.me/blog/feed',
+    rss: 'https://aadah.me/blog/feed/rss'
   },
   author: {
     name: 'Abdi-Hakin Dirie & Ahmed Ali Diriye',
     link: 'https://aadah.me/about'
   }
-});
+};
 
 var router = express.Router()
 
@@ -52,12 +57,18 @@ router.get('/', function (req, res, next) {
   })
 })
 
-function feedFactory(feedType) {
+function getNumItems(numItems) {
+  var num = parseInt(numItems, 10) || DEFAULT_NUM_ITEMS
+  return Math.min(num, MAX_NUM_ITEMS)
+}
+
+function feedFactory(feedType, numItems) {
   return function (req, res, next) {
+    feed = new Feed(FEED_DETAILS)
     models.Post.find({
       public: true
     }, null, {
-      limit: 5
+      limit: getNumItems(numItems)
     }).select('title subtitle author posted updated manuscript').sort({
       posted: 'desc'
     }).exec(function (err, posts) {
@@ -104,9 +115,8 @@ function feedFactory(feedType) {
   }
 }
 
-router.get('/feed', feedFactory('atom'))
-router.get('/feed/:feedType', function (req, res, next) {
-  feedFactory(req.params.feedType)(req, res, next)
+router.get('/feed/:feedType(\\D+)?/:numItems(\\d+)?', function (req, res, next) {
+  feedFactory((req.params.feedType || 'atom'), req.params.numItems)(req, res, next)
 })
 
 router.get('/:postID', logView, function (req, res, next) {
