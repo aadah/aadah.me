@@ -250,13 +250,13 @@ Parser.prototype.createHead = function (title, subtitle, author, headImage) {
 }
 
 Parser.prototype.createBody = function (header, main, footer) {
+  footer = footer || this.createFooter([])
+
   if (this.forFeed) {
     return main + footer
   }
 
   var template = fs.readFileSync('grammars/templates/body.html', 'utf8')
-
-  footer = footer || this.createFooter([])
 
   template = template.replace('[HEADER]', header)
   template = template.replace('[MAIN]', main)
