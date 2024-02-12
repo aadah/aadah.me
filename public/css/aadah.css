@@ -7,7 +7,7 @@ body {
 	color: #ffffff;
 	background-color: #202020;
 	font-family: "Spectral", serif;
-	width: 36em;
+	max-width: 36em;
 	margin: auto;
 	padding: 3em 0;
 	font-size: larger;
