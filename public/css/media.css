@@ -1,6 +1,5 @@
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 65rem) {
 	body {
-		max-width: none;
 		font-size: x-large;
 	}
 
