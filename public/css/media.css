@@ -1,63 +1,63 @@
-@media screen and (max-width: 50rem) {
+@media only screen and (max-width: 400px) {
 	body {
-		/* width: 90%;
-		font-size: 2em; */
+		max-width: none;
+		font-size: x-large;
 	}
 
-	q.pquoter,
+	/* q.pquoter,
 	q.pquotel {
-		/* text-align: justify;
+		text-align: justify;
 		float: none;
 		width: inherit;
 		margin-left: 0;
-		margin-right: 0; */
+		margin-right: 0;
 	}
 
 	.gallery figure {
-		/* float: none;
+		float: none;
 		max-width: 100%;
 		width: auto;
 		height: auto;
-		margin: 0.5em 0; */
+		margin: 0.5em 0;
 	}
 
 	.gallery img {
-		/* position: static;
+		position: static;
 		max-width: 98%;
-		cursor: auto; */
-	}
+		cursor: auto;
+	} */
 }
 
-@media screen and (min-width: 150rem) {
+/* @media screen and (min-width: 150rem) {
 	body {
-		/* font-size: 2.5em;
-		width: 90%; */
+		font-size: 2.5em;
+		width: 90%;
 	}
 
 	iframe {
-		/* height: ; */
+		height: ;
 	}
 
 	q.pquoter,
 	q.pquotel {
-		/* text-align: justify;
+		text-align: justify;
 		float: none;
 		width: inherit;
 		margin-left: 0;
-		margin-right: 0; */
+		margin-right: 0;
 	}
 
 	.gallery figure {
-		/* float: none;
+		float: none;
 		max-width: 100%;
 		width: auto;
 		height: auto;
-		margin: 0.5em 0; */
+		margin: 0.5em 0;
 	}
 
 	.gallery img {
-		/* position: static;
+		position: static;
 		max-width: 98%;
-		cursor: auto; */
+		cursor: auto;
 	}
-}
+} */
