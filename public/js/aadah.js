@@ -309,12 +309,9 @@ function extractFootnoteText (f, i) {
   var footnote = $(f)
   var text = footnote.html()
   var num = i.toString()
-  var link = $('<a>')
 
-  link.text(num)
-  link.attr('href', '#f' + num)
-  link.attr('id', 'd' + num)
-  footnote.html(link)
+  footnote.text(num)
+  footnote.attr('id', 'f' + num)
 
   return text
 }
@@ -326,11 +323,11 @@ function createFootnotesListElement (text, i) {
   var link = $('<a>')
 
   span.html(text)
+  span.attr('id', 't' + num)
   elem.append(span)
 
   link.text('⇑')
-  link.attr('href', '#d' + num)
-  link.attr('id', 'f' + num)
+  link.attr('href', '#f' + num)
   elem.append(link)
 
   return elem
@@ -361,9 +358,10 @@ function createFootnotesList () {
 
 function footnoteHoverEnter (event) {
   var box = $('#fn-box')
-  var fn = $('a', this)
-  var id = fn.attr('href')
-  var span = $(id).siblings('span')
+  var fn = $(this)
+  var id = fn.attr('id')
+  id = '#t' + id.substring(1)
+  var span = $(id)
   var html = span.html()
   box.html(html)
 

@@ -428,8 +428,9 @@ table ul {
 
 /* -------------------------------------------------------*/
 
-.footnote a {
-	font-size: smaller;
+.footnote {
+	cursor: help;
+	text-decoration: underline;
 }
 
 .footnotes li>span {
