@@ -352,7 +352,6 @@ samp kbd {
 
 /* -------------------------------------------------------*/
 
-table,
 th,
 td {
 	padding: 0.5em;
@@ -360,9 +359,10 @@ td {
 
 table {
 	background-color: var(--dark-bg-color-2);
-	border-spacing: 0;
 	font-size: smaller;
+	border-spacing: 0.25em;
 	margin: 0.5em auto;
+	padding: 0.25em;
 }
 
 th {
