@@ -32,7 +32,7 @@ Parser.prototype.parse = function (path, manuscript, post) {
   return result
 }
 
-Parser.prototype.handler = function (filePath) {
+Parser.prototype.handler = function (filePath, replacements) {
   var parser = this;
   return function (req, res, next) {
     fs.readFile(filePath, 'utf8', function (err, manuscript) {
@@ -40,6 +40,12 @@ Parser.prototype.handler = function (filePath) {
         res.status(500).render('error/500')
       } else {
         try {
+          if (replacements) {
+            const vars = Object.keys(replacements);
+            vars.forEach(v => {
+              manuscript = manuscript.replace(`[${v}]`, replacements[v])
+            })
+          }
           var path = `${req.baseUrl}${req.path}`
           var result = parser.parse(path, manuscript)
           res.status(200).type('text/html').send(result.html)
