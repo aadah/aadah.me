@@ -618,3 +618,21 @@ hr::before {
 	margin: auto;
 	transform: translateY(-40%);
 }
+
+/* -------------------------------------------------------*/
+
+.tfp__banner {
+	font-family: "Fira Code", monospace;
+	font-size: unset !important;
+	gap: 1em !important;
+	padding: 0 !important;
+	height: 3em;
+}
+
+nav {
+	top: 3em !important;
+}
+
+body {
+	padding-top: 6em;
+}
