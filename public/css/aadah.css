@@ -11,10 +11,12 @@
 	--dark-fg-color-2: #b0b0b0;
 	--dark-fg-color-3: #c0c0c0;
 
-	--dark-nav-home: #b00000;
-	--dark-nav-blog: #00b000;
-	--dark-nav-works: #00b0b0;
-	--dark-nav-about: #b0b000;
+	--dark-nav-home: indianred;
+	--dark-nav-blog:mediumseagreen;
+	--dark-nav-works: cornflowerblue;
+	--dark-nav-about: goldenrod;
+
+	--light-fg-color: #000000;
 }
 
 body {
@@ -55,24 +57,33 @@ nav ul {
 
 nav li {
 	display: inline;
-	padding: 0;
-	margin: 0;
+	font-family: 'Spectral SC', serif;
+}
+
+nav li a {
+	border-radius: 0.25em;
+	padding: 0.25em 0.5em;
+	margin: 0 0.25em;
 }
 
 nav a.home:hover {
-	color: var(--dark-nav-home);
+	color: var(--light-fg-color);
+	background-color: var(--dark-nav-home);
 }
 
 nav a.blog:hover {
-	color: var(--dark-nav-blog);
+	color: var(--light-fg-color);
+	background-color: var(--dark-nav-blog);
 }
 
 nav a.works:hover {
-	color: var(--dark-nav-works);
+	color: var(--light-fg-color);
+	background-color: var(--dark-nav-works);
 }
 
 nav a.about:hover {
-	color: var(--dark-nav-about);
+	color: var(--light-fg-color);
+	background-color: var(--dark-nav-about);
 }
 
 nav span {
