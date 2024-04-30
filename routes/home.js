@@ -26,6 +26,7 @@ var IMAGES = [
   'https://mastodon.mit.edu/system/media_attachments/files/111/682/295/720/395/669/original/943372f64c2d7b86.jpg',
   'https://mastodon.mit.edu/system/media_attachments/files/111/705/098/563/938/086/original/f30e067d24df8105.jpg',
   'https://mastodon.mit.edu/system/media_attachments/files/111/705/098/191/567/569/original/48e9bc2268d6014d.jpg',
+  'https://social-coop-media.ams3.cdn.digitaloceanspaces.com/media_attachments/files/112/356/680/545/068/533/original/504dc756fa36dc8d.jpg',
 ]
 
 router.get('/', function (req, res, next) {
