@@ -12,7 +12,7 @@
 	--dark-fg-color-3: #c0c0c0;
 
 	--dark-nav-home: indianred;
-	--dark-nav-blog:mediumseagreen;
+	--dark-nav-blog: mediumseagreen;
 	--dark-nav-works: cornflowerblue;
 	--dark-nav-about: goldenrod;
 
@@ -23,7 +23,7 @@ body {
 	color: var(--dark-fg-color);
 	background-color: var(--dark-bg-color);
 	font-family: "Spectral", serif;
-	max-width: 36em;
+	max-width: 34em;
 	margin: auto;
 	padding: 3em 1em;
 	font-size: larger;
@@ -549,7 +549,7 @@ figure img,
 figure video,
 figure audio {
 	display: block;
-	max-width: 35em;
+	max-width: 33em;
 	background-color: var(--dark-bg-color-2);
 	margin: auto;
 	padding: 0.5em;
@@ -570,13 +570,25 @@ figure audio {
 .gallery figure {
 	position: relative;
 	float: left;
-	width: 10.5em;
-	height: 10.5em;
+	width: 10em;
+	height: 10em;
 	overflow: hidden;
 	background-color: var(--dark-bg-color-2);
 	border: var(--dark-bg-color-2) 0.5em solid;
-	margin: 0.25em;
+	margin: 0;
 	padding: 0;
+}
+
+.gallery figure:nth-child(3n+2) {
+	margin-left: 0.5em;
+}
+
+.gallery figure:nth-child(3n+3) {
+	margin-left: 0.5em;
+}
+
+.gallery figure:nth-child(n+4) {
+	margin-top: 0.5em;
 }
 
 .gallery figcaption {
@@ -597,8 +609,19 @@ figure audio {
 	bottom: -1000%;
 	right: -1000%;
 	left: -1000%;
-	max-width: 34.5em;
+	max-width: 33em;
 	cursor: pointer;
+}
+
+.gallery figure.expanded {
+	width: initial;
+	height: initial;
+	margin: 0.5em 0;
+}
+
+.gallery figure.expanded img {
+	position: initial;
+	padding: 0;
 }
 
 /* -------------------------------------------------------*/
@@ -607,7 +630,7 @@ iframe {
 	width: 100%;
 	margin: 0.5em auto;
 	display: block;
-	max-width: 35em;
+	max-width: 33em;
 	border: var(--dark-bg-color-2) 0.5em solid;
 }
 
