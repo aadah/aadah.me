@@ -401,7 +401,7 @@ function footnoteHoverExit () {
 function toggleImage () {
   var $img = $(this)
   var $fig = $img.closest('figure')
-  $fig.toggleClass('expanded', 500, 'swing')
+  $fig.toggleClass('expanded', 350, 'swing')
 }
 
 // /////////////////////////////////////////////////////////////////////////////
