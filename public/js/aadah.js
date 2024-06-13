@@ -401,77 +401,17 @@ function footnoteHoverExit () {
 function toggleImage () {
   var $img = $(this)
   var $fig = $img.closest('figure')
-  $img.data('expanded?', !$img.data('expanded?'))
-  if ($img.data('expanded?')) {
-    var imgWidth = $img.data('width')
-    var imgHeight = $img.data('height')
-    $fig.animate({
-      width: imgWidth,
-      height: imgHeight
-    }, 500, 'easeOutCubic')
-  } else {
-    $fig.animate({
-      width: '10.5em',
-      height: '10.5em'
-    }, 500, 'easeOutCubic')
-  }
-}
-
-function imageResize ($img, $fig) {
-  if ($img.data('expanded?')) {
-    var imgWidth = $img.data('width')
-    var imgHeight = $img.data('height')
-    $fig.css('width', imgWidth)
-    $fig.css('height', imgHeight)
-    // $fig.css('width', '100%');
-    // $fig.css('height', '100%');
-  } else {
-    $fig.css('width', '10.5em')
-    $fig.css('height', '10.5em')
-  }
-}
-
-function storeImageSizes () {
-  if ($('body').data('imageSizesStored?')) return
-  $('img', '.gallery').each(function () {
-    var $img = $(this)
-    $img.data('width', $img.css('width'))
-    $img.data('height', $img.css('height'))
-  })
-  $('body').data('imageSizesStored?', true)
-}
-
-function windowResize () {
-  if (window.innerWidth <= 850) {
-    $('img', '.gallery').off('click', toggleImage)
-    $('figure', '.gallery').css('width', 'auto')
-    $('figure', '.gallery').css('height', 'auto')
-  } else {
-    storeImageSizes()
-    $('img', '.gallery').off('click', toggleImage)
-    $('img', '.gallery').click(toggleImage)
-    $('img', '.gallery').each(function () {
-      var $img = $(this)
-      var $fig = $img.closest('figure')
-      imageResize($img, $fig)
-    })
-  }
+  $fig.toggleClass('expanded', 500, 'swing')
 }
 
 // /////////////////////////////////////////////////////////////////////////////
 
 $(function () {
   $('body').data('theme', 'main')
-  $('body').data('imageSizesStored?', false)
-  $('img', '.gallery').data('expanded?', false)
-
   createFootnotesList()
 })
 
 $(window).load(function () {
-  // windowResize()
-  // $(window).resize(windowResize)
-  storeImageSizes()
   $('img', '.gallery').click(toggleImage)
 
   // setHourlyTheme(true)
