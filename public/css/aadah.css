@@ -579,6 +579,16 @@ figure audio {
 	padding: 0;
 }
 
+.gallery figure img {
+	position: absolute;
+	top: -1000%;
+	bottom: -1000%;
+	right: -1000%;
+	left: -1000%;
+	cursor: pointer;
+	padding: 0;
+}
+
 .gallery figure:nth-child(3n+2) {
 	margin-left: 0.5em;
 }
@@ -603,16 +613,6 @@ figure audio {
 	opacity: 0.1;
 }
 
-.gallery img {
-	position: absolute;
-	top: -1000%;
-	bottom: -1000%;
-	right: -1000%;
-	left: -1000%;
-	max-width: 33em;
-	cursor: pointer;
-}
-
 .gallery figure.expanded {
 	width: initial;
 	height: initial;
@@ -621,7 +621,6 @@ figure audio {
 
 .gallery figure.expanded img {
 	position: initial;
-	padding: 0;
 }
 
 /* -------------------------------------------------------*/
