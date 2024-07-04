@@ -351,7 +351,7 @@ function createFootnotesList () {
     list.append(elem)
   }
 
-  list.insertBefore($('div.times'))
+  $('footer').prepend(list)
 
   $('.footnote').hover(footnoteHoverEnter, footnoteHoverExit)
 }
