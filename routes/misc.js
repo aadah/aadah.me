@@ -4,7 +4,8 @@ var parser = require('../utils/parser')
 var router = express.Router()
 
 router.get('/*', function (req, res, next) {
-  var filePath = `manuscripts/misc/${req.params[0]}.txt`
+  const cleanedPath = req.params[0].replace(/\/$/, '');
+  var filePath = `manuscripts/misc/${cleanedPath}.txt`
   parser.web.handler(filePath)(req, res, next)
 })
 
