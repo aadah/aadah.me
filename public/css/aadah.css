@@ -327,7 +327,7 @@ samp {
 	max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
-	padding: 1em;
+	padding: 1em !important;
 	margin: 0.5em auto;
 
 	-webkit-tab-size: 4;

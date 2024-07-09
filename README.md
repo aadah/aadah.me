@@ -21,7 +21,7 @@ The site uses:
 - [MongoDB](https://www.mongodb.com/) for backend storage.
   - Uses MongoDB's [images](https://hub.docker.com/_/mongo/) with external volume for persistent storage.
 - [PEG.js](pegjs.org/) for designing custom blog syntax and parsing to HTML.
-- [Google's code syntax highligther](https://code.google.com/p/google-code-prettify/) for code.
+- [highlight.js](https://highlightjs.org/) for code.
 - [MathJax](http://www.mathjax.org/) for LaTeX.
 - Fonts from [Google Fonts](https://fonts.google.com).
 	- [Spectral](https://fonts.google.com/specimen/Spectral) as primary font.
