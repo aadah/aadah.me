@@ -14,6 +14,7 @@
 	--dark-nav-home: indianred;
 	--dark-nav-blog: mediumseagreen;
 	--dark-nav-works: cornflowerblue;
+	--dark-nav-now: orchid;
 	--dark-nav-about: goldenrod;
 
 	--light-fg-color: #000000;
@@ -79,6 +80,11 @@ nav a.blog:hover {
 nav a.works:hover {
 	color: var(--light-fg-color);
 	background-color: var(--dark-nav-works);
+}
+
+nav a.now:hover {
+	color: var(--light-fg-color);
+	background-color: var(--dark-nav-now);
 }
 
 nav a.about:hover {
