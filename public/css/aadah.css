@@ -46,6 +46,8 @@ body {
 
 /* NAVIGATION */
 nav {
+	font-family: 'Spectral SC', serif;
+
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -64,18 +66,7 @@ nav:hover {
 	opacity: 1;
 }
 
-nav ul {
-	vertical-align: middle;
-	padding: 0;
-	margin: 0;
-}
-
-nav li {
-	display: inline;
-	font-family: 'Spectral SC', serif;
-}
-
-nav li a {
+nav a {
 	border-radius: 0.25em;
 	padding: 0.25em 0.5em;
 	margin: 0 0.25em;
@@ -104,13 +95,6 @@ nav a.now:hover {
 nav a.about:hover {
 	color: light-dark(var(--dark-fg-color), var(--light-fg-color));
 	background-color: light-dark(var(--light-nav-about), var(--dark-nav-about));
-}
-
-nav span {
-	position: absolute;
-
-	-webkit-transition: all .25s ease;
-	transition: all .25s ease;
 }
 
 /* HEADER */
