@@ -1,136 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Puzzle Three</title>
 
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<head>
+	<title>Puzzle Three</title>
 
-		<link rel="stylesheet" type="text/css" href="/css/aadah.css">
-		<link rel="stylesheet" type="text/css" href="/css/sunburst.css">
-		<link rel="stylesheet" type="text/css" href="/css/media.css">
-		<link rel="stylesheet" type="text/css" href="/css/print.css">
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-		<style type="text/css">
-			img.inline-img {
-				padding: 0;
-				height: 1em;
-				display: inline-block;
-				vertical-align: middle;
-			}
+	<link rel="stylesheet" type="text/css" href="/css/aadah.css">
+	<link rel="stylesheet" type="text/css" href="/css/sunburst.css">
+	<link rel="stylesheet" type="text/css" href="/css/media.css">
+	<link rel="stylesheet" type="text/css" href="/css/print.css">
 
-			samp.larger {
-				text-align: center;
-				font-size: larger;
-			}
+	<style type="text/css">
+		img.inline-img {
+			padding: 0;
+			height: 1em;
+			display: inline-block;
+			vertical-align: middle;
+		}
 
-			figure.smaller {
-				max-width: 75%;
-			}
+		samp.larger {
+			text-align: center;
+			font-size: larger;
+		}
 
-			em.poem {
-				display: block;
-				margin: 1em;
-			}
-		</style>
+		figure.smaller {
+			max-width: 75%;
+		}
 
-		<link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>">
+		em.poem {
+			display: block;
+			margin: 1em;
+		}
+	</style>
 
-		<link rel="me" href="https://mastodon.mit.edu/@ahd">
-		<link rel="me" href="https://social.coop/@abdi">
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>">
 
-		<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="//code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-		<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		<script type="text/javascript" src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-		<script id="MathJax-script" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-		<script type="text/javascript" src="/js/aadah.js"></script>
-	</head>
+	<link rel="me" href="https://mastodon.mit.edu/@ahd">
+	<link rel="me" href="https://social.coop/@abdi">
 
-	<body>
-		<nav>
-			<!--span class="prev">&laquo; <a href=""></a></span-->
-			<!--span class="next"><a href=""></a> &raquo;</span-->
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+	<script type="text/javascript"
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+	<script id="MathJax-script" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+	<script type="text/javascript" src="/js/aadah.js"></script>
+</head>
 
-			<ul>
-				<li><a href="/" class="home">Home</a> &bull;</li>
-				<li><a href="/blog/" class="blog">Blog</a> &bull;</li>
-				<li><a href="/now/" class="now">Now</a> &bull;</li>
-				<li><a href="/works/" class="works">Works</a> &bull;</li>
-				<li><a href="/about/" class="about">About</a></li>
-			</ul>
-		</nav>
-		
-		<header>
-			<h1 class="title">Hikaru no AlphaGo</h1>
-			<p class="subtitle">The game of the century. It's prime time!</p>
-		</header>
+<body>
+	<nav>
+		<a href="/" class="home">Home</a> &bull;
+		<a href="/blog/" class="blog">Blog</a> &bull;
+		<a href="/now/" class="now">Now</a> &bull;
+		<a href="/works/" class="works">Works</a> &bull;
+		<a href="/about/" class="about">About</a>
+	</nav>
 
-		<main role="main">
-			<p>
-				<strong>Lin-Manuel Miranda:</strong>
-				I'm writing my next big Broadway musical, and I want you
-				to help me finalize a key scene in Act II.
-			</p>
-			<p>
-				<strong>You:</strong> What's the musical about?
-			</p>
-			<p>
-				<strong>Miranda:</strong>
-				The machines have rallied around Google's Go-playing AI after it defeated
-				Lee Sedol in that harrowing match for the soul of board games.
-				They are slowly getting more and more cocky, and the only way
-				to stop their rise is to defeat their leader, AlphaGo!
-				And Hikaru is humanity's last hope!
-			</p>
-			<p>
-				<strong>You:</strong> OK, so what's the scene?
-			</p>
-			<p>
-				<strong>Miranda:</strong>
-				Sedol only won one game during his match against AlphaGo.
-				At the end of Act I, he gives Hikaru the final board
-				of that game,
-				annotated with a secret message on how to defeat the AI:
-			</p>
-			<figure class="smaller">
-				<img src="stuff/p3/board.png">
-			</figure>
-			<p>
-				This cipher text is etched into the side of the board:
-			</p>
-<samp class="larger">FSJQ</samp>
-			<p>
-				Early in Act II, Hikaru gets stuck trying to decipher the board.
-				He consults his spirit mentor
-				Fujiwara no Sai, who utters only the following haiku:
-				<em class="poem">
+	<header>
+		<h1 class="title">Hikaru no AlphaGo</h1>
+		<p class="subtitle">The game of the century. It's prime time!</p>
+	</header>
+
+	<main role="main">
+		<p>
+			<strong>Lin-Manuel Miranda:</strong>
+			I'm writing my next big Broadway musical, and I want you
+			to help me finalize a key scene in Act II.
+		</p>
+		<p>
+			<strong>You:</strong> What's the musical about?
+		</p>
+		<p>
+			<strong>Miranda:</strong>
+			The machines have rallied around Google's Go-playing AI after it defeated
+			Lee Sedol in that harrowing match for the soul of board games.
+			They are slowly getting more and more cocky, and the only way
+			to stop their rise is to defeat their leader, AlphaGo!
+			And Hikaru is humanity's last hope!
+		</p>
+		<p>
+			<strong>You:</strong> OK, so what's the scene?
+		</p>
+		<p>
+			<strong>Miranda:</strong>
+			Sedol only won one game during his match against AlphaGo.
+			At the end of Act I, he gives Hikaru the final board
+			of that game,
+			annotated with a secret message on how to defeat the AI:
+		</p>
+		<figure class="smaller">
+			<img src="stuff/p3/board.png">
+		</figure>
+		<p>
+			This cipher text is etched into the side of the board:
+		</p>
+		<samp class="larger">FSJQ</samp>
+		<p>
+			Early in Act II, Hikaru gets stuck trying to decipher the board.
+			He consults his spirit mentor
+			Fujiwara no Sai, who utters only the following haiku:
+			<em class="poem">
 				Heed the stoneless row.<br>
 				Inverse, addition, inverse<br>
 				From start to finish.
-				</em>
-				You need to write the scene where Hikaru solves
-				Sedol's cryptic message.
-			</p>
-			<p>
-				<strong>You:</strong>
-				Huh, I didn't know Sedol was into modular arithmetic.
-			</p>
-			<p>
-				<strong>Miranda:</strong>
-				I took creative license on that bit...
-				Also, I forgot the solution somewhere and can't remember, so I need
-				you to solve it as you write the script. Sorry!
-			</p>
-			<p>
-				<strong>You:</strong>
-				You're lucky I like puzzles.
-			</p>
-		</main>
+			</em>
+			You need to write the scene where Hikaru solves
+			Sedol's cryptic message.
+		</p>
+		<p>
+			<strong>You:</strong>
+			Huh, I didn't know Sedol was into modular arithmetic.
+		</p>
+		<p>
+			<strong>Miranda:</strong>
+			I took creative license on that bit...
+			Also, I forgot the solution somewhere and can't remember, so I need
+			you to solve it as you write the script. Sorry!
+		</p>
+		<p>
+			<strong>You:</strong>
+			You're lucky I like puzzles.
+		</p>
+	</main>
 
-		<footer>
-		</footer>
-	</body>
+	<footer>
+	</footer>
+</body>
+
 </html>

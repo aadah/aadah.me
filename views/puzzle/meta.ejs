@@ -1,71 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Meta Puzzle</title>
 
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<head>
+	<title>Meta Puzzle</title>
 
-		<link rel="stylesheet" type="text/css" href="/css/aadah.css">
-		<link rel="stylesheet" type="text/css" href="/css/sunburst.css">
-		<link rel="stylesheet" type="text/css" href="/css/media.css">
-		<link rel="stylesheet" type="text/css" href="/css/print.css">
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-		<style type="text/css">
-			input.inputs {
-				display: block;
-				text-align: center;
-				margin: auto;
-				border-width: 0.5em;
-				border-color: grey;
-				border-style: solid;
+	<link rel="stylesheet" type="text/css" href="/css/aadah.css">
+	<link rel="stylesheet" type="text/css" href="/css/sunburst.css">
+	<link rel="stylesheet" type="text/css" href="/css/media.css">
+	<link rel="stylesheet" type="text/css" href="/css/print.css">
 
-				transition: all 0.25s ease;
-			}
+	<style type="text/css">
+		input.inputs {
+			display: block;
+			text-align: center;
+			margin: auto;
+			border-width: 0.5em;
+			border-color: grey;
+			border-style: solid;
 
-			button#solve {
-				font-size: larger;
-				display: block;
-				margin: 1.5em auto;
-			}
-		</style>
+			transition: all 0.25s ease;
+		}
 
-		<link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>">
+		button#solve {
+			font-size: larger;
+			display: block;
+			margin: 1.5em auto;
+		}
+	</style>
 
-		<link rel="me" href="https://mastodon.mit.edu/@ahd">
-		<link rel="me" href="https://social.coop/@abdi">
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>両</text></svg>">
 
-		<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="//code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-		<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		<script type="text/javascript" src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-		<script id="MathJax-script" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-		<script type="text/javascript" src="/js/aadah.js"></script>
-		<script type="text/javascript" src="check.js"></script>
-	</head>
+	<link rel="me" href="https://mastodon.mit.edu/@ahd">
+	<link rel="me" href="https://social.coop/@abdi">
 
-	<body>
-		<nav>
-			<!--span class="prev">&laquo; <a href=""></a></span-->
-			<!--span class="next"><a href=""></a> &raquo;</span-->
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+	<script type="text/javascript"
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+	<script id="MathJax-script" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+	<script type="text/javascript" src="/js/aadah.js"></script>
+	<script type="text/javascript" src="check.js"></script>
+</head>
 
-			<ul>
-				<li><a href="/" class="home">Home</a> &bull;</li>
-				<li><a href="/blog/" class="blog">Blog</a> &bull;</li>
-				<li><a href="/now/" class="now">Now</a> &bull;</li>
-				<li><a href="/works/" class="works">Works</a> &bull;</li>
-				<li><a href="/about/" class="about">About</a></li>
-			</ul>
-		</nav>
-		
-		<header>
-			<h1 class="title">The Meta</h1>
-		</header>
+<body>
+	<nav>
+		<a href="/" class="home">Home</a> &bull;
+		<a href="/blog/" class="blog">Blog</a> &bull;
+		<a href="/now/" class="now">Now</a> &bull;
+		<a href="/works/" class="works">Works</a> &bull;
+		<a href="/about/" class="about">About</a>
+	</nav>
 
-		<main role="main">
-			<blockquote>
+	<header>
+		<h1 class="title">The Meta</h1>
+	</header>
+
+	<main role="main">
+		<blockquote>
 			<p>
 				<strong>Lander:</strong>
 				Any predictions about where the sisters are going
@@ -84,11 +82,11 @@
 				<strong>You:</strong>
 				Isonumerically, of course!
 			</p>
-			</blockquote>
-			<input id="answer1" class="inputs" type="text" placeholder="ANSWER">
-			<hr>
+		</blockquote>
+		<input id="answer1" class="inputs" type="text" placeholder="ANSWER">
+		<hr>
 
-			<blockquote>
+		<blockquote>
 			<p>
 				<strong>Chomsky:</strong>
 				I'm pretty sure Yael Naim had a song called "Neo Seoul".
@@ -103,11 +101,11 @@
 				<strong>Chomsky:</strong>
 				Ah, yes! Silly phonetic mistake. But what was that song?
 			</p>
-			</blockquote>
-			<input id="answer2" class="inputs" type="text" placeholder="ANSWER">
-			<hr>
+		</blockquote>
+		<input id="answer2" class="inputs" type="text" placeholder="ANSWER">
+		<hr>
 
-			<blockquote>
+		<blockquote>
 			<p>
 				<strong>You:</strong>
 				What was the crucial moment that allowed
@@ -130,14 +128,15 @@
 				<strong>You:</strong>
 				I think you misunderstood what I meant.
 			</p>
-			</blockquote>
-			<input id="answer3" class="inputs" type="text" placeholder="ANSWER">
-			<hr>
+		</blockquote>
+		<input id="answer3" class="inputs" type="text" placeholder="ANSWER">
+		<hr>
 
-			<button id="solve">SOLVE</button>
-		</main>
+		<button id="solve">SOLVE</button>
+	</main>
 
-		<footer>
-		</footer>
-	</body>
+	<footer>
+	</footer>
+</body>
+
 </html>
