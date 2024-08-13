@@ -607,6 +607,13 @@ figure audio {
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
 	padding: 0.5em;
 	margin: 0.5em;
+
+	max-height: 4.3em;
+	display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .gallery figcaption:hover {
@@ -621,6 +628,15 @@ figure audio {
 
 .gallery figure.expanded img {
 	position: initial;
+}
+
+.gallery figure.expanded figccaption {
+	max-height: unset;
+	display: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: unset;
+    text-overflow: unset;
 }
 
 /* -------------------------------------------------------*/
