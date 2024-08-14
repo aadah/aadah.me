@@ -43,13 +43,7 @@
 		main h3,
 		main h4,
 		main h5,
-		main h6,
-		aside h1,
-		aside h2,
-		aside h3,
-		aside h4,
-		aside h5,
-		aside h6 {
+		main h6 {
 			font-variant: small-caps;
 			margin: 0;
 			margin-top: 1em;
@@ -98,10 +92,6 @@
 		h2 .icon {
 			margin-left: 0.25em;
 		}
-
-		footer {
-			border: none;
-		}
 	</style>
 
 	<link rel="icon"
@@ -144,54 +134,6 @@
 		</p>
 	</header>
 
-	<aside>
-		<h2>Skills</h2>
-
-		<div class="item">
-			<span class="bold">Tech stack:</span>
-			<ul>
-				<li>Python</li>
-				<li>Go</li>
-				<li>Jupyter</li>
-				<li>Julia</li>
-				<li>Docker</li>
-				<li>Git</li>
-				<li>Elasticsearch</li>
-				<li>HTML/CSS/JS</li>
-			</ul>
-		</div>
-
-		<div class="item">
-			<span class="bold">Languages:</span>
-			<ul>
-				<li>English (native)</li>
-				<li>Japanese (intermediate)</li>
-			</ul>
-
-		</div>
-
-		<h2>Teaching</h2>
-
-		<div class="item">
-			<span class="bold">MIT 6.804/6.864 (Advanced NLP)</span>
-			<span class="italic">Graduate TA</span>
-
-			<ul>
-				<li>Fall 2016</li>
-				<li>Given 7/7 rating by students at end of the semester</li>
-			</ul>
-		</div>
-
-		<div class="item">
-			<span class="bold">MIT CC.802 (Electricity and Magnetism)</span>
-			<span class="italic">Undergraduate TA</span>
-
-			<ul>
-				<li>Spring 2014</li>
-			</ul>
-		</div>
-	</aside>
-
 	<main role="main" class="with-aside">
 
 		<h2><i class="fa-solid fa-briefcase icon"></i>Work Experience</h2>
@@ -227,8 +169,8 @@
 					Salesforce's <a target="_blank"
 						href="https://www.salesforce.com/products/sales-cloud/tools/einstein-relationship-insights/">Einstein
 						Relationship Insights (ERI)</a></li>
-				<li>Implemented ML models for discovering useful relationships
-					from unstructured data sources, a key feature of ERI</li>
+				<li>Implemented key ERI models for discovering useful relationships
+					from unstructured data sources</li>
 				<li>Designed and implemented in-house microservice for serving ML predictions</li>
 				<li>Spearheaded a data curation team to build datasets used for training ML models, evaluating product
 					quality, and motivating other product improvements</li>
@@ -248,8 +190,7 @@
 			<ul>
 				<li>Improved Diffeo's primary entity coreference model, including cross-lingual predictions</li>
 				<li>Stewarded the standardization of coreference resolution in different parts of the system</li>
-				<li>Implemented locality sensitive hashing (LSH) algorithms for document deduplication, subject to
-					speed/storage constraints</li>
+				<li>Implemented locality sensitive hashing (LSH) algorithms for document deduplication</li>
 			</ul>
 		</div>
 
@@ -259,11 +200,7 @@
 			</div>
 
 			<span class="italic">Machine Learning Systems Engineering Intern</span>
-
-			<ul>
-				<li>Implemented the core entity-linking algorithm used in Diffeo's document processing pipeline
-				</li>
-			</ul>
+			<span>Summary: graphical named entity-linking algorithms</span>
 		</div>
 
 		<div class="item">
@@ -274,15 +211,7 @@
 
 			<span class="bold">Fujitsu Laboratories</span>
 			<span class="italic">R&amp;D Intern</span>
-
-			<ul>
-				<li>Implemented an unsupervised relation extraction system to extract attribute-value pairs from text
-				</li>
-				<li>Executed a research project to design and implement a probabilistic classification system that took
-					natural language descriptions (e.g. Wikipedia abstracts) and placed them in a hierarchical class
-					ontology
-				</li>
-			</ul>
+			<span>Summary: unsupervised relation extraction; hierarchical Bayesian text classification</span>
 		</div>
 
 		<div class="item">
@@ -293,14 +222,7 @@
 
 			<span class="bold">Internet Business Japan Co., Ltd.</span>
 			<span class="italic">Web Development Intern</span>
-
-			<ul>
-				<li>Designed and implemented <a target="_blank" href="https://jaany.org/">website redesign</a> for the
-					Japanese
-					American Association of New York
-				</li>
-				<li>Created educational web applications for use in the company's web development classes</li>
-			</ul>
+			<span>Summary: web UI/UX for clients; creating educational web dev course materials</span>
 		</div>
 
 		<div class="item">
@@ -311,15 +233,7 @@
 
 			<span class="bold">MIT Computer Science &amp; Artificial Intelligence Laboratory</span>
 			<span class="italic">Undergraduate Researcher in InfoLab Group</span>
-
-			<ul>
-				<li>Implemented paraphrasal query expansion and automatic corpus annotation for the
-					group's Q&amp;A system
-					ElasticSTART
-				</li>
-				<li>Designed and implemented a prototype search engine for retrieving videos from edX (MIT's MOOC
-					platform)</li>
-			</ul>
+			<span>Summary: natural language query expansion; automatic corpus annotation; search for MOOCs</span>
 		</div>
 
 		<div class="item">
@@ -328,46 +242,7 @@
 			</div>
 
 			<span class="italic">Undergraduate Researcher in Genesis Group</span>
-
-			<ul>
-				<li>Improved group's natural language generator by adding modifying clauses to produce richer, more
-					meaningful descriptions</li>
-				<li>Implemented natural language generation for annotating visual scenes from videos</li>
-			</ul>
-		</div>
-
-		<h2><i class="fa-solid fa-graduation-cap icon"></i>Education</h2>
-
-		<div class="item">
-			<div class="where_when">
-				<span class="bold">Cambridge, MA</span>
-				<span>Sept. 2016 &ndash; Sept. 2017</span>
-			</div>
-
-			<span class="bold">Massachusetts Institute of Technology</span>
-			<span class="italic">Master of Engineering in Computer Science &amp; Engineering</span>
-
-			<ul>
-				<li>Thesis: <i>Extracting Diverse Attribute-Value Information from Product Catalog Text via Transfer
-						Learning</i></li>
-				<li>GPA: 5.0/5.0</li>
-				<li>Select coursework: Artificial Intelligence/Machine Learning, Bayesian Methods</li>
-			</ul>
-		</div>
-
-		<div class="item">
-			<div class="where_when">
-				<span>Sept. 2012 &ndash; June 2016</span>
-			</div>
-
-			<span class="italic">Bachelor of Science in Computer Science &amp; Engineering</span>
-
-			<ul>
-				<li>GPA: General &ndash; 4.4/5.0, Major &ndash;
-					4.5/5.0</li>
-				<li>Select coursework: Artificial Intelligence/Machine Learning, Linguistics, Symbolic Systems,
-					Software/Systems Engineering, Cognitive Robotics</li>
-			</ul>
+			<span>Summary: natural language generation for video</span>
 		</div>
 
 		<h2><i class="fa-solid fa-lightbulb icon"></i>Publications &amp; Patents</h2>
@@ -402,9 +277,49 @@
 							class="mono">https://patents.google.com/patent/US20210149980A1/en</span></a></li>
 			</ul>
 		</div>
-	</main>
 
-	<footer></footer>
+		<h2><i class="fa-solid fa-graduation-cap icon"></i>Education</h2>
+
+		<div class="item">
+			<div class="where_when">
+				<span class="bold">Cambridge, MA</span>
+				<span>Sept. 2016 &ndash; Sept. 2017</span>
+			</div>
+
+			<span class="bold">Massachusetts Institute of Technology</span>
+			<span class="italic">Master of Engineering in Computer Science &amp; Engineering</span>
+
+			<ul>
+				<li>Thesis: <i>Extracting Diverse Attribute-Value Information from Product Catalog Text via Transfer
+						Learning</i></li>
+				<li>GPA: 5.0/5.0</li>
+				<li>Coursework in: Artificial Intelligence/Machine Learning, Bayesian Methods</li>
+			</ul>
+		</div>
+
+		<div class="item">
+			<div class="where_when">
+				<span>Sept. 2012 &ndash; June 2016</span>
+			</div>
+
+			<span class="italic">Bachelor of Science in Computer Science &amp; Engineering</span>
+
+			<ul>
+				<li>GPA: General &ndash; 4.4/5.0, Major &ndash;
+					4.5/5.0</li>
+				<li>Coursework in: Artificial Intelligence/Machine Learning, Linguistics, Symbolic Systems,
+					Software/Systems Engineering, Cognitive Robotics</li>
+			</ul>
+		</div>
+
+		<h2><i class="fa-solid fa-code icon"></i>Tech Stack</h2>
+
+		<div class="item">
+			<span><span class="bold">Languages:</span> Go, Python, Julia, Javascript (+ HTML/CSS)</span>
+			<span><span class="bold">Technologies:</span> LLMs, Docker, notebooking (Jupyter, Pluto.jl), search
+				(Meilisearch, Elasticsearch), Redis</span>
+		</div>
+	</main>
 </body>
 
 </html>
