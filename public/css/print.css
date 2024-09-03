@@ -33,22 +33,12 @@
 	main h3,
 	main h4,
 	main h5,
-	main h6,
-	aside h1,
-	aside h2,
-	aside h3,
-	aside h4,
-	aside h5,
-	aside h6 {
+	main h6 {
 		border-color: #000000 !important;
 	}
 
 	hr:after {
 		background-color: #ffffff !important;
-	}
-
-	aside {
-		background-color: #f0f0f0 !important;
 	}
 
 	/* FOOTER */

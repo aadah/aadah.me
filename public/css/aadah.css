@@ -5,7 +5,9 @@
 :root {
 	color-scheme: light dark;
 
-	--body-max-width: 34em;
+	--body-max-width: 36em;
+	--default-margin: 0.5em;
+	--default-line-border-thickness: 1pt;
 
 	--dark-bg-color: #202020;
 	--dark-bg-color-2: #000000;
@@ -56,7 +58,7 @@ nav {
 	right: 0;
 	background-color: inherit;
 	text-align: center;
-	padding: 1em;
+	padding: calc(2 * var(--default-margin));
 	z-index: 1;
 	opacity: 0.5;
 
@@ -69,9 +71,9 @@ nav:hover {
 }
 
 nav a {
-	border-radius: 0.25em;
-	padding: 0.25em 0.5em;
-	margin: 0 0.25em;
+	border-radius: calc(var(--default-margin) / 2);
+	padding: calc(var(--default-margin) / 2) var(--default-margin);
+	margin: 0 calc(var(--default-margin) / 2);
 }
 
 nav a.home:hover {
@@ -102,9 +104,9 @@ nav a.about:hover {
 /* HEADER */
 header {
 	clear: both;
-	padding-bottom: .5em;
-	border-bottom: light-dark(var(--light-fg-color), var(--dark-fg-color)) 0.1em solid;
-	margin: .5em 0;
+	padding-bottom: var(--default-margin);
+	border-bottom: light-dark(var(--light-fg-color), var(--dark-fg-color)) var(--default-line-border-thickness) solid;
+	margin: var(--default-margin) 0;
 }
 
 header .title {
@@ -115,7 +117,7 @@ header .title {
 header .subtitle {
 	font-style: italic;
 	padding: 0;
-	margin: .25em 0;
+	margin: calc(var(--default-margin) / 2) 0;
 }
 
 header .subtitle em {
@@ -126,7 +128,7 @@ header .author {
 	color: light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
 	font-size: smaller;
 	padding: 0;
-	margin: .5em 0;
+	margin: var(--default-margin) 0;
 }
 
 header .author:before {
@@ -138,21 +140,7 @@ main {
 	position: relative;
 	/* for #fn-box width */
 	clear: both;
-	margin: .5em 0;
-}
-
-main.with-aside {
-	clear: none;
-}
-
-aside {
-	font-size: small;
-	float: right;
-	margin-left: 1.5%;
-	padding: 1.5%;
-	padding-top: 0;
-	width: 18.5%;
-	background-color: light-dark(var(--light-bg-color-3), var(--dark-bg-color-3));
+	margin: var(--default-margin) 0;
 }
 
 main h1,
@@ -160,25 +148,19 @@ main h2,
 main h3,
 main h4,
 main h5,
-main h6,
-aside h1,
-aside h2,
-aside h3,
-aside h4,
-aside h5,
-aside h6 {
-	margin-top: 1.5em;
-	margin-bottom: 1em;
-	padding-left: 0.5em;
-	border-left: light-dark(var(--light-fg-color), var(--dark-fg-color)) 0.075em solid;
+main h6 {
+	margin-top: calc(3 * var(--default-margin));
+	margin-bottom: calc(2 * var(--default-margin));
+	padding-left: var(--default-margin);
+	border-left: light-dark(var(--light-fg-color), var(--dark-fg-color)) var(--default-line-border-thickness) solid;
 }
 
 /* FOOTER */
 footer {
 	clear: both;
 	color: light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
-	border-top: light-dark(var(--light-fg-color), var(--dark-fg-color)) 0.1em solid;
-	margin: .5em 0;
+	border-top: light-dark(var(--light-fg-color), var(--dark-fg-color)) var(--default-line-border-thickness) solid;
+	margin: var(--default-margin) 0;
 	padding: 0;
 }
 
@@ -187,7 +169,7 @@ footer p {
 }
 
 footer div.times {
-	margin-top: 1em;
+	margin-top: calc(2 * var(--default-margin));
 }
 
 footer time {
@@ -232,7 +214,6 @@ a:visited {
 }
 
 main a,
-aside a,
 footer a {
 	text-decoration-line: underline;
 	text-decoration-style: solid;
@@ -243,18 +224,18 @@ footer a {
 
 blockquote {
 	color: light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
-	border-left: light-dark(var(--light-fg-color-2), var(--dark-fg-color-2)) 0.1em solid;
+	border-left: light-dark(var(--light-fg-color-2), var(--dark-fg-color-2)) var(--default-line-border-thickness) solid;
 	display: block;
-	padding-left: 1em;
-	margin: 1.5em 1em;
+	padding-left: calc(2 * var(--default-margin));
+	margin: calc(2 * var(--default-margin));
 	font-style: italic;
 }
 
 .statement {
 	color: inherit;
 	font-style: inherit;
-	border: 0.1em solid;
-	padding-right: 1em;
+	border: var(--default-line-border-thickness) solid;
+	padding-right: calc(2 * var(--default-margin));
 }
 
 q,
@@ -280,21 +261,21 @@ q.pquotel {
 	width: 30%;
 	font-size: larger;
 	line-height: 1.25em;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-	padding: 1em;
+	margin-top: var(--default-margin);
+	margin-bottom: var(--default-margin);
+	padding: calc(2 * var(--default-margin));
 }
 
 q.pquoter {
 	text-align: right;
 	float: right;
-	margin-left: 1em;
+	margin-left: calc(2 * var(--default-margin));
 }
 
 q.pquotel {
 	text-align: left;
 	float: left;
-	margin-right: 1em;
+	margin-right: calc(2 * var(--default-margin));
 }
 
 q.pquoter::before,
@@ -333,8 +314,8 @@ samp {
 	max-height: 50em;
 	white-space: pre;
 	overflow: hidden;
-	padding: 1em !important;
-	margin: 0.5em auto;
+	padding: calc(2 * var(--default-margin)) !important;
+	margin: var(--default-margin) auto;
 
 	-webkit-tab-size: 4;
 	-moz-tab-size: 4;
@@ -355,7 +336,7 @@ samp {
 
 p kbd {
 	font-size: smaller;
-	padding: 0.25em;
+	padding: calc(var(--default-margin) / 2);
 }
 
 samp kbd {
@@ -366,15 +347,15 @@ samp kbd {
 
 th,
 td {
-	padding: 0.5em;
+	padding: var(--default-margin);
 }
 
 table {
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
 	font-size: smaller;
-	border-spacing: 0.25em;
-	margin: 0.5em auto;
-	padding: 0.25em;
+	border-spacing: calc(var(--default-margin) / 2);
+	margin: var(--default-margin) auto;
+	padding: calc(var(--default-margin) / 2);
 }
 
 th {
@@ -390,13 +371,12 @@ td {
 caption {
 	font-variant: small-caps;
 	text-align: center;
-	margin: 0.5em 0;
+	margin: var(--default-margin) 0;
 }
 
 /* -------------------------------------------------------*/
 
-main li,
-aside li {
+main li {
 	color: light-dark(var(--light-fg-color), var(--dark-fg-color));
 }
 
@@ -446,7 +426,7 @@ table ul {
 }
 
 .footnotes li>span {
-	padding-right: 0.5em;
+	padding-right: var(--default-margin);
 }
 
 .footnotes {
@@ -462,18 +442,18 @@ main #fn-box {
 	font-size: smaller;
 	z-index: -1;
 	opacity: 0;
-	padding: 1em;
+	padding: calc(2 * var(--default-margin));
 }
 
 /* -------------------------------------------------------*/
 
 .posts {
 	display: block;
-	margin: 0.5em auto;
+	margin: var(--default-margin) auto;
 }
 
 .post {
-	margin: 1em auto;
+	margin: calc(2 * var(--default-margin)) auto;
 }
 
 .post a {
@@ -533,13 +513,13 @@ li .measurement {
 
 figure {
 	display: block;
-	margin: 0.5em auto;
+	margin: var(--default-margin) auto;
 }
 
 figcaption {
 	font-size: smaller;
 	text-align: left;
-	margin-top: 0.5em;
+	margin-top: var(--default-margin);
 
 	-webkit-transition: opacity .25s ease;
 	transition: opacity .25s ease;
@@ -551,10 +531,10 @@ figure img,
 figure video,
 figure audio {
 	display: block;
-	max-width: 33em;
+	max-width: calc(var(--body-max-width) - 2 * var(--default-margin));
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
 	margin: auto;
-	padding: 0.5em;
+	padding: var(--default-margin);
 }
 
 figure audio {
@@ -572,11 +552,11 @@ figure audio {
 .gallery figure {
 	position: relative;
 	float: left;
-	width: 10em;
-	height: 10em;
+	width: calc((var(--body-max-width) - 8 * var(--default-margin))/3);
+	height: calc((var(--body-max-width) - 8 * var(--default-margin))/3);
 	overflow: hidden;
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
-	border: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2)) 0.5em solid;
+	border: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2)) var(--default-margin) solid;
 	margin: 0;
 	padding: 0;
 }
@@ -592,30 +572,30 @@ figure audio {
 }
 
 .gallery figure:nth-child(3n+2) {
-	margin-left: 0.5em;
+	margin-left: var(--default-margin);
 }
 
 .gallery figure:nth-child(3n+3) {
-	margin-left: 0.5em;
+	margin-left: var(--default-margin);
 }
 
 .gallery figure:nth-child(n+4) {
-	margin-top: 0.5em;
+	margin-top: var(--default-margin);
 }
 
 .gallery figcaption {
 	position: absolute;
 	bottom: 0;
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
-	padding: 0.5em;
-	margin: 0.5em;
+	padding: var(--default-margin);
+	margin: var(--default-margin);
 
 	max-height: 4.3em;
 	display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .gallery figure:hover figcaption {
@@ -629,7 +609,7 @@ figure audio {
 .gallery figure.expanded {
 	width: initial;
 	height: initial;
-	margin: 0.5em 0;
+	margin: var(--default-margin) 0;
 }
 
 .gallery figure.expanded img {
@@ -639,10 +619,10 @@ figure audio {
 .gallery figure.expanded figcaption {
 	max-height: unset;
 	display: unset;
-    -webkit-line-clamp: unset;
-    -webkit-box-orient: unset;
-    overflow: unset;
-    text-overflow: unset;
+	-webkit-line-clamp: unset;
+	-webkit-box-orient: unset;
+	overflow: unset;
+	text-overflow: unset;
 }
 
 /* -------------------------------------------------------*/
@@ -661,8 +641,8 @@ hr {
 	height: 0.2em;
 	width: 50%;
 	border: none;
-	border-top: 0.1em solid light-dark(var(--light-fg-color), var(--dark-fg-color));
-	border-bottom: 0.1em solid light-dark(var(--light-fg-color), var(--dark-fg-color));
+	border-top: var(--default-line-border-thickness) solid light-dark(var(--light-fg-color), var(--dark-fg-color));
+	border-bottom: var(--default-line-border-thickness) solid light-dark(var(--light-fg-color), var(--dark-fg-color));
 	margin: 1.5em auto;
 }
 
