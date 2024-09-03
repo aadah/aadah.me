@@ -5,6 +5,8 @@
 :root {
 	color-scheme: light dark;
 
+	--body-max-width: 34em;
+
 	--dark-bg-color: #202020;
 	--dark-bg-color-2: #000000;
 	--dark-bg-color-3: #101010;
@@ -38,7 +40,7 @@ body {
 	color: light-dark(var(--light-fg-color), var(--dark-fg-color));
 	background-color: light-dark(var(--light-bg-color), var(--dark-bg-color));
 	font-family: "Spectral", serif;
-	max-width: 34em;
+	max-width: var(--body-max-width);
 	margin: auto;
 	padding: 3em 1em;
 	font-size: larger;
@@ -616,8 +618,12 @@ figure audio {
     text-overflow: ellipsis;
 }
 
-.gallery figcaption:hover {
-	opacity: 0.1;
+.gallery figure:hover figcaption {
+	opacity: 0;
+}
+
+.gallery figure figcaption:hover {
+	opacity: 1;
 }
 
 .gallery figure.expanded {
@@ -630,7 +636,7 @@ figure audio {
 	position: initial;
 }
 
-.gallery figure.expanded figccaption {
+.gallery figure.expanded figcaption {
 	max-height: unset;
 	display: unset;
     -webkit-line-clamp: unset;
