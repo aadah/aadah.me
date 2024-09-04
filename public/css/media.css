@@ -1,62 +1,47 @@
-/* @media only screen and (max-width: 65rem) { */
-	/* body {
-		font-size: x-large;
-	} */
-
-	/* q.pquoter,
-	q.pquotel {
-		text-align: justify;
-		float: none;
-		width: inherit;
-		margin-left: 0;
-		margin-right: 0;
+@media screen and (max-width: 768px) {
+	:root {
+		--body-max-width: 100%;
 	}
 
-	.gallery figure {
-		float: none;
-		max-width: 100%;
-		width: auto;
-		height: auto;
-		margin: 0.5em 0;
-	}
-
-	.gallery img {
-		position: static;
-		max-width: 98%;
-		cursor: auto;
-	}
-} */
-
-/* @media screen and (min-width: 150rem) {
 	body {
-		font-size: 2.5em;
-		width: 90%;
-	}
-
-	iframe {
-		height: ;
-	}
-
-	q.pquoter,
-	q.pquotel {
-		text-align: justify;
-		float: none;
-		width: inherit;
-		margin-left: 0;
-		margin-right: 0;
+		font-size: x-large;
 	}
 
 	.gallery figure {
-		float: none;
-		max-width: 100%;
-		width: auto;
-		height: auto;
-		margin: 0.5em 0;
+		float: unset;
+		width: initial;
+		height: initial;
+		border: initial;
+		margin: var(--default-margin) 0;
+		padding: var(--default-margin) 0;
 	}
 
-	.gallery img {
-		position: static;
-		max-width: 98%;
-		cursor: auto;
+	.gallery figure img {
+		position: initial;
 	}
-} */
+
+	.gallery figure figcaption {
+		margin: calc(2 * var(--default-margin));
+
+		max-height: unset;
+		display: unset;
+		-webkit-line-clamp: unset;
+		-webkit-box-orient: unset;
+		overflow: unset;
+		text-overflow: unset;
+	}
+
+	.gallery figure:nth-child(3n+2) {
+		margin-left: unset;
+	}
+
+	.gallery figure:nth-child(3n+3) {
+		margin-left: unset;
+	}
+
+	.gallery figure:nth-child(n+4) {
+		margin-top: unset;
+	}
+}
+
+/* @media screen and (max-width: 480px) {} */
