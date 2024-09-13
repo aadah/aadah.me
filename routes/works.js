@@ -10,4 +10,8 @@ router.get('/photo', parser.web.handler('manuscripts/main/photo.txt'))
 var comedy = require('./comedy')
 router.use('/comedy', comedy)
 
+// for misc. art projects
+var art = require('./art')
+router.use('/art', art)
+
 module.exports = router
