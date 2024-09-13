@@ -484,19 +484,22 @@ class System {
     }
 }
 
-function setup() {
+function calibrateScreen() {
     WIDTH = window.innerWidth || document.documentElement.clientWidth;
     HEIGHT = window.innerHeight || document.documentElement.clientHeight;
-
-    let MIN_DIM = Math.min(WIDTH, HEIGHT);
-
-    SCALE = 4 * (MIN_DIM / 1000);
-
+    SCALE = 4 * (Math.min(WIDTH, HEIGHT) / 1000);
     createCanvas(WIDTH, HEIGHT);
+}
+
+function setup() {
+    calibrateScreen();
+
     frameRate(60);
     colorMode(HSB, 100, 100, 100, 255);
     randomSeed(SEED);
     noiseSeed(SEED);
+
+    let MIN_DIM = Math.min(WIDTH, HEIGHT);
 
     noisy = new Noise(MIN_DIM / (2 * SCALE), 0.002);
     noisy_tiny = new Noise(MIN_DIM / (20 * SCALE), 0.002);
