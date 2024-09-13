@@ -457,6 +457,8 @@ class System {
             this.systemParams
         );
         this.push(c);
+
+        return this;
     }
 
     draw() {
@@ -620,6 +622,5 @@ function canvasSetup() {
 function draw() {
     canvasSetup();
 
-    system.step();
-    system.draw();
+    system.step().draw();
 }
