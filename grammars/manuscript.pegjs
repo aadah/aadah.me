@@ -356,6 +356,20 @@ OutLinkTag 'OutLinkTag'
 
 ////////////////////////////////////////////////////////////////////////////////
 
+Post 'Post'
+    = PostTag LeftArgDelimiter vLink:NotArgDelimiter* RightArgDelimiter
+    LeftDelimiter vLinkText:(InlineElement / NotDelimiter)+ RightDelimiter
+    LeftDelimiter vSubText:(InlineElement / NotDelimiter)+ RightDelimiter {
+        let link = vLink.join('');
+        let linkText = vLinkText.join('');
+        let subText = vSubText.join('');
+    }
+
+PostTag 'PostTag'
+    = '@PostTag'
+
+////////////////////////////////////////////////////////////////////////////////
+
 SectionTitle 'SectionTitle'
     = vSection:(Section / SuperSection / SubSection) Blankline+ {
         return vSection;
