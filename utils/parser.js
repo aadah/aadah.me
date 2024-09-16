@@ -71,13 +71,23 @@ Parser.prototype.formatTimestamp = function (date, withTime) {
 }
 
 Parser.prototype.createBlogPost = function (post) {
-  var template = fs.readFileSync('grammars/templates/blog_post.html', 'utf8').trim()
+  return this._createEntry(
+    `/blog/${post._id}`,
+    post.title,
+    post.subtitle,
+    post.author,
+    this.formatTimestamp(post.posted)
+  )
+}
 
-  template = template.replace('[POSTID]', post._id)
-  template = template.replace('[TITLE]', post.title)
-  template = template.replace('[SUBTITLE]', post.subtitle)
-  template = template.replace('[AUTHOR]', post.author)
-  template = template.replace('[DATE]', this.formatTimestamp(post.posted))
+Parser.prototype._createEntry = function (link, title, subtitle, author, posted) {
+  var template = fs.readFileSync('grammars/templates/entry.html', 'utf8').trim()
+
+  template = template.replace('[LINK]', link)
+  template = template.replace('[TITLE]', title)
+  template = template.replace('[SUBTITLE]', subtitle)
+  template = template.replace('[AUTHOR]', author)
+  template = template.replace('[DATE]', posted)
 
   return template
 }
