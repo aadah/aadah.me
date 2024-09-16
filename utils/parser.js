@@ -83,8 +83,6 @@ Parser.prototype.createBlogPost = function (post) {
 Parser.prototype.createEntry = function (link, title, subtitle, author, posted) {
   var template = fs.readFileSync('grammars/templates/entry.html', 'utf8').trim()
 
-  console.log(link, title, subtitle, author, posted)
-
   template = template.replace('[LINK]', link)
   template = template.replace('[TITLE]', title)
   template = template.replace('[SUBTITLE]', subtitle)

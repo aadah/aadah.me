@@ -362,7 +362,7 @@ Entry 'Entry'
     LeftArgDelimiter vLink:NotArgDelimiter* RightArgDelimiter
     LeftDelimiter vTitle:(InlineElement / NotDelimiter)+ RightDelimiter
     LeftDelimiter vSubtitle:(InlineElement / NotDelimiter)+ RightDelimiter
-    Newline {
+    Blankline* {
         let entryLink = vLink.join('')
         let entryTitle = vTitle.join('')
         let entrySubtitle = vSubtitle.join('')
