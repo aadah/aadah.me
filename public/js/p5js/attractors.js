@@ -493,35 +493,35 @@ function calibrateScreen() {
     createCanvas(WIDTH, HEIGHT);
 }
 
+perturb = (x) => x + random(-10, 10) + x;
+
 function setup() {
     calibrateScreen();
 
     frameRate(60);
     colorMode(HSB, 100, 100, 100, 255);
-    randomSeed(SEED);
-    noiseSeed(SEED);
+    // randomSeed(SEED);
+    // noiseSeed(SEED);
 
     let MIN_DIM = Math.min(WIDTH, HEIGHT);
 
     noisy = new Noise(MIN_DIM / (2 * SCALE), 0.002);
     noisy_tiny = new Noise(MIN_DIM / (20 * SCALE), 0.002);
 
-    lorenz = new Lorenz(LORENZ_PARAMS, 5, 1, 0, 0, -MIN_DIM / 2); lorenz.start(2, 1, 1);
-    lorenz_tiny = new Lorenz(LORENZ_PARAMS, 1, 1, 0, 0, -MIN_DIM / 2); lorenz_tiny.start(2, 1, 1);
-    lorenz_v2 = new Lorenz(LORENZ_PARAMS_V2, 5); lorenz_v2.start(2, 1, 1);
-    lorenz_fast = new Lorenz(LORENZ_PARAMS, 3, 5); lorenz_fast.start(2, 1, 1);
+    lorenz = new Lorenz(LORENZ_PARAMS, 5, 1, 0, 0, -MIN_DIM / 2); lorenz.start(perturb(2), perturb(1), perturb(1));
+    lorenz_tiny = new Lorenz(LORENZ_PARAMS, 1, 1, 0, 0, -MIN_DIM / 2); lorenz_tiny.start(perturb(2), perturb(1), perturb(1));
+    lorenz_v2 = new Lorenz(LORENZ_PARAMS_V2, 5); lorenz_v2.start(perturb(2), perturb(1), perturb(1));
+    lorenz_fast = new Lorenz(LORENZ_PARAMS, 3, 5); lorenz_fast.start(perturb(2), perturb(1), perturb(1));
 
-    rossler = new Rossler(ROSSLER_PARAMS, 5, 3, 0, 0, - MIN_DIM / 3); rossler.start(-10, -10, -10);
-    rossler_fast = new Rossler(ROSSLER_PARAMS, 5, 6, 0, 0, - MIN_DIM / 3); rossler_fast.start(-10, -10, -10);
-    rossler_tiny = new Rossler(ROSSLER_PARAMS, 2.5, 3, 0, 0, - MIN_DIM / 3); rossler_tiny.start(-10, -10, -10);
-    rossler_v2 = new Rossler(ROSSLER_PARAMS_V2, 3); rossler_v2.start(-10, -10, -10);
-    // rossler_v3 = new Rossler(ROSSLER_PARAMS_V3, 5, 3, 0, 0, - MIN_DIM / 3); rossler_v3.start(-10, -10, -10);
+    rossler = new Rossler(ROSSLER_PARAMS, 5, 3, 0, 0, - MIN_DIM / 3); rossler.start(perturb(-10), perturb(-10), perturb(-10));
+    rossler_fast = new Rossler(ROSSLER_PARAMS, 5, 6, 0, 0, - MIN_DIM / 3); rossler_fast.start(perturb(-10), perturb(-10), perturb(-10));
+    rossler_tiny = new Rossler(ROSSLER_PARAMS, 2.5, 3, 0, 0, - MIN_DIM / 3); rossler_tiny.start(perturb(-10), perturb(-10), perturb(-10));
+    rossler_v2 = new Rossler(ROSSLER_PARAMS_V2, 3); rossler_v2.start(perturb(-10), perturb(-10), perturb(-10));
 
-    thomas = new Thomas(THOMAS_PARAMS, 25, 25); thomas.start(random(-1, 1), random(-1, 1), random(-1, 1));
-    // thomas_v2 = new Thomas(THOMAS_PARAMS_V2, 25, 25); thomas_v2.start(10, -2.5, 7.5);
-    thomas_fast = new Thomas(THOMAS_PARAMS, 25, 50); thomas_fast.start(random(-1, 1), random(-1, 1), random(-1, 1));
-    thomas_tiny = new Thomas(THOMAS_PARAMS, 5, 25); thomas_tiny.start(random(-1, 1), random(-1, 1), random(-1, 1));
-    thomas_fast_tiny = new Thomas(THOMAS_PARAMS, 5, 50); thomas_fast_tiny.start(random(-1, 1), random(-1, 1), random(-1, 1));
+    thomas = new Thomas(THOMAS_PARAMS, 25, 25); thomas.start(perturb(0), perturb(0), perturb(0));
+    thomas_fast = new Thomas(THOMAS_PARAMS, 25, 50); thomas_fast.start(perturb(0), perturb(0), perturb(0));
+    thomas_tiny = new Thomas(THOMAS_PARAMS, 5, 25); thomas_tiny.start(perturb(0), perturb(0), perturb(0));
+    thomas_fast_tiny = new Thomas(THOMAS_PARAMS, 5, 50); thomas_fast_tiny.start(perturb(0), perturb(0), perturb(0));
 
     lorenz_noisy = new Additive(lorenz, noisy);
     rossler_noisy = new Additive(rossler, noisy);
@@ -531,28 +531,17 @@ function setup() {
     avga_lorenz_thomas = new AverageArithmetic(lorenz, thomas);
     avga_rossler_thomas = new AverageArithmetic(rossler, thomas);
 
-    // avga_lorenz_rossler_v2 = new AverageArithmetic(lorenz_v2, rossler_v2);
-    // avga_lorenz_thomas_v2 = new AverageArithmetic(lorenz_v2, thomas_v2);
-    // avga_rossler_thomas_v2 = new AverageArithmetic(rossler_v2, thomas_v2);
-
-    // triple1 = new Triple(lorenz, rossler, thomas);
-    // triple2 = new Triple(lorenz, thomas, rossler);
-    // triple3 = new Triple(rossler, thomas, lorenz);
-    // triple4 = new Triple(rossler, lorenz, thomas);
-    // triple5 = new Triple(thomas, lorenz, rossler);
-    // triple6 = new Triple(thomas, rossler, lorenz);
-
     // wut = noisy;
 
-    // wut = lorenz; // 1
-    // wut = rossler; // 2
-    // wut = thomas; // 3
+    // wut = lorenz;
+    // wut = rossler;
+    // wut = thomas;
 
-    // wut = new AverageArithmetic(lorenz, rossler); // 4
-    // wut = new Additive(lorenz, rossler_tiny); // 5
-    // wut = new YZOnly(rossler); // 6
+    // wut = new AverageArithmetic(lorenz, rossler);
+    // wut = new Additive(lorenz, rossler_tiny);
+    // wut = new YZOnly(rossler);
 
-    // wut = new Triple(lorenz, rossler, thomas); // 7 + 8 + 9 + 10
+    // wut = new Triple(lorenz, rossler, thomas);
     // wut = new Triple(lorenz, thomas, rossler);
     // wut = new Triple(rossler, lorenz, thomas);
 
@@ -584,7 +573,7 @@ function setup() {
     //     new Additive(lorenz, rossler_tiny),
     //     new XYOnly(new Additive(lorenz, new Additive(rossler_tiny, thomas_tiny))),
     //     thomas_fast,
-    // ); // kinda wormy // 11
+    // ); // kinda wormy
 
     wut = new Triple(
         new Additive(lorenz, rossler_tiny),
