@@ -48,6 +48,7 @@ Component 'Component'
         Image /
         Video /
         Audio /
+        Entry /
         PullQuote /
         Blockquote /
         Statement /
@@ -356,17 +357,20 @@ OutLinkTag 'OutLinkTag'
 
 ////////////////////////////////////////////////////////////////////////////////
 
-Post 'Post'
-    = PostTag LeftArgDelimiter vLink:NotArgDelimiter* RightArgDelimiter
-    LeftDelimiter vLinkText:(InlineElement / NotDelimiter)+ RightDelimiter
-    LeftDelimiter vSubText:(InlineElement / NotDelimiter)+ RightDelimiter {
-        let link = vLink.join('');
-        let linkText = vLinkText.join('');
-        let subText = vSubText.join('');
+Entry 'Entry'
+    = EntryTag
+    LeftArgDelimiter vLink:NotArgDelimiter* RightArgDelimiter
+    LeftDelimiter vTitle:(InlineElement / NotDelimiter)+ RightDelimiter
+    LeftDelimiter vSubtitle:(InlineElement / NotDelimiter)+ RightDelimiter
+    Newline {
+        let entryLink = vLink.join('')
+        let entryTitle = vTitle.join('')
+        let entrySubtitle = vSubtitle.join('')
+        return parser.createEntry(entryLink, entryTitle, entrySubtitle)
     }
 
-PostTag 'PostTag'
-    = '@PostTag'
+EntryTag 'EntryTag'
+    = '@ENTRY'
 
 ////////////////////////////////////////////////////////////////////////////////
 
