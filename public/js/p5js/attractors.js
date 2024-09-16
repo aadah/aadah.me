@@ -4,9 +4,9 @@ var WIDTH;
 var HEIGHT;
 var SCALE;
 
-const SEED = 42;
+var NEGATE = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-const NEGATE = true;
+const SEED = 42;
 
 const MAX_ALPHA = 1;
 const MIN_ALPHA = 0;
