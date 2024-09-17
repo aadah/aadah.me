@@ -4,7 +4,7 @@ var WIDTH;
 var HEIGHT;
 var SCALE;
 
-var NEGATE = window.matchMedia('(prefers-color-scheme: dark)').matches;
+var NEGATE = Math.random() > 0.5;
 
 const SEED = 42;
 
@@ -17,15 +17,20 @@ const NUM_OBJS = 1000;
 // const dT = 0.005;
 const dT = 0.001;
 
-const LORENZ_PARAMS = { sigma: 10, rho: 28, beta: 8 / 3 };
-const LORENZ_PARAMS_V2 = { sigma: 11, rho: 20, beta: 7 / 3 };
+function perturb(x, pct) {
+    let w = Math.abs(x) * (pct ? pct : 0.1);
+    return 2 * w * Math.random() - w + x;
+}
 
-const ROSSLER_PARAMS = { a: 0.1, b: 0.1, c: 14 };
-const ROSSLER_PARAMS_V2 = { a: 0.2, b: 0.2, c: 5.7 };
-const ROSSLER_PARAMS_V3 = { a: 0.2, b: 0.2, c: 14 };
+const LORENZ_PARAMS = { sigma: perturb(10), rho: perturb(28), beta: perturb(8 / 3) };
+const LORENZ_PARAMS_V2 = { sigma: perturb(11), rho: perturb(20), beta: perturb(7 / 3) };
 
-const THOMAS_PARAMS = { b: 0.208186 };
-const THOMAS_PARAMS_V2 = { b: 0.32899 };
+const ROSSLER_PARAMS = { a: perturb(0.1), b: perturb(0.1), c: perturb(14) };
+const ROSSLER_PARAMS_V2 = { a: perturb(0.2), b: perturb(0.2), c: perturb(5.7) };
+const ROSSLER_PARAMS_V3 = { a: perturb(0.2), b: perturb(0.2), c: perturb(14) };
+
+const THOMAS_PARAMS = { b: perturb(0.208186) };
+const THOMAS_PARAMS_V2 = { b: perturb(0.32899) };
 
 function drawP(c, p) {
     stroke(c);
@@ -493,8 +498,6 @@ function calibrateScreen() {
     createCanvas(WIDTH, HEIGHT);
 }
 
-perturb = (x) => x + random(-10, 10) + x;
-
 function setup() {
     calibrateScreen();
 
@@ -549,33 +552,33 @@ function setup() {
 
     // wut = new Triple(rossler, new XYOnly(rossler_tiny), rossler_noisy);
 
-    // wut = new Triple(
-    //     rossler,
-    //     new XYOnly(new Additive(rossler, thomas_fast_tiny))
-    // ); // breathing chromatic worm
+    a1 = new Triple(
+        rossler,
+        new XYOnly(new Additive(rossler, thomas_fast_tiny))
+    ); // breathing chromatic worm
 
-    // wut = new Triple(
-    //     new Additive(rossler, noisy),
-    //     new XYOnly(new Additive(new Additive(rossler, noisy), thomas_fast_tiny))
-    // ); // breathing chromatic worm + noisy wandering
+    a2 = new Triple(
+        new Additive(rossler, noisy),
+        new XYOnly(new Additive(new Additive(rossler, noisy), thomas_fast_tiny))
+    ); // breathing chromatic worm + noisy wandering
 
-    // wut = new Triple(
-    //     new Additive(rossler, noisy),
-    //     new XYOnly(new Additive(new Additive(rossler, noisy), new Additive(lorenz_tiny, thomas_fast_tiny)))
-    // ); // breathing chromatic worm + noisy wandering + a little more twisty
+    a3 = new Triple(
+        new Additive(rossler, noisy),
+        new XYOnly(new Additive(new Additive(rossler, noisy), new Additive(lorenz_tiny, thomas_fast_tiny)))
+    ); // breathing chromatic worm + noisy wandering + a little more twisty
 
-    // wut = new Triple(
-    //     lorenz,
-    //     new XYOnly(new Additive(lorenz, rossler_tiny))
-    // ); // multi-pointed star
+    a4 = new Triple(
+        lorenz,
+        new XYOnly(new Additive(lorenz, rossler_tiny))
+    ); // multi-pointed star
 
-    // wut = new Triple(
-    //     new Additive(lorenz, rossler_tiny),
-    //     new XYOnly(new Additive(lorenz, new Additive(rossler_tiny, thomas_tiny))),
-    //     thomas_fast,
-    // ); // kinda wormy
+    a5 = new Triple(
+        new Additive(lorenz, rossler_tiny),
+        new XYOnly(new Additive(lorenz, new Additive(rossler_tiny, thomas_tiny))),
+        thomas_fast,
+    ); // kinda wormy
 
-    wut = new Triple(
+    a6 = new Triple(
         new Additive(lorenz, rossler_tiny),
         new Additive(lorenz, new Additive(new XYOnly(rossler_fast), thomas_tiny)),
         new XYOnly(rossler),
@@ -588,17 +591,22 @@ function setup() {
     // ); // kaleidoscope 2
 
     systemParams = {
-        // shapeClass: Point,
-        // shapeClass: Circle,
-        // shapeClass: Triangle,
-        // shapeClass: Square,
-        shapeClass: StringTheory,
-        // guideOn: true,
-        colorOn: true,
+        shapeClass: random([Circle, Triangle, Square, StringTheory]),
+        colorOn: random() > 0.2,
         brightnessOn: true,
+        // guideOn: true,
     };
 
-    system = new System(wut, systemParams);
+    a = random([
+        // a1,
+        // a2,
+        a3, // y
+        a4, // y
+        // a5,
+        a6 // y
+    ]);
+
+    system = new System(a, systemParams);
 }
 
 function canvasSetup() {
