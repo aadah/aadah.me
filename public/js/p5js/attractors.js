@@ -491,7 +491,7 @@ class System {
     }
 }
 
-function calibrateScreen() {
+function setupCanvas() {
     WIDTH = window.innerWidth || document.documentElement.clientWidth;
     HEIGHT = window.innerHeight || document.documentElement.clientHeight;
     SCALE = 4 * (Math.min(WIDTH, HEIGHT) / 1000);
@@ -499,7 +499,7 @@ function calibrateScreen() {
 }
 
 function setup() {
-    calibrateScreen();
+    setupCanvas();
 
     frameRate(60);
     colorMode(HSB, 100, 100, 100, 255);
@@ -609,7 +609,7 @@ function setup() {
     system = new System(a, systemParams);
 }
 
-function canvasSetup() {
+function orientCanvas() {
     translate(WIDTH / 2, HEIGHT / 2);
     rotate(PI);
     scale(-SCALE, SCALE, SCALE);
@@ -617,7 +617,7 @@ function canvasSetup() {
 }
 
 function draw() {
-    canvasSetup();
+    orientCanvas();
 
     system.step().draw();
 }
