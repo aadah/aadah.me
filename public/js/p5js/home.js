@@ -60,6 +60,24 @@ class Glitcher extends Transform {
     }
 }
 
+class Pixelator extends Transform {
+    constructor(f) {
+        super();
+        this.glitch = new Glitch();
+        this.f = f;
+    }
+
+    setup() {
+        frameRate(24);
+        this.glitch.loadImage(IMAGE);
+    }
+
+    draw() {
+        sys.glitch.pixelate(this.f());
+        image(this.glitch.image, 0, 0)
+    }
+}
+
 
 function getImageData() {
     const img = document.querySelector('figure img');
@@ -94,8 +112,11 @@ function setupCanvas() {
 
 function setup() {
     setupCanvas();
-    C = random([Glitcher]);
-    sys = new C();
+    sys = random([
+        new Pixelator(() => noise(0.0005 * frameCount) * 0.2 + 0.05),
+        new Pixelator(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2),
+        new Glitcher(),
+    ]);
     sys.setup();
 }
 
