@@ -543,6 +543,14 @@ figure audio {
 
 /* -------------------------------------------------------*/
 
+canvas {
+	display: block;
+	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
+	padding: var(--default-margin);
+}
+
+/* -------------------------------------------------------*/
+
 .gallery {
 	position: relative;
 	margin: auto;
