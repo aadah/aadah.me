@@ -48,6 +48,7 @@ class Glitcher extends Transform {
     }
 
     setup() {
+        frameRate(24);
         this.glitch.loadImage(IMAGE);
     }
 
