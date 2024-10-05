@@ -95,7 +95,7 @@ function setupCanvas() {
 
 function setup() {
     setupCanvas();
-    C = random([Inverter, Glitcher]);
+    C = random([Glitcher]);
     sys = new C();
     sys.setup();
 }
