@@ -54,9 +54,7 @@ class Glitcher extends Transform {
 
     draw() {
         this.glitch.resetBytes();
-
-        this.glitch.randomBytes(2); // add one random byte for movement
-
+        this.glitch.randomBytes(1);
         this.glitch.buildImage();
         image(this.glitch.image, 0, 0)
     }
