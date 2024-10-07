@@ -133,7 +133,7 @@ class ChromaFlipper extends Transform {
     draw() {
         loadPixels();
         let colorIdx = random([0, 1, 2]);
-        colorIdx = colorIdx == this.prev ? (colorIdx + 1) % 3 : colorIdx;
+        colorIdx = colorIdx == this.prev ? (colorIdx + random([1, 2])) % 3 : colorIdx;
         for (let i = 0; i < pixels.length; i += 4) {
             pixels[colorIdx + i] = 255 - pixels[colorIdx + i];
         }
@@ -176,7 +176,7 @@ class ChromaWalker extends Transform {
 
         if (ticker == this.denom) {
             let colorIdx = random([0, 1, 2]);
-            this.colorIdx = colorIdx == this.colorIdx ? (colorIdx + random([-1, 1])) % 3 : colorIdx;
+            this.colorIdx = colorIdx == this.colorIdx ? (colorIdx + random([1, 2])) % 3 : colorIdx;
             this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
         }
 
