@@ -60,7 +60,7 @@ class Glitcher extends Transform {
     }
 }
 
-class Pixelator extends Transform {
+class BasePixelator extends Transform {
     constructor(f) {
         super();
         this.glitch = new Glitch();
@@ -77,6 +77,20 @@ class Pixelator extends Transform {
         image(this.glitch.image, 0, 0)
     }
 }
+
+class Pixelator extends BasePixelator {
+    constructor() {
+        super(() => noise(0.0005 * frameCount) * 0.2 + 0.05);
+    }
+}
+
+
+class PixelOscillator extends BasePixelator {
+    constructor() {
+        super(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2);
+    }
+}
+
 
 function circularShiftPixels(numPixels) {
     const n = pixels.length;
@@ -151,7 +165,7 @@ class ChromaWalker extends Transform {
     constructor() {
         super();
         this.colorIdx = random([0, 1, 2]);
-        this.denom = ChromaWalker.FPS * ChromaWalker.SECONDS;
+        this.tickerMax = Math.round(ChromaWalker.FPS * ChromaWalker.SECONDS);
     }
 
     setup() {
@@ -165,16 +179,16 @@ class ChromaWalker extends Transform {
     draw() {
         loadPixels();
 
-        let ticker = (frameCount - 1) % (ChromaWalker.FPS * ChromaWalker.SECONDS) + 1;
-        let pos = ticker / this.denom;
-        pos = (Math.sin(map(pos, 0, 1, -ChromaWalker.HALFPI, ChromaWalker.HALFPI)) + 1) / 2;
+        let ticker = (frameCount - 1) % this.tickerMax + 1;
+        let pos = ticker / this.tickerMax;
+        // pos = (Math.sin(map(pos, 0, 1, -ChromaWalker.HALFPI, ChromaWalker.HALFPI)) + 1) / 2;
 
         for (let i = 0; i < pixels.length; i += 4) {
             let start = this.starts[i / 4];
             pixels[this.colorIdx + i] = lerp(start, 255 - start, pos);
         }
 
-        if (ticker == this.denom) {
+        if (ticker == this.tickerMax) {
             let colorIdx = random([0, 1, 2]);
             this.colorIdx = colorIdx == this.colorIdx ? (colorIdx + random([1, 2])) % 3 : colorIdx;
             this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
@@ -217,15 +231,24 @@ function setupCanvas() {
 
 function setup() {
     setupCanvas();
-    sys = random([
-        new Pixelator(() => noise(0.0005 * frameCount) * 0.2 + 0.05),
-        // new Pixelator(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2),
-        new Glitcher(),
-        // new FourCorners(),
-        // new ChromaFlipper(),
-        new ChromaWalker(),
+    C = random([
+        Pixelator,
+        // PixelOscillator,
+        Glitcher,
+        // FourCorners,
+        // ChromaFlipper,
+        ChromaWalker,
     ]);
+    sys = new C();
     sys.setup();
+
+    // P5Capture.getInstance().start({
+    //     format: "gif",
+    //     framerate: getTargetFrameRate(),
+    //     duration: getTargetFrameRate() * 7,
+    //     quality: 1.0,
+    //     verbose: true,
+    // });
 }
 
 function draw() {
