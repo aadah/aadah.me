@@ -78,6 +78,111 @@ class Pixelator extends Transform {
     }
 }
 
+function circularShiftPixels(numPixels) {
+    const n = pixels.length;
+
+    // Normalize shiftBy to be within array bounds
+    numPixels *= 4;
+    numPixels = numPixels % n;
+    if (numPixels < 0) numPixels += n;
+
+    // Reverse the entire array
+    reversePixels(0, n - 1);
+
+    // Reverse the first shiftBy elements
+    reversePixels(0, numPixels - 1);
+
+    // Reverse the remaining elements
+    reversePixels(numPixels, n - 1);
+}
+
+function reversePixels(start, end) {
+    while (start < end) {
+        [pixels[start], pixels[end]] = [pixels[end], pixels[start]];
+        start++;
+        end--;
+    }
+}
+
+class FourCorners extends Transform {
+    constructor() {
+        super();
+    }
+
+    setup() {
+        frameRate(0.5);
+    }
+
+    draw() {
+        loadPixels();
+        circularShiftPixels(random([1000003, 3000017, 5000011, 7000003]));
+        updatePixels();
+    }
+}
+
+class ChromaFlipper extends Transform {
+    constructor() {
+        super();
+        this.prev = random([0, 1, 2]);
+    }
+
+    setup() {
+        frameRate(0.5);
+    }
+
+    draw() {
+        loadPixels();
+        let colorIdx = random([0, 1, 2]);
+        colorIdx = colorIdx == this.prev ? (colorIdx + 1) % 3 : colorIdx;
+        for (let i = 0; i < pixels.length; i += 4) {
+            pixels[colorIdx + i] = 255 - pixels[colorIdx + i];
+        }
+        print(colorIdx);
+        updatePixels();
+        this.prev = colorIdx;
+    }
+}
+
+class ChromaWalker extends Transform {
+    static SECONDS = 3;
+    static FPS = 30;
+    static HALFPI = Math.PI / 2;
+
+    constructor() {
+        super();
+        this.colorIdx = random([0, 1, 2]);
+        this.denom = ChromaWalker.FPS * ChromaWalker.SECONDS;
+    }
+
+    setup() {
+        frameRate(ChromaWalker.FPS);
+
+        loadPixels();
+        this.starts = new Array(pixels.length / 4).fill(undefined);
+        this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
+    }
+
+    draw() {
+        loadPixels();
+
+        let ticker = (frameCount - 1) % (ChromaWalker.FPS * ChromaWalker.SECONDS) + 1;
+        let pos = ticker / this.denom;
+        pos = (Math.sin(map(pos, 0, 1, -ChromaWalker.HALFPI, ChromaWalker.HALFPI)) + 1) / 2;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+            let start = this.starts[i / 4];
+            pixels[this.colorIdx + i] = lerp(start, 255 - start, pos);
+        }
+
+        if (ticker == this.denom) {
+            let colorIdx = random([0, 1, 2]);
+            this.colorIdx = colorIdx == this.colorIdx ? (colorIdx + random([-1, 1])) % 3 : colorIdx;
+            this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
+        }
+
+        updatePixels();
+    }
+}
 
 function getImageData() {
     const img = document.querySelector('figure img');
@@ -116,6 +221,9 @@ function setup() {
         new Pixelator(() => noise(0.0005 * frameCount) * 0.2 + 0.05),
         new Pixelator(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2),
         new Glitcher(),
+        new FourCorners(),
+        new ChromaFlipper(),
+        new ChromaWalker(),
     ]);
     sys.setup();
 }
