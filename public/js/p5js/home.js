@@ -219,10 +219,10 @@ function setup() {
     setupCanvas();
     sys = random([
         new Pixelator(() => noise(0.0005 * frameCount) * 0.2 + 0.05),
-        new Pixelator(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2),
+        // new Pixelator(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2),
         new Glitcher(),
-        new FourCorners(),
-        new ChromaFlipper(),
+        // new FourCorners(),
+        // new ChromaFlipper(),
         new ChromaWalker(),
     ]);
     sys.setup();
