@@ -44,7 +44,10 @@ body {
 	font-family: "Spectral", serif;
 	max-width: var(--body-max-width);
 	margin: auto;
-	padding: 3em 1em;
+	padding-top: calc(6 * var(--default-margin));
+	padding-left: calc(2 * var(--default-margin));
+	padding-right: calc(2 * var(--default-margin));
+	padding-bottom: var(--default-margin);
 	font-size: larger;
 }
 
@@ -674,13 +677,13 @@ hr::before {
 	font-size: unset !important;
 	gap: 1em !important;
 	padding: 0 !important;
-	height: 3em;
+	height: calc(6 * var(--default-margin));
 }
 
 nav {
-	top: 3em !important;
+	top: calc(6 * var(--default-margin)) !important;
 }
 
 body {
-	padding-top: 6em;
+	padding-top: calc(12 * var(--default-margin));
 }
