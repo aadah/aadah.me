@@ -3,8 +3,8 @@
 		--body-max-width: 100%;
 	}
 
-	body {
-		font-size: x-large;
+	nav {
+		font-size: small;
 	}
 
 	.gallery figure {
@@ -42,6 +42,8 @@
 	.gallery figure:nth-child(n+4) {
 		margin-top: unset;
 	}
-}
 
-/* @media screen and (max-width: 480px) {} */
+	.tfp__banner {
+		font-size: small !important;
+	}
+}
