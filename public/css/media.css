@@ -15,6 +15,7 @@
 	q.pquotel {
 		width: unset;
 		float: none;
+		text-align: justify;
 		margin-left: 0;
 		margin-right: 0;
 	}
