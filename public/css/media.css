@@ -7,6 +7,14 @@
 		font-size: small;
 	}
 
+	q.pquoter,
+	q.pquotel {
+		width: unset;
+		float: none;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
 	.gallery figure {
 		float: unset;
 		width: initial;
