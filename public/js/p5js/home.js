@@ -17,27 +17,28 @@ class Transform {
 }
 
 class Inverter extends Transform {
+    static FPS = 3;
+
     constructor() {
         super();
-        this.step = 0
     }
 
     setup() {
-        frameRate(1);
+        frameRate(Inverter.FPS);
     }
 
     draw() {
-        frameCount % 10 == 0 ? image(IMAGE, 0, 0) : undefined;
+        (frameCount - 1) % Inverter.FPS == 0 ? image(IMAGE, 0, 0) : undefined;
 
-        let dx = random(0.25, 0.75) * WIDTH;
-        let dy = random(0.25, 0.75) * HEIGHT;
+        let dx = random(0.2, 0.8) * WIDTH;
+        let dy = random(0.2, 0.8) * HEIGHT;
         let x = random(0, WIDTH - dx);
         let y = random(0, HEIGHT - dy);
 
         let piece = get(x, y, dx, dy);
         piece.filter(INVERT);
 
-        set(x, y, piece);
+        image(piece, x, y)
     }
 }
 
@@ -158,9 +159,8 @@ class ChromaFlipper extends Transform {
 }
 
 class ChromaWalker extends Transform {
-    static SECONDS = 3;
+    static SECONDS = 2;
     static FPS = 30;
-    static HALFPI = Math.PI / 2;
 
     constructor() {
         super();
@@ -181,11 +181,11 @@ class ChromaWalker extends Transform {
 
         let ticker = (frameCount - 1) % this.tickerMax + 1;
         let pos = ticker / this.tickerMax;
-        // pos = (Math.sin(map(pos, 0, 1, -ChromaWalker.HALFPI, ChromaWalker.HALFPI)) + 1) / 2;
 
         for (let i = 0; i < pixels.length; i += 4) {
-            let start = this.starts[i / 4];
-            pixels[this.colorIdx + i] = lerp(start, 255 - start, pos);
+            let s = this.starts[i / 4];
+            let e = 255 - s;
+            pixels[this.colorIdx + i] = lerp(s, e, pos);
         }
 
         if (ticker == this.tickerMax) {
@@ -232,6 +232,7 @@ function setupCanvas() {
 function setup() {
     setupCanvas();
     C = random([
+        Inverter,
         Pixelator,
         // PixelOscillator,
         Glitcher,
