@@ -44,7 +44,10 @@ body {
 	font-family: "Spectral", serif;
 	max-width: var(--body-max-width);
 	margin: auto;
-	padding: 3em 1em;
+	padding-top: calc(6 * var(--default-margin));
+	padding-left: calc(2 * var(--default-margin));
+	padding-right: calc(2 * var(--default-margin));
+	padding-bottom: var(--default-margin);
 	font-size: larger;
 }
 

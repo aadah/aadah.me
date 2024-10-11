@@ -3,6 +3,10 @@
 		--body-max-width: 100%;
 	}
 
+	body {
+		padding-top: calc(4 * var(--default-margin));
+	}
+
 	nav {
 		font-size: small;
 	}
@@ -49,9 +53,5 @@
 
 	.gallery figure:nth-child(n+4) {
 		margin-top: unset;
-	}
-
-	.tfp__banner {
-		font-size: small !important;
 	}
 }
