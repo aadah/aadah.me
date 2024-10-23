@@ -272,7 +272,7 @@ function setupCanvas() {
 function setup() {
     setupCanvas();
     C = random([
-        Inverter,
+        // Inverter,
         Pixelator,
         // PixelOscillator,
         Glitcher,
