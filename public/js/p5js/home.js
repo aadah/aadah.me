@@ -198,6 +198,48 @@ class ChromaWalker extends Transform {
     }
 }
 
+class Hoops extends Transform {
+    static FPS = 30;
+    static SECONDS = 3;
+    static PIXEL_SPACING = 10;
+    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
+
+    constructor() {
+        super();
+
+        this.is = [];
+        this.js = [];
+        this.colors = [];
+        this.idxs = [];
+
+        for (let i = Math.round(Hoops.PIXEL_SPACING / 2); i < width + Hoops.PIXEL_SPACING; i += Hoops.PIXEL_SPACING) {
+            for (let j = Math.round(Hoops.PIXEL_SPACING / 2); j < height + Hoops.PIXEL_SPACING; j += Hoops.PIXEL_SPACING) {
+                this.is.push(i);
+                this.js.push(j);
+                this.colors.push(color(IMAGE.get(i, j)));
+                this.idxs.push(this.idxs.length);
+            }
+        }
+
+        this.idxs = shuffle(this.idxs);
+    }
+
+    setup() {
+        frameRate(Hoops.FPS);
+        noFill();
+        strokeWeight(1);
+    }
+
+    draw() {
+        clear();
+        this.colors.forEach((c, n) => {
+            stroke(c);
+            let x = frameCount + this.idxs[n];
+            circle(this.is[n], this.js[n], Hoops.PIXEL_SPACING * (1 + Math.sin(x * Hoops.FREQ)) / 2);
+        });
+    }
+}
+
 function getImageData() {
     const img = document.querySelector('figure img');
     const canvas = document.createElement('canvas');
@@ -237,6 +279,7 @@ function setup() {
         // FourCorners,
         // ChromaFlipper,
         ChromaWalker,
+        Hoops,
     ]);
     sys = new C();
     sys.setup();
