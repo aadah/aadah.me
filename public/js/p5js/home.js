@@ -259,7 +259,7 @@ function getImageData() {
 
 function preload() {
     const imageData = getImageData();
-    IMAGE = loadImage(imageData);
+    loadImage(imageData, (img) => IMAGE = img);
 }
 
 function setupCanvas() {
