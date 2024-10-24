@@ -240,6 +240,49 @@ class Hoops extends Transform {
     }
 }
 
+class DiscoFloor extends Transform {
+    static FPS = 30;
+    static SECONDS = 3;
+    static SPACING = 15;
+    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
+    static FADE = 3;
+
+    constructor() {
+        super();
+
+        this.is = [];
+        this.js = [];
+        this.colors = [];
+        this.idxs = [];
+
+        for (let i = Math.round(DiscoFloor.SPACING / 2); i < width + DiscoFloor.SPACING; i += DiscoFloor.SPACING) {
+            for (let j = Math.round(DiscoFloor.SPACING / 2); j < height + DiscoFloor.SPACING; j += DiscoFloor.SPACING) {
+                this.is.push(i);
+                this.js.push(j);
+                this.colors.push(color(IMAGE.get(i, j)));
+                this.idxs.push(this.idxs.length);
+            }
+        }
+
+        this.idxs = shuffle(this.idxs);
+    }
+
+    setup() {
+        frameRate(DiscoFloor.FPS);
+        rectMode(CENTER);
+    }
+
+    draw() {
+        clear();
+        this.colors.forEach((c, n) => {
+            fill(c);
+            let x = frameCount + this.idxs[n];
+            square(this.is[n], this.js[n], DiscoFloor.SPACING * (1 + Math.sin(x * DiscoFloor.FREQ)) / 2);
+        });
+        filter(BLUR, DiscoFloor.FADE);
+    }
+}
+
 function getImageData() {
     const img = document.querySelector('figure img');
     const canvas = document.createElement('canvas');
@@ -279,6 +322,7 @@ function randomEffect() {
         // ChromaFlipper,
         ChromaWalker,
         Hoops,
+        DiscoFloor,
     ];
     return effects[Math.floor(Math.random() * effects.length)];
 }
