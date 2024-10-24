@@ -235,7 +235,7 @@ class Hoops extends Transform {
         this.colors.forEach((c, n) => {
             stroke(c);
             let x = frameCount + this.idxs[n];
-            circle(this.is[n], this.js[n], Hoops.PIXEL_SPACING * (1 + Math.sin(x * Hoops.FREQ)) / 2);
+            circle(this.is[n], this.js[n], (Hoops.PIXEL_SPACING - 1) * (1 + Math.sin(x * Hoops.FREQ)) / 2);
         });
     }
 }
@@ -269,9 +269,8 @@ function setupCanvas() {
     image(IMAGE, 0, 0);
 }
 
-function setup() {
-    setupCanvas();
-    C = random([
+function randomEffect() {
+    let effects = [
         // Inverter,
         Pixelator,
         // PixelOscillator,
@@ -280,17 +279,16 @@ function setup() {
         // ChromaFlipper,
         ChromaWalker,
         Hoops,
-    ]);
+    ];
+    return effects[Math.floor(Math.random() * effects.length)];
+}
+
+var C = randomEffect();
+
+function setup() {
+    setupCanvas();
     sys = new C();
     sys.setup();
-
-    // P5Capture.getInstance().start({
-    //     format: "gif",
-    //     framerate: getTargetFrameRate(),
-    //     duration: getTargetFrameRate() * 7,
-    //     quality: 1.0,
-    //     verbose: true,
-    // });
 }
 
 function draw() {
