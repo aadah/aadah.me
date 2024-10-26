@@ -241,7 +241,7 @@ class Hoops extends Transform {
 }
 
 class DiscoFloor extends Transform {
-    static FPS = 30;
+    static FPS = 2;
     static SECONDS = 3;
     static SPACING = 20;
     static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
