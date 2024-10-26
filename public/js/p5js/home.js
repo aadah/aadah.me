@@ -270,6 +270,7 @@ class DiscoFloor extends Transform {
     setup() {
         frameRate(DiscoFloor.FPS);
         rectMode(CENTER);
+        noStroke();
     }
 
     draw() {
