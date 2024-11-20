@@ -4,7 +4,6 @@
 	}
 
 	nav {
-		font-size: smaller;
 		padding: calc(3 * var(--default-margin)) calc(1 * var(--default-margin));
 	}
 
