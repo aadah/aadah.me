@@ -48,7 +48,7 @@ body {
 	padding-left: calc(2 * var(--default-margin));
 	padding-right: calc(2 * var(--default-margin));
 	padding-bottom: var(--default-margin);
-	font-size: larger;
+	/* font-size: larger; */
 }
 
 /* NAVIGATION */
@@ -239,6 +239,11 @@ blockquote {
 	font-style: inherit;
 	border: var(--default-line-border-thickness) solid;
 	padding-right: calc(2 * var(--default-margin));
+}
+
+.statement i,
+.statement em {
+	font-style: italic;
 }
 
 q,
