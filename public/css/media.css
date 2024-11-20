@@ -3,10 +3,6 @@
 		--body-max-width: 100%;
 	}
 
-	nav {
-		padding: calc(3 * var(--default-margin)) calc(1 * var(--default-margin));
-	}
-
 	nav a {
 		margin: 0;
 		padding: calc(var(--default-margin) / 2) calc(var(--default-margin) / 2);

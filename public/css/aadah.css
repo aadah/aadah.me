@@ -44,11 +44,10 @@ body {
 	font-family: "Spectral", serif;
 	max-width: var(--body-max-width);
 	margin: auto;
-	padding-top: calc(6 * var(--default-margin));
+	padding-top: calc(8 * var(--default-margin));
 	padding-left: calc(2 * var(--default-margin));
 	padding-right: calc(2 * var(--default-margin));
 	padding-bottom: var(--default-margin);
-	/* font-size: larger; */
 }
 
 /* NAVIGATION */
@@ -61,7 +60,7 @@ nav {
 	right: 0;
 	background-color: inherit;
 	text-align: center;
-	padding: calc(2 * var(--default-margin));
+	padding: calc(3.5 * var(--default-margin)) 0;
 	z-index: 1;
 	opacity: 0.5;
 
