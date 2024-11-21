@@ -662,7 +662,7 @@ hr {
 }
 
 hr::before {
-	content: "両";
+	content: "⚖";
 	color: light-dark(var(--light-fg-color), var(--dark-fg-color));
 	background-color: light-dark(var(--light-bg-color), var(--dark-bg-color));
 	text-align: center;
