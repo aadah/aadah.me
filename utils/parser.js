@@ -439,6 +439,7 @@ Parser.prototype.createSection = function (num, text) {
 
   template = template.replace(numRgx, num)
   template = template.replace('[TEXT]', text)
+  template = template.replace('[ID]', `h${num}-`+text.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
 
   return template
 }
