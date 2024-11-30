@@ -222,6 +222,27 @@ footer a {
 	text-decoration-color: inherit;
 }
 
+.anchor {
+	position: relative;
+	top: 0.1em;
+	opacity: 0;
+	text-decoration: none;
+	margin-left: 0.25em;
+
+	-webkit-transition: opacity .25s ease;
+	transition: opacity .25s ease;
+}
+
+*:hover>.anchor {
+	opacity: 1;
+
+}
+
+*:target::after {
+	float: right;
+	content: "⚖";
+}
+
 /* -------------------------------------------------------*/
 
 blockquote {

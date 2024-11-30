@@ -436,10 +436,14 @@ Parser.prototype.createStandardCell = function (text) {
 Parser.prototype.createSection = function (num, text) {
   var template = fs.readFileSync('grammars/templates/h.html', 'utf8')
   var numRgx = new RegExp('\\[NUM\\]', 'g')
+  var idRgx = new RegExp('\\[ID\\]', 'g')
 
   template = template.replace(numRgx, num)
   template = template.replace('[TEXT]', text)
-  template = template.replace('[ID]', `h${num}-`+text.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+  
+  let id = `s${num-1}-` + text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  id = id.replace(/^-+|-+$/g, '')
+  template = template.replace(idRgx, id)
 
   return template
 }
