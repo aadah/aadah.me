@@ -238,7 +238,7 @@ footer a {
 
 }
 
-*:target::after {
+.anchor:target::after {
 	float: right;
 	content: "⚖";
 }
@@ -460,6 +460,12 @@ table ul {
 .footnotes {
 	font-size: smaller;
 	list-style-type: decimal;
+}
+
+.footnote:target {
+	text-decoration: none;
+	border: light-dark(var(--light-fg-color), var(--dark-fg-color)) var(--default-line-border-thickness) solid;
+	padding: 0 0.2em;
 }
 
 main #fn-box {
