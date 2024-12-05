@@ -233,12 +233,12 @@ footer a {
 	transition: opacity .25s ease;
 }
 
-*:hover>.anchor {
+.section:hover>.anchor {
 	opacity: 1;
 
 }
 
-.anchor:target::after {
+.section:target::after {
 	float: right;
 	content: "⚖";
 }
