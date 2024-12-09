@@ -352,11 +352,7 @@ function preload() {
     const imageData = getImageData();
     loadImage(imageData, (img) => {
         IMAGE = img;
-        let fig = document.querySelector('figure');
-        fig.style.visibility = 'hidden';
-        fig.style.height = 0;
-        fig.style.margin = 0;
-        fig.style.padding = 0;
+        $('figure').toggle(false);
     });
 }
 
@@ -365,6 +361,10 @@ function setupCanvas() {
     HEIGHT = IMAGE.height;
     createCanvas(WIDTH, HEIGHT);
     image(IMAGE, 0, 0);
+
+    $('figure, canvas').on('click touchstart', () => {
+        $('figure, canvas').toggle();
+    });
 }
 
 function randomEffect() {
