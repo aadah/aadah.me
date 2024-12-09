@@ -362,7 +362,10 @@ function setupCanvas() {
     createCanvas(WIDTH, HEIGHT);
     image(IMAGE, 0, 0);
 
-    $('figure, canvas').on('click touchstart', () => {
+    $('figure, canvas').on('click', () => {
+        $('figure, canvas').toggle();
+    }).on('touchstart', (event) => {
+        event.preventDefault();
         $('figure, canvas').toggle();
     });
 }
