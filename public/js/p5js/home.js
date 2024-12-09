@@ -88,7 +88,7 @@ class Pixelator extends BasePixelator {
 
 class PixelOscillator extends BasePixelator {
     constructor() {
-        super(() => (Math.cos(frameCount * 0.05) + 1 + 0.01) / 2);
+        super(() => (Math.cos(frameCount * 0.1) + 1 + 0.01) / 2);
     }
 }
 
@@ -284,6 +284,53 @@ class DiscoFloor extends Transform {
     }
 }
 
+class Cartograph extends Transform {
+    static FPS = 10;
+    static SECONDS = 10;
+    static PIXEL_SPACING = 30;
+    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
+    static EFFECT = 25;
+
+    constructor() {
+        super();
+
+        this.is = [];
+        this.js = [];
+        this.colors = [];
+        this.idxs = [];
+
+        for (let i = Math.round(Cartograph.PIXEL_SPACING / 2); i < width + Cartograph.PIXEL_SPACING; i += Cartograph.PIXEL_SPACING) {
+            for (let j = Math.round(Cartograph.PIXEL_SPACING / 2); j < height + Cartograph.PIXEL_SPACING; j += Cartograph.PIXEL_SPACING) {
+                this.is.push(i);
+                this.js.push(j);
+                this.colors.push(color(IMAGE.get(i, j)));
+                this.idxs.push(this.idxs.length);
+            }
+        }
+
+        this.idxs = shuffle(this.idxs);
+    }
+
+    setup() {
+        frameRate(Cartograph.FPS);
+        noStroke();
+    }
+
+    draw() {
+        clear();
+        this.idxs.forEach((idx, n) => {
+            fill(this.colors[idx]);
+            let x = frameCount + n;
+            circle(
+                this.is[idx], this.js[idx],
+                Cartograph.PIXEL_SPACING + (Cartograph.PIXEL_SPACING - 1) * (1 + Math.sin(x * Cartograph.FREQ)) / 2
+            );
+        });
+        filter(BLUR, Math.round(Cartograph.EFFECT / 2));
+        filter(POSTERIZE, Cartograph.EFFECT);
+    }
+}
+
 function getImageData() {
     const img = document.querySelector('figure img');
     const canvas = document.createElement('canvas');
@@ -324,13 +371,14 @@ function randomEffect() {
     let effects = [
         // Inverter,
         Pixelator,
-        // PixelOscillator,
+        PixelOscillator,
         Glitcher,
         // FourCorners,
         // ChromaFlipper,
         ChromaWalker,
         Hoops,
         DiscoFloor,
+        Cartograph,
     ];
     return effects[Math.floor(Math.random() * effects.length)];
 }
