@@ -227,10 +227,13 @@ footer a {
 	top: 0.1em;
 	opacity: 0;
 	text-decoration: none;
-	margin-left: 0.25em;
 
 	-webkit-transition: opacity .25s ease;
 	transition: opacity .25s ease;
+}
+
+.anchor::before {
+	content: ' 🔗';
 }
 
 .section:hover>.anchor {
