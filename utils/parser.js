@@ -1,6 +1,7 @@
 var fs = require('fs')
 var peg = require('pegjs')
 var moment = require('moment')
+var cheerio = require('cheerio')
 
 var grammar = fs.readFileSync('grammars/manuscript.pegjs', 'utf8')
 var pegParser = peg.generate(grammar)
@@ -441,6 +442,8 @@ Parser.prototype.createSection = function (num, text) {
   template = template.replace(numRgx, num)
   template = template.replace('[TEXT]', text)
   
+  text = cheerio.load(text).text().trim()
+
   let id = `s${num-1}-` + text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   id = id.replace(/^-+|-+$/g, '')
   template = template.replace(idRgx, id)
