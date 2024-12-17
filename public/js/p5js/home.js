@@ -74,7 +74,7 @@ class BasePixelator extends Transform {
     }
 
     draw() {
-        sys.glitch.pixelate(this.f());
+        this.glitch.pixelate(this.f());
         image(this.glitch.image, 0, 0)
     }
 }
@@ -362,38 +362,73 @@ function setupCanvas() {
     createCanvas(WIDTH, HEIGHT);
     image(IMAGE, 0, 0);
 
-    $('figure, .p5Canvas').on('click', () => {
-        $('figure, .p5Canvas').toggle();
+    let selector = 'figure, .p5Canvas';
+    $(selector).off();
+    $(selector).on('click', () => {
+        $(selector).toggle();
     }).on('touchstart', (event) => {
         event.preventDefault();
-        $('figure, .p5Canvas').toggle();
+        $(selector).toggle();
     });
 }
 
-function randomEffect() {
-    let effects = [
-        // Inverter,
-        Pixelator,
-        PixelOscillator,
-        Glitcher,
-        // FourCorners,
-        // ChromaFlipper,
-        ChromaWalker,
-        Hoops,
-        DiscoFloor,
-        Cartograph,
-    ];
-    return effects[Math.floor(Math.random() * effects.length)];
-}
+const EFFECTS = [
+    // Inverter,
+    Pixelator,
+    PixelOscillator,
+    Glitcher,
+    // FourCorners,
+    // ChromaFlipper,
+    ChromaWalker,
+    Hoops,
+    DiscoFloor,
+    Cartograph,
+];
 
-var C = randomEffect();
+var EFFECT_IDX = Math.floor(Math.random() * EFFECTS.length);
+var SYSTEM;
 
 function setup() {
     setupCanvas();
-    sys = new C();
-    sys.setup();
+    SYSTEM = new EFFECTS[EFFECT_IDX]();
+    SYSTEM.setup();
 }
 
 function draw() {
-    sys.draw();
+    SYSTEM.draw();
 }
+
+// function cycleEffect() {
+//     noLoop();
+    
+//     EFFECT_IDX++;
+//     EFFECT_IDX %= EFFECTS.length;
+//     setup();
+
+//     loop();
+// }
+
+// -----------------------------------------------------------------------------
+
+window.addEventListener('resize', () => {
+    preload();
+    setup();
+});
+
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+window.addEventListener('load', () => {
+  if (isMobileDevice()) {
+    $('footer > p')[0].innerText = 'Tap visual to toggle.';
+  }
+});
+
+setTimeout(() => {
+  $('footer > *').toggle(1000, () => {
+    setTimeout(() => {
+      $('footer > *').toggle(1000);
+    }, 3000);
+  });
+}, 5000);
