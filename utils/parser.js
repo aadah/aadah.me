@@ -12,6 +12,10 @@ class Parser {
   }
 }
 
+Parser.prototype._clean = function(text) {
+  return cheerio.load(text).text().trim()
+}
+
 Parser.prototype._parse = function (manuscript) {
   return pegParser.parse(manuscript, { parser: this })
 }
@@ -258,9 +262,9 @@ Parser.prototype.createHead = function (title, subtitle, author, headImage) {
   var authorRgx = new RegExp('\\[AUTHOR\\]', 'g')
   var headImageRgx = new RegExp('\\[IMAGE\\]', 'g')
 
-  template = template.replace(titleRgx, title)
-  template = template.replace(subtitleRgx, subtitle)
-  template = template.replace(authorRgx, author || '')
+  template = template.replace(titleRgx, this._clean(title))
+  template = template.replace(subtitleRgx, this._clean(subtitle))
+  template = template.replace(authorRgx, this._clean(author) || '')
   template = template.replace(headImageRgx, headImage || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>')
 
   return template
@@ -442,7 +446,7 @@ Parser.prototype.createSection = function (num, text) {
   template = template.replace(numRgx, num)
   template = template.replace('[TEXT]', text)
   
-  text = cheerio.load(text).text().trim()
+  text = this._clean(text)
 
   let id = `s${num-1}-` + text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   id = id.replace(/^-+|-+$/g, '')
