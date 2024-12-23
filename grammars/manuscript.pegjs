@@ -250,7 +250,6 @@ InlineElement 'InlineElement'
     Footnote /
     SmallCaps /
     Measurement /
-    Salutation /
     Link /
     EmDash
 
@@ -318,14 +317,6 @@ Measurement 'Measurement'
 
 MeasurementTag 'MeasurementTag'
     = '@MEAS'
-
-Salutation 'Salutation'
-    = SalutationTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
-        return parser.createSalutation(vElements.join(''));
-    }
-
-SalutationTag 'SalutationTag'
-    = '@SALU'
 
 EmDash 'EmDash'
     = '---' {

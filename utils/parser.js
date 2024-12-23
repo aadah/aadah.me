@@ -135,14 +135,6 @@ Parser.prototype.createStrikethrough = function (text) {
   return template
 }
 
-Parser.prototype.createSalutation = function (text) {
-  var template = fs.readFileSync('grammars/templates/salutation.html', 'utf8').trim()
-
-  template = template.replace('[TEXT]', text)
-
-  return template
-}
-
 Parser.prototype.createFootnote = function (text) {
   var template = fs.readFileSync('grammars/templates/footnote.html', 'utf8').trim()
 
