@@ -16,6 +16,19 @@ class Transform {
     }
 }
 
+class JustThePicture extends Transform {
+    constructor() {
+        super();
+    }
+
+    setup() {}
+
+    draw() {
+        image(IMAGE, 0, 0);
+        noLoop();
+    }
+}
+
 class Inverter extends Transform {
     static FPS = 3;
 
@@ -366,20 +379,23 @@ function setupCanvas() {
     $(selector).off();
     $(selector).on('click', () => {
         $(selector).toggle();
+        // cycleEffect();
     }).on('touchstart', (event) => {
         event.preventDefault();
         $(selector).toggle();
+        // cycleEffect();
     });
 }
 
 const EFFECTS = [
+    // JustThePicture,
     // Inverter,
     Pixelator,
-    PixelOscillator,
     Glitcher,
     // FourCorners,
     // ChromaFlipper,
     ChromaWalker,
+    PixelOscillator,
     Hoops,
     DiscoFloor,
     Cartograph,
@@ -398,15 +414,15 @@ function draw() {
     SYSTEM.draw();
 }
 
-// function cycleEffect() {
-//     noLoop();
+function cycleEffect() {
+    noLoop();
     
-//     EFFECT_IDX++;
-//     EFFECT_IDX %= EFFECTS.length;
-//     setup();
+    EFFECT_IDX++;
+    EFFECT_IDX %= EFFECTS.length;
+    setup();
 
-//     loop();
-// }
+    loop();
+}
 
 // -----------------------------------------------------------------------------
 
