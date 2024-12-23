@@ -257,6 +257,15 @@ blockquote {
 	font-style: italic;
 }
 
+.blockquote > figcaption {
+	text-align: right;
+	font-size: inherit;
+}
+
+.blockquote > figcaption::before {
+	content: '— ';
+}
+
 .statement {
 	color: inherit;
 	font-style: inherit;
@@ -314,19 +323,6 @@ q.pquotel::before {
 	font-size: 5em;
 	vertical-align: text-top;
 	content: '“';
-}
-
-span.salutation {
-	display: block;
-	text-align: right;
-}
-
-span.salutation em {
-	font-style: normal;
-}
-
-span.salutation::before {
-	content: '— ';
 }
 
 /* -------------------------------------------------------*/
@@ -582,8 +578,9 @@ figure audio {
 
 canvas {
 	display: block;
+	width: calc(var(--body-max-width) - 2 * var(--default-margin));
 	background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
-	padding: var(--default-margin);
+	border: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2)) var(--default-margin) solid;
 }
 
 /* -------------------------------------------------------*/

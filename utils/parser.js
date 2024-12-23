@@ -200,11 +200,12 @@ Parser.prototype.createLink = function (target, link, text) {
   return template
 }
 
-Parser.prototype.createBlockquote = function (paragraphs) {
+Parser.prototype.createBlockquote = function (paragraphs, caption) {
   var template = fs.readFileSync('grammars/templates/blockquote.html', 'utf8')
 
   paragraphs = paragraphs.join('')
   template = template.replace('[PARAGRAPHS]', paragraphs)
+  template = template.replace('[CAPTION]', caption ? this.createFigureCaption(caption) : '')
 
   return template
 }
@@ -407,6 +408,14 @@ Parser.prototype.createTable = function (caption, rows) {
 
 Parser.prototype.createTableCaption = function (caption) {
   var template = fs.readFileSync('grammars/templates/caption.html', 'utf8')
+
+  template = template.replace('[CAPTION]', caption)
+
+  return template
+}
+
+Parser.prototype.createFigureCaption = function (caption) {
+  var template = fs.readFileSync('grammars/templates/figcaption.html', 'utf8')
 
   template = template.replace('[CAPTION]', caption)
 

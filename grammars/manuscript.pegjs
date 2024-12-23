@@ -457,8 +457,8 @@ StandardCellTag 'StandardCellTag'
 ////////////////////////////////////////////////////////////////////////////////
 
 Blockquote 'Blockquote'
-    = vParagraphs:BlockquoteParagraph+ Blankline* {
-        return parser.createBlockquote(vParagraphs);
+    = vParagraphs:BlockquoteParagraph+ vCaption:BlockquoteCaptionLine? Blankline* {
+        return parser.createBlockquote(vParagraphs, vCaption);
     }
 
 BlockquoteParagraph 'BlockquoteParagraph'
@@ -473,6 +473,11 @@ BlockquoteNonBlankline 'BlockquoteNonBlankline'
 
 BlockquoteBlankline 'BlockquoteLine'
     = BlockquoteLineStart Blankline
+
+BlockquoteCaptionLine 'BlockquoteCaptionLine'
+    = '\\' InlineWhitespace+ vLine:NonBlankline {
+        return vLine;
+    }
 
 BlockquoteLineStart 'BlockquoteLineStart'
     = '|'
