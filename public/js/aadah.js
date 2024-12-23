@@ -113,3 +113,29 @@ $(function () {
 $(window).load(function () {
   $('img', '.gallery').click(toggleImage)
 })
+                                                                                                                                                                                           
+// /////////////////////////////////////////////////////////////////////////////                                                                                                             
+                                                                                                                                                                                             
+window.MathJax = {                                                                                                                                                                           
+  loader: {                                                                                                                                                                                  
+    load: [                                                                                                                                                                                  
+      '[tex]/mathtools',                                                                                                                                                                     
+      // '[tex]/tagformat'                                                                                                                                                                   
+    ]                                                                                                                                                                                        
+  },                                                                                                                                                                                         
+  tex: {                                                                                                                                                                                     
+    packages: {                                                                                                                                                                              
+      '[+]': [                                                                                                                                                                               
+        'mathtools',                                                                                                                                                                         
+        // 'tagformat'                                                                                                                                                                       
+      ]                                                                                                                                                                                      
+    },                                                                                                                                                                                       
+    macros: {                                                                                                                                                                                
+      textsc: ['\\style{font-variant-caps: small-caps;}{\\text{#1}}', 1]                                                                                                                     
+    },                                                                                                                                                                                       
+    tags: 'ams',                                                                                                                                                                             
+    // tagformat: {                                                                                                                                                                          
+    //   tag: (tag) => 'Equation ' + tag,                                                                                                                                                    
+    // }                                                                                                                                                                                     
+  },                                                                                                                                                                                         
+};
