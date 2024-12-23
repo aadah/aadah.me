@@ -38,7 +38,7 @@ Parser.prototype.parse = function (path, manuscript, post) {
 }
 
 Parser.prototype.handler = function (filePath, replacements) {
-  var parser = this;
+  var parser = this
   return function (req, res, next) {
     fs.readFile(filePath, 'utf8', function (err, manuscript) {
       if (err) {
@@ -46,7 +46,7 @@ Parser.prototype.handler = function (filePath, replacements) {
       } else {
         try {
           if (replacements) {
-            const vars = Object.keys(replacements);
+            const vars = Object.keys(replacements)
             vars.forEach(v => {
               manuscript = manuscript.replace(`[${v}]`, replacements[v])
             })
@@ -448,7 +448,7 @@ Parser.prototype.createSection = function (num, text) {
   
   text = this._clean(text)
 
-  let id = `s${num-1}-` + text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  let id = `s${num-1}-` + text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   id = id.replace(/^-+|-+$/g, '')
   template = template.replace(idRgx, id)
 
