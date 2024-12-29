@@ -242,7 +242,8 @@ FooterFlag 'FooterFlag'
 ////////////////////////////////////////////////////////////////////////////////
 
 InlineElement 'InlineElement'
-    = Bold /
+    = Break /
+    Bold /
     Italic /
     Strikethrough /
     Quote /
@@ -252,6 +253,11 @@ InlineElement 'InlineElement'
     Measurement /
     Link /
     EmDash
+
+Break 'Break'
+    = '@BR' {
+        return '<br>';
+    }
 
 Bold 'Bold'
     = BoldTag LeftDelimiter vElements:(InlineElement / NotDelimiter)+ RightDelimiter {
