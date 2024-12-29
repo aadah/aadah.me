@@ -257,9 +257,14 @@ blockquote {
 	font-style: italic;
 }
 
+figure.blockquote {
+	display: inline-block;
+}
+
 .blockquote > figcaption {
 	text-align: right;
 	font-size: inherit;
+	margin-left: calc(6 * var(--default-margin));
 }
 
 .blockquote > figcaption::before {
