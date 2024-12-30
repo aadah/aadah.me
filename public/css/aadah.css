@@ -271,7 +271,7 @@ figure.blockquote {
 	content: '— ';
 }
 
-.statement {
+.statement > blockquote {
 	color: inherit;
 	font-style: inherit;
 	border: var(--default-line-border-thickness) solid;
