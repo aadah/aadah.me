@@ -41,8 +41,14 @@ var EXTERNAL = new Set([
   'https://mastodon.mit.edu/system/media_attachments/files/111/705/098/191/567/569/original/48e9bc2268d6014d.jpg',
 ])
 
+var PROXY_WHITELIST = new Set([
+  // tech for palestine banner
+  'https://banner.techforpalestine.org/lib/banner.min.js'
+])
+
 EXTERNAL.forEach((url) => {
   INTERNAL.push(`/proxy/${encodeURIComponent(url)}`);
+  PROXY_WHITELIST.add(url)
 })
 
 router.get('/', function (req, res, next) {
@@ -55,7 +61,7 @@ router.get('/proxy/:url(*)', (req, res) => {
   const targetUrl = new URL(decodeURIComponent(req.params.url));
 
   // use the proxy only for allowed external resources
-  if (!EXTERNAL.has(targetUrl.toString())) {
+  if (!PROXY_WHITELIST.has(targetUrl.toString())) {
     res.status(404).render('error/404')
     return
   }
