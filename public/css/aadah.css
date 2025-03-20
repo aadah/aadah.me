@@ -57,7 +57,7 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100vw;
   background-color: inherit;
   text-align: center;
   padding: calc(3.5 * var(--default-margin)) 0;
