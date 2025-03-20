@@ -39,6 +39,9 @@ var EXTERNAL = new Set([
   'https://mastodon.mit.edu/system/media_attachments/files/111/682/295/720/395/669/original/943372f64c2d7b86.jpg',
   'https://mastodon.mit.edu/system/media_attachments/files/111/705/098/563/938/086/original/f30e067d24df8105.jpg',
   'https://mastodon.mit.edu/system/media_attachments/files/111/705/098/191/567/569/original/48e9bc2268d6014d.jpg',
+
+  // tech for palestine banner
+  'https://banner.techforpalestine.org/lib/banner.min.js'
 ])
 
 EXTERNAL.forEach((url) => {
