@@ -157,6 +157,11 @@
 			background-color: light-dark(var(--light-bg-color-4), var(--dark-bg-color-4));
 		}
 
+		button:disabled {
+			cursor: not-allowed;
+			opacity: 0.5 !important;
+		}
+
 		/* Mobile responsive styles */
 		@media (max-width: 768px) {
 			body {
@@ -261,8 +266,47 @@
 
 	<script>
 		var previewTimeout;
+		var hasPreviewError = false;
 
 		$(document).ready(function () {
+			
+			// Monitor iframe load to check for preview errors
+			$('#preview-iframe').on('load', function () {
+				try {
+					var iframe = this;
+					var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+					var body = iframeDoc.body;
+
+					// Check if the preview shows an error
+					if (body && body.innerHTML.includes('Preview Error:')) {
+						hasPreviewError = true;
+						updatePublishButton();
+					} else {
+						hasPreviewError = false;
+						updatePublishButton();
+					}
+				} catch (e) {
+					// Cross-origin or other iframe access issues
+					// Assume no error in this case
+					hasPreviewError = false;
+					updatePublishButton();
+				}
+			});
+
+			function updatePublishButton() {
+				var publishBtn = $('#publish-btn');
+				if (publishBtn.length > 0) {
+					if (hasPreviewError) {
+						publishBtn.prop('disabled', true);
+						publishBtn.attr('title', 'Cannot publish: Preview has errors. Fix content and try again.');
+						publishBtn.css('opacity', '0.5');
+					} else {
+						publishBtn.prop('disabled', false);
+						publishBtn.removeAttr('title');
+						publishBtn.css('opacity', '1');
+					}
+				}
+			}
 
 			// Mobile view toggle functionality
 			$('#editor-toggle').click(function () {
@@ -333,6 +377,12 @@
 			});
 
 			$('#publish-btn').click(function () {
+				// Check if button is disabled due to preview errors
+				if ($(this).prop('disabled')) {
+					showStatus('Cannot publish: Preview has errors. Fix your content and try again.', 'error');
+					return;
+				}
+				
 				var content = $('#content').val();
 				var postId = '<%= postId %>';
 
