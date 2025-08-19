@@ -15,6 +15,9 @@ var misc = require('./routes/misc')
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+// middleware
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // routes
 app.use('/', home)
 app.use('/blog', blog)
@@ -25,7 +28,6 @@ app.use('/misc', misc)
 
 // for my puzzle
 var puzzle = require('./routes/puzzle')
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/misc/puzzle', puzzle)
 
 // static files
