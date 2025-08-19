@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Edit Drafts &bull; aadah.me</title>
+
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name="description" content="Edit blog drafts">
+	<meta property="og:title" content="Edit Drafts • aadah.me">
+	<meta property="og:url" content="https://aadah.me/blog/edit">
+	<meta property="og:description" content="Edit blog drafts">
+	<meta property="og:image"
+		content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+	<meta property="og:type" content="article">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/css/aadah.css">
+	<link rel="stylesheet" type="text/css" href="/css/media.css">
+	<link rel="stylesheet" type="text/css" href="/css/print.css">
+
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+
+	<link rel="me" href="https://mastodon.mit.edu/@ahd">
+	<link rel="me" href="https://social.coop/@abdi">
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="/js/aadah.js"></script>
+</head>
+
+<body>
+	<nav>
+		<a href="/" class="home">Home</a> &bull;
+		<a href="/blog/" class="blog">Blog</a> &bull;
+		<a href="/now/" class="now">Now</a> &bull;
+		<a href="/works/" class="works">Works</a> &bull;
+		<a href="/about/" class="about">About</a>
+	</nav>
+
+	<header>
+		<h1 class="title">Edit Posts</h1>
+		<p class="subtitle">Manage your blog drafts and published posts</p>
+	</header>
+
+	<main role="main">
+		<section class="drafts">
+			<h2>Drafts</h2>
+			<% if (drafts.length === 0) { %>
+				<p>No drafts found.</p>
+			<% } else { %>
+				<ul>
+					<% for (var i = 0; i < drafts.length; i++) { %>
+						<li>
+							<a href="/blog/edit/<%= drafts[i].id %>"><%= drafts[i].id %></a>
+							<small>(<%= drafts[i].filename %>)</small>
+						</li>
+					<% } %>
+				</ul>
+			<% } %>
+		</section>
+
+		<section class="published">
+			<h2>Published Posts</h2>
+			<% if (published.length === 0) { %>
+				<p>No published posts found.</p>
+			<% } else { %>
+				<div class="posts">
+					<% for (var i = 0; i < published.length; i++) { %>
+						<% 
+						// Transform to format expected by createBlogPost
+						var post = {
+							_id: published[i].id,
+							title: published[i].title,
+							subtitle: published[i].subtitle,
+							author: published[i].author,
+							posted: published[i].posted,
+							updated: published[i].updated
+						};
+						%>
+						<div class="published-post">
+							<%- createBlogPost(post) %>
+							<div class="post-meta">
+								<small>
+									<%= published[i].public ? 'Public' : 'Hidden' %>
+									<% if (published[i].updated) { %>
+										• Updated <%= new Date(published[i].updated).toLocaleDateString() %>
+									<% } %>
+									• <a href="/blog/edit/<%= published[i].id %>">Edit</a>
+								</small>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+		</section>
+	</main>
+
+	<footer>
+	</footer>
+</body>
+
+</html>
