@@ -1,6 +1,7 @@
 var express = require('express')
 var models = require('../utils/models')
 var parser = require('../utils/parser')
+var editRouter = require('./edit')
 
 const DEFAULT_NUM_ITEMS = 10
 const MAX_NUM_ITEMS = 30
@@ -52,7 +53,7 @@ router.get('/', function (req, res, next) {
       res.status(500).render('error/500')
     } else {
       res.locals.createBlogPost = (post => parser.web.createBlogPost(post))
-      res.status(200).render('main/blog', { posts: posts })
+      res.status(200).render('blog/blog', { posts: posts })
     }
   })
 })
@@ -118,6 +119,9 @@ function feedFactory(feedType, numItems) {
 router.get('/feed/:feedType(\\D+)?/:numItems(\\d+)?', function (req, res, next) {
   feedFactory((req.params.feedType || 'atom'), req.params.numItems)(req, res, next)
 })
+
+// Mount edit routes
+router.use('/edit', editRouter)
 
 router.get('/:postID', logView, function (req, res, next) {
   models.Post.findOne({
