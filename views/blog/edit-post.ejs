@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Editor &bull; aadah.me</title>
+
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name="description" content="Blog post editor">
+	<meta property="og:title" content="Editor • aadah.me">
+	<meta property="og:url" content="https://aadah.me/blog/edit/<%= postId %>">
+	<meta property="og:description" content="Blog post editor">
+	<meta property="og:image"
+		content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+	<meta property="og:type" content="article">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/css/aadah.css">
+	<link rel="stylesheet" type="text/css" href="/css/media.css">
+
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="/js/aadah.js"></script>
+
+	<style>
+		body {
+			padding: var(--default-margin);
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			max-width: none !important;
+			box-sizing: border-box;
+		}
+
+
+		.editor-container {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			position: static !important;
+			clear: none !important;
+			margin: 0 !important;
+		}
+
+		.unified-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			padding: var(--default-margin);
+			flex-wrap: wrap;
+			gap: var(--default-margin);
+		}
+
+		.editing-title {
+			border-left: none !important;
+			padding-left: 0 !important;
+			margin: 0 !important;
+			line-height: 1;
+			font-family: "Spectral SC", serif;
+		}
+
+		.controls {
+			display: flex;
+			gap: var(--default-margin);
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		.view-toggle {
+			display: none;
+		}
+
+		.view-toggle button {
+			padding: calc(var(--default-margin) / 2) var(--default-margin);
+			border: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
+			color: inherit;
+			font-family: "Spectral SC", serif;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.view-toggle button:first-child {
+			border-radius: calc(var(--default-margin) / 2) 0 0 calc(var(--default-margin) / 2);
+		}
+
+		.view-toggle button:last-child {
+			border-radius: 0 calc(var(--default-margin) / 2) calc(var(--default-margin) / 2) 0;
+			border-left: none;
+		}
+
+		.view-toggle button.active {
+			background-color: light-dark(var(--light-fg-color), var(--dark-fg-color));
+			color: light-dark(var(--light-bg-color), var(--dark-bg-color));
+		}
+
+		.editor-panes {
+			flex: 1;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			overflow: hidden;
+		}
+
+		.editor-pane {
+			display: flex;
+			flex-direction: column;
+			border-left: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			border-bottom: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			border-right: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+		}
+
+		.preview-pane {
+			display: flex;
+			flex-direction: column;
+			border-right: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			border-bottom: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+		}
+
+
+		#editor-form {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#content {
+			flex: 1;
+			font-family: "Fira Code", monospace;
+			padding: var(--default-margin);
+			border: none;
+			resize: none;
+			outline: none;
+		}
+
+		#preview-iframe {
+			flex: 1;
+			border: none !important;
+			max-width: none !important;
+			width: 100% !important;
+			margin: 0 !important;
+		}
+
+		.status-message {
+			padding: var(--default-margin);
+			text-align: center;
+			display: none;
+		}
+
+		.status-success {
+			background-color: light-dark(var(--light-bg-color-3), var(--dark-bg-color-3));
+		}
+
+		.status-error {
+			background-color: light-dark(var(--light-bg-color-4), var(--dark-bg-color-4));
+		}
+
+		/* Mobile responsive styles */
+		@media (max-width: 768px) {
+			body {
+				padding: 0;
+			}
+
+			.unified-header {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			.left-section {
+				display: none;
+			}
+
+			.right-section {
+				width: 100%;
+			}
+
+			.controls {
+				justify-content: center;
+				margin-top: var(--default-margin);
+			}
+
+			.view-toggle {
+				display: flex;
+				order: -1;
+				justify-content: center;
+				margin-bottom: var(--default-margin);
+			}
+
+			.editor-panes {
+				grid-template-columns: 1fr;
+				position: relative;
+			}
+
+			.editor-pane,
+			.preview-pane {
+				grid-column: 1;
+				grid-row: 1;
+			}
+
+			.preview-pane {
+				display: none;
+			}
+
+			.preview-pane.active {
+				display: flex;
+			}
+
+			.editor-pane.hidden {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<main role="main" class="editor-container">
+		<div class="unified-header">
+			<div class="left-section">
+				<h1 class="editing-title">editor</h1>
+			</div>
+			<div class="right-section">
+				<div class="view-toggle">
+					<button id="editor-toggle" type="button" class="active">editor</button>
+					<button id="preview-toggle" type="button">preview</button>
+				</div>
+				<div class="controls">
+					<% if (isDraft) { %>
+						<button id="save-btn" type="button">Save Draft</button>
+						<button id="publish-btn" type="button">Publish</button>
+						<% } else { %>
+							<button id="save-btn" type="button">Save</button>
+							<button id="tweak-btn" type="button">Tweak</button>
+							<button id="reveal-btn" type="button">Reveal</button>
+							<button id="hide-btn" type="button">Hide</button>
+							<button id="delete-btn" type="button">Delete</button>
+							<% } %>
+								<a href="/blog/edit/" class="button">Back</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="editor-panes">
+			<div class="editor-pane">
+				<form id="editor-form">
+					<textarea id="content" name="content"
+						placeholder="Enter your blog post content here..."><%= content %></textarea>
+				</form>
+			</div>
+
+			<div class="preview-pane">
+				<iframe id="preview-iframe" src="/blog/edit/<%= postId %>/preview"></iframe>
+			</div>
+		</div>
+
+		<div id="status-message" class="status-message"></div>
+	</main>
+
+
+	<script>
+		var previewTimeout;
+
+		$(document).ready(function () {
+
+			// Mobile view toggle functionality
+			$('#editor-toggle').click(function () {
+				if (!$(this).hasClass('active')) {
+					$(this).addClass('active');
+					$('#preview-toggle').removeClass('active');
+					$('.editor-pane').removeClass('hidden');
+					$('.preview-pane').removeClass('active');
+				}
+			});
+
+			$('#preview-toggle').click(function () {
+				if (!$(this).hasClass('active')) {
+					$(this).addClass('active');
+					$('#editor-toggle').removeClass('active');
+					$('.editor-pane').addClass('hidden');
+					$('.preview-pane').addClass('active');
+					// Refresh preview when switching to it
+					$('#preview-iframe')[0].contentWindow.location.reload();
+				}
+			});
+
+			$('#save-btn').click(function () {
+				var content = $('#content').val();
+				var postId = '<%= postId %>';
+				var isDraft = <%= isDraft %>;
+				var saveUrl = `/blog/edit/${postId}${isDraft ? '/draft' : ''}/save`;
+
+				$.ajax({
+					url: saveUrl,
+					method: 'POST',
+					data: { content: content },
+					success: function (response) {
+						var message = isDraft ? 'Draft saved successfully!' : 'Post saved successfully!';
+						showStatus(message, 'success');
+					},
+					error: function (xhr) {
+						var message = isDraft ? 'Failed to save draft' : 'Failed to save post';
+						if (xhr.responseJSON && xhr.responseJSON.error) {
+							message = xhr.responseJSON.error;
+						}
+						showStatus(message, 'error');
+					}
+				});
+			});
+
+			// Publisher action handlers
+			$('#tweak-btn').click(function () {
+				var content = $('#content').val();
+				var postId = '<%= postId %>';
+
+				$.ajax({
+					url: '/blog/edit/' + postId + '/tweak',
+					method: 'POST',
+					data: { content: content },
+					success: function (response) {
+						showStatus('Post tweaked successfully!', 'success');
+						$('#preview-iframe')[0].contentWindow.location.reload();
+					},
+					error: function (xhr) {
+						var message = 'Failed to tweak post';
+						if (xhr.responseJSON && xhr.responseJSON.error) {
+							message = xhr.responseJSON.error;
+						}
+						showStatus(message, 'error');
+					}
+				});
+			});
+
+			$('#publish-btn').click(function () {
+				var content = $('#content').val();
+				var postId = '<%= postId %>';
+
+				if (confirm('Are you sure you want to publish this post? This will make it live on the site.')) {
+					$.ajax({
+						url: '/blog/edit/' + postId + '/draft/publish',
+						method: 'POST',
+						data: { content: content },
+						success: function (response) {
+							showStatus('Post published successfully! Redirecting...', 'success');
+							// Redirect to the published post editor after 2 seconds
+							setTimeout(function () {
+								window.location.href = '/blog/edit/' + postId;
+							}, 2000);
+						},
+						error: function (xhr) {
+							var message = 'Failed to publish post';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								message = xhr.responseJSON.error;
+							}
+							showStatus(message, 'error');
+						}
+					});
+				}
+			});
+
+			$('#reveal-btn').click(function () {
+				var postId = '<%= postId %>';
+
+				if (confirm('Are you sure you want to make this post visible on the blog?')) {
+					$.ajax({
+						url: '/blog/edit/' + postId + '/reveal',
+						method: 'POST',
+						success: function (response) {
+							showStatus('Post revealed successfully!', 'success');
+						},
+						error: function (xhr) {
+							var message = 'Failed to reveal post';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								message = xhr.responseJSON.error;
+							}
+							showStatus(message, 'error');
+						}
+					});
+				}
+			});
+
+			$('#hide-btn').click(function () {
+				var postId = '<%= postId %>';
+
+				if (confirm('Are you sure you want to hide this post from the blog?')) {
+					$.ajax({
+						url: '/blog/edit/' + postId + '/hide',
+						method: 'POST',
+						success: function (response) {
+							showStatus('Post hidden successfully!', 'success');
+						},
+						error: function (xhr) {
+							var message = 'Failed to hide post';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								message = xhr.responseJSON.error;
+							}
+							showStatus(message, 'error');
+						}
+					});
+				}
+			});
+
+			$('#delete-btn').click(function () {
+				var postId = '<%= postId %>';
+
+				if (confirm('Are you sure you want to delete this post from the blog? It will be unpublished and moved back to drafts.')) {
+					$.ajax({
+						url: '/blog/edit/' + postId + '/delete',
+						method: 'POST',
+						success: function (response) {
+							showStatus('Post deleted successfully and moved to drafts! Redirecting...', 'success');
+							// Redirect to the draft editor after 2 seconds
+							setTimeout(function () {
+								window.location.href = '/blog/edit/' + postId;
+							}, 2000);
+						},
+						error: function (xhr) {
+							var message = 'Failed to delete post';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								message = xhr.responseJSON.error;
+							}
+							showStatus(message, 'error');
+						}
+					});
+				}
+			});
+
+			// Remove live preview updates - only update on manual save
+			<% if (isDraft) { %>
+				// Auto-save every 30 seconds (only for drafts)
+				setInterval(function () {
+					var content = $('#content').val();
+					var postId = '<%= postId %>';
+
+					$.ajax({
+						url: '/blog/edit/' + postId + '/draft/save',
+						method: 'POST',
+						data: { content: content },
+						success: function () {
+							// Silent auto-save
+						}
+					});
+				}, 30000);
+
+				// Save with Ctrl+S or Cmd+S (only for drafts)
+				$(document).keydown(function (e) {
+					if ((e.ctrlKey || e.metaKey) && e.which === 83) {
+						e.preventDefault();
+						var content = $('#content').val();
+						var postId = '<%= postId %>';
+
+						$.ajax({
+							url: '/blog/edit/' + postId + '/draft/save',
+							method: 'POST',
+							data: { content: content },
+							success: function (response) {
+								showStatus('Draft saved successfully!', 'success');
+								// Refresh the iframe to show updated content
+								$('#preview-iframe')[0].contentWindow.location.reload();
+							},
+							error: function (xhr) {
+								var message = 'Failed to save draft';
+								if (xhr.responseJSON && xhr.responseJSON.error) {
+									message = xhr.responseJSON.error;
+								}
+								showStatus(message, 'error');
+							}
+						});
+					}
+				});
+			<% } %>
+		});
+
+
+		function showStatus(message, type) {
+			var statusEl = $('#status-message');
+			statusEl.removeClass('status-success status-error');
+			statusEl.addClass('status-' + type);
+			statusEl.text(message);
+			statusEl.show();
+
+			setTimeout(function () {
+				statusEl.fadeOut();
+			}, 3000);
+		}
+	</script>
+</body>
+
+</html>
