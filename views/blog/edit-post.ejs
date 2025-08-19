@@ -269,7 +269,15 @@
 		var hasPreviewError = false;
 
 		$(document).ready(function () {
-			
+
+			// Helper function to ensure content ends with newline
+			function ensureNewlineEnding(content) {
+				if (content && !content.endsWith('\n')) {
+					return content + '\n';
+				}
+				return content;
+			}
+
 			// Monitor iframe load to check for preview errors
 			$('#preview-iframe').on('load', function () {
 				try {
@@ -330,7 +338,7 @@
 			});
 
 			$('#save-btn').click(function () {
-				var content = $('#content').val();
+				var content = ensureNewlineEnding($('#content').val());
 				var postId = '<%= postId %>';
 				var isDraft = <%= isDraft %>;
 				var saveUrl = `/blog/edit/${postId}${isDraft ? '/draft' : ''}/save`;
@@ -355,7 +363,7 @@
 
 			// Publisher action handlers
 			$('#tweak-btn').click(function () {
-				var content = $('#content').val();
+				var content = ensureNewlineEnding($('#content').val());
 				var postId = '<%= postId %>';
 
 				$.ajax({
@@ -382,8 +390,8 @@
 					showStatus('Cannot publish: Preview has errors. Fix your content and try again.', 'error');
 					return;
 				}
-				
-				var content = $('#content').val();
+
+				var content = ensureNewlineEnding($('#content').val());
 				var postId = '<%= postId %>';
 
 				if (confirm('Are you sure you want to publish this post? This will make it live on the site.')) {
@@ -480,7 +488,7 @@
 			<% if (isDraft) { %>
 				// Auto-save every 30 seconds (only for drafts)
 				setInterval(function () {
-					var content = $('#content').val();
+					var content = ensureNewlineEnding($('#content').val());
 					var postId = '<%= postId %>';
 
 					$.ajax({
@@ -497,7 +505,7 @@
 				$(document).keydown(function (e) {
 					if ((e.ctrlKey || e.metaKey) && e.which === 83) {
 						e.preventDefault();
-						var content = $('#content').val();
+						var content = ensureNewlineEnding($('#content').val());
 						var postId = '<%= postId %>';
 
 						$.ajax({
