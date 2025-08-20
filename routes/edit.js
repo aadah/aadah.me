@@ -9,8 +9,56 @@ var router = express.Router()
 
 var DRAFTS_DIR = path.join(__dirname, '../manuscripts/blog/drafts')
 var PUBLISHED_DIR = path.join(__dirname, '../manuscripts/blog')
+var TEMPLATE_PATH = path.join(__dirname, '../grammars/new.txt')
 
 // Edit routes for drafts and published posts
+router.get('/new', function (req, res, next) {
+  res.status(200).render('blog/edit-new')
+})
+
+router.post('/new', function (req, res, next) {
+  const postId = req.body.postId
+
+  if (!postId) {
+    return res.status(400).json({ error: 'Post ID is required' })
+  }
+
+  // Validate postId (basic sanitization)
+  if (!/^[a-zA-Z0-9-_]+$/.test(postId)) {
+    return res.status(400).json({ error: 'Post ID can only contain letters, numbers, hyphens, and underscores' })
+  }
+
+  const draftPath = path.join(DRAFTS_DIR, `${postId}.txt`)
+
+  // Check if draft file already exists
+  fs.access(draftPath, fs.constants.F_OK, function (err) {
+    if (!err) {
+      // Draft file exists
+      return res.status(409).json({ error: 'A draft with this ID already exists' })
+    }
+
+    // Check if post already exists in database (published)
+    models.Post.findById(postId, function (err, existingPost) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to check existing posts' })
+      }
+
+      if (existingPost) {
+        return res.status(409).json({ error: 'A published post with this ID already exists' })
+      }
+
+      // Copy template file to new draft
+      fs.copyFile(TEMPLATE_PATH, draftPath, function (err) {
+        if (err) {
+          res.status(500).json({ error: 'Failed to create draft file' })
+        } else {
+          res.status(200).json({ success: true, postId: postId, message: 'Draft created successfully' })
+        }
+      })
+    })
+  })
+})
+
 router.get('/', function (req, res, next) {
   // Get drafts from file system
   fs.readdir(DRAFTS_DIR, function (err, files) {
