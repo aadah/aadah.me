@@ -1,0 +1,6 @@
+@TITLE: An Idea
+@SUBTITLE: Some thoughts.
+@AUTHOR: Me
+#@IMAGE: https://aadah.me/media/images/fireworks.jpg
+
+Hello, world.
