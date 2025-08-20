@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>New Post &bull; aadah.me</title>
+
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name="description" content="Create new blog post">
+	<meta property="og:title" content="New Post • aadah.me">
+	<meta property="og:url" content="https://aadah.me/blog/edit/new">
+	<meta property="og:description" content="Create new blog post">
+	<meta property="og:image"
+		content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+	<meta property="og:type" content="article">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/css/aadah.css">
+	<link rel="stylesheet" type="text/css" href="/css/media.css">
+
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect rx=%2210%22 width=%22100%22 height=%22100%22 fill=%22%23202020%22 /><text x=%220.15em%22 y=%22.95em%22 font-size=%2280%22 fill=%22%23ffffff%22>⚖</text></svg>">
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="/js/aadah.js"></script>
+
+	<style>
+		body {
+			padding: var(--default-margin);
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			max-width: none !important;
+			box-sizing: border-box;
+		}
+
+		.new-post-container {
+			width: 100%;
+			max-width: 500px;
+			text-align: center;
+		}
+
+		.new-post-title {
+			margin-bottom: calc(var(--default-margin) * 2);
+			font-family: "Spectral SC", serif;
+			border-left: none !important;
+			padding-left: 0 !important;
+		}
+
+		.new-post-form {
+			display: flex;
+			flex-direction: column;
+		}
+
+
+		input[type="text"] {
+			padding: var(--default-margin);
+			border: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			background-color: light-dark(var(--light-bg-color-3), var(--dark-bg-color-3));
+			color: inherit;
+			font-family: "Fira Code", monospace;
+			font-size: 1rem;
+			text-align: center;
+		}
+
+		input[type="text"]:focus {
+			outline: none;
+			border-color: light-dark(var(--light-fg-color), var(--dark-fg-color));
+		}
+
+		.button-group {
+			display: flex;
+			gap: var(--default-margin);
+			margin-top: var(--default-margin);
+		}
+
+		button,
+		.button {
+			padding: var(--default-margin) calc(var(--default-margin) * 2);
+			border: 1px solid light-dark(var(--light-fg-color-2), var(--dark-fg-color-2));
+			background-color: light-dark(var(--light-bg-color-2), var(--dark-bg-color-2));
+			color: inherit;
+			font-family: "Spectral SC", serif;
+			font-size: 1rem;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			text-decoration: none;
+			display: inline-block;
+			box-sizing: border-box;
+			flex: 1;
+			text-align: center;
+		}
+
+		.button {
+			background-color: light-dark(var(--light-bg-color), var(--dark-bg-color));
+		}
+
+		button:hover,
+		.button:hover {
+			background-color: light-dark(var(--light-fg-color), var(--dark-fg-color));
+			color: light-dark(var(--light-bg-color), var(--dark-bg-color));
+		}
+
+		button:disabled {
+			cursor: not-allowed;
+			opacity: 0.5;
+		}
+
+		.status-message {
+			padding: var(--default-margin);
+			text-align: center;
+			margin-top: var(--default-margin);
+			display: none;
+		}
+
+		.status-success {
+			background-color: light-dark(var(--light-bg-color-3), var(--dark-bg-color-3));
+		}
+
+		.status-error {
+			background-color: light-dark(var(--light-bg-color-4), var(--dark-bg-color-4));
+		}
+
+	</style>
+</head>
+
+<body>
+	<main role="main" class="new-post-container">
+		<form id="new-post-form" class="new-post-form">
+			<input type="text" id="postId" name="postId" placeholder="post-id" required>
+
+			<div class="button-group">
+				<a href="/blog/edit/" class="button">cancel</a>
+				<button type="submit" id="create-btn">create</button>
+			</div>
+		</form>
+
+		<div id="status-message" class="status-message"></div>
+	</main>
+
+	<script>
+		$(document).ready(function () {
+			$('#new-post-form').on('submit', function (e) {
+				e.preventDefault();
+
+				var postId = $('#postId').val().trim();
+
+				if (!postId) {
+					showStatus('Please enter a post ID', 'error');
+					return;
+				}
+
+				// Client-side validation
+				if (!/^[a-zA-Z0-9-_]+$/.test(postId)) {
+					showStatus('Post ID can only contain letters, numbers, hyphens, and underscores', 'error');
+					return;
+				}
+
+				$('#create-btn').prop('disabled', true).text('Creating...');
+
+				$.ajax({
+					url: '/blog/edit/new',
+					method: 'POST',
+					data: { postId: postId },
+					success: function (response) {
+						showStatus('Post created successfully! Redirecting to editor...', 'success');
+						setTimeout(function () {
+							window.location.href = '/blog/edit/' + postId;
+						}, 1500);
+					},
+					error: function (xhr) {
+						var message = 'Failed to create post';
+						if (xhr.responseJSON && xhr.responseJSON.error) {
+							message = xhr.responseJSON.error;
+						}
+						showStatus(message, 'error');
+						$('#create-btn').prop('disabled', false).text('Create');
+					}
+				});
+			});
+
+			// Auto-format post ID as user types
+			$('#postId').on('input', function () {
+				var value = $(this).val();
+				// Convert to lowercase and replace spaces with hyphens
+				var formatted = value.toLowerCase().replace(/\s+/g, '-');
+				// Remove any invalid characters
+				formatted = formatted.replace(/[^a-z0-9-_]/g, '');
+				$(this).val(formatted);
+			});
+		});
+
+		function showStatus(message, type) {
+			var statusEl = $('#status-message');
+			statusEl.removeClass('status-success status-error');
+			statusEl.addClass('status-' + type);
+			statusEl.text(message);
+			statusEl.show();
+
+			if (type === 'error') {
+				setTimeout(function () {
+					statusEl.fadeOut();
+				}, 5000);
+			}
+		}
+	</script>
+</body>
+
+</html>
