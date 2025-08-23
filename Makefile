@@ -90,8 +90,3 @@ delete:
 		-f $(WORK_DIR)/docker-compose.yaml \
 		exec $(SERVICE) \
 		node cli.js manuscripts/blog/$(POSTID).txt -d
-
-# Used to make writing flow simpler. Not for use on main site.
-.PHONY: live-edit
-live-edit:
-	while inotifywait -e modify manuscripts/blog/$(POSTID).txt; do make publish; done
