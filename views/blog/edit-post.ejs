@@ -235,6 +235,7 @@
 					<% if (isDraft) { %>
 						<button id="save-btn" type="button">Save Draft</button>
 						<button id="publish-btn" type="button">Publish</button>
+						<button id="rename-btn" type="button">Rename</button>
 						<% } else { %>
 							<button id="save-btn" type="button">Save</button>
 							<button id="tweak-btn" type="button">Tweak</button>
@@ -475,6 +476,56 @@
 						},
 						error: function (xhr) {
 							var message = 'Failed to delete post';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								message = xhr.responseJSON.error;
+							}
+							showStatus(message, 'error');
+						}
+					});
+				}
+			});
+
+			$('#rename-btn').click(function () {
+				var currentPostId = '<%= postId %>';
+				var newPostId = prompt('Enter new post ID (letters, numbers, hyphens, and underscores only):');
+
+				if (newPostId === null) {
+					// User cancelled
+					return;
+				}
+
+				if (!newPostId || !newPostId.trim()) {
+					showStatus('New post ID cannot be empty', 'error');
+					return;
+				}
+
+				newPostId = newPostId.trim();
+
+				// Basic validation
+				if (!/^[a-zA-Z0-9-_]+$/.test(newPostId)) {
+					showStatus('Post ID can only contain letters, numbers, hyphens, and underscores', 'error');
+					return;
+				}
+
+				if (newPostId === currentPostId) {
+					showStatus('New post ID must be different from current ID', 'error');
+					return;
+				}
+
+				if (confirm('Are you sure you want to rename this draft to "' + newPostId + '"?')) {
+					$.ajax({
+						url: '/blog/edit/' + currentPostId + '/rename',
+						method: 'POST',
+						data: { newPostId: newPostId },
+						success: function (response) {
+							showStatus('Draft renamed successfully! Redirecting...', 'success');
+							// Redirect to the new post ID after 2 seconds
+							setTimeout(function () {
+								window.location.href = '/blog/edit/' + response.newPostId;
+							}, 2000);
+						},
+						error: function (xhr) {
+							var message = 'Failed to rename draft';
 							if (xhr.responseJSON && xhr.responseJSON.error) {
 								message = xhr.responseJSON.error;
 							}
