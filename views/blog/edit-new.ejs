@@ -22,6 +22,7 @@
 
 	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="/js/aadah.js"></script>
+	<script type="text/javascript" src="/js/editor.js"></script>
 
 	<style>
 		body {
@@ -141,69 +142,9 @@
 
 	<script>
 		$(document).ready(function () {
-			$('#new-post-form').on('submit', function (e) {
-				e.preventDefault();
-
-				var postId = $('#postId').val().trim();
-
-				if (!postId) {
-					showStatus('Please enter a post ID', 'error');
-					return;
-				}
-
-				// Client-side validation
-				if (!/^[a-zA-Z0-9-_]+$/.test(postId)) {
-					showStatus('Post ID can only contain letters, numbers, hyphens, and underscores', 'error');
-					return;
-				}
-
-				$('#create-btn').prop('disabled', true).text('Creating...');
-
-				$.ajax({
-					url: '/blog/edit/new',
-					method: 'POST',
-					data: { postId: postId },
-					success: function (response) {
-						showStatus('Post created successfully! Redirecting to editor...', 'success');
-						setTimeout(function () {
-							window.location.href = '/blog/edit/' + postId;
-						}, 1500);
-					},
-					error: function (xhr) {
-						var message = 'Failed to create post';
-						if (xhr.responseJSON && xhr.responseJSON.error) {
-							message = xhr.responseJSON.error;
-						}
-						showStatus(message, 'error');
-						$('#create-btn').prop('disabled', false).text('Create');
-					}
-				});
-			});
-
-			// Auto-format post ID as user types
-			$('#postId').on('input', function () {
-				var value = $(this).val();
-				// Convert to lowercase and replace spaces with hyphens
-				var formatted = value.toLowerCase().replace(/\s+/g, '-');
-				// Remove any invalid characters
-				formatted = formatted.replace(/[^a-z0-9-_]/g, '');
-				$(this).val(formatted);
-			});
+			$('#new-post-form').on('submit', handleNewPostSubmit);
+			$('#postId').on('input', handlePostIdInput);
 		});
-
-		function showStatus(message, type) {
-			var statusEl = $('#status-message');
-			statusEl.removeClass('status-success status-error');
-			statusEl.addClass('status-' + type);
-			statusEl.text(message);
-			statusEl.show();
-
-			if (type === 'error') {
-				setTimeout(function () {
-					statusEl.fadeOut();
-				}, 5000);
-			}
-		}
 	</script>
 </body>
 
