@@ -306,6 +306,29 @@ function handleRename(postId) {
 	}
 }
 
+function handleDeleteDraft(postId) {
+	if (confirm('Are you sure you want to permanently delete this draft? This action cannot be undone.')) {
+		$.ajax({
+			url: '/blog/edit/' + postId + '/draft/delete',
+			method: 'POST',
+			success: function (response) {
+				showStatus('Draft deleted successfully! Redirecting...', 'success');
+				// Redirect to the edit index after 2 seconds
+				setTimeout(function () {
+					window.location.href = '/blog/edit/';
+				}, 2000);
+			},
+			error: function (xhr) {
+				var message = 'Failed to delete draft';
+				if (xhr.responseJSON && xhr.responseJSON.error) {
+					message = xhr.responseJSON.error;
+				}
+				showStatus(message, 'error');
+			}
+		});
+	}
+}
+
 // Auto-save handler for drafts
 function initializeAutoSave(postId) {
 	setInterval(function () {

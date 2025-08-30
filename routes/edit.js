@@ -347,6 +347,30 @@ router.post('/:postId/rename', function (req, res, next) {
   })
 })
 
+router.post('/:postId/draft/delete', function (req, res, next) {
+  const postId = req.params.postId
+  const draftPath = path.join(DRAFTS_DIR, `${postId}.txt`)
+
+  // Check if draft exists
+  fs.access(draftPath, fs.constants.F_OK, function (err) {
+    if (err) {
+      return res.status(404).json({ error: 'Draft not found' })
+    }
+
+    // Delete the draft file
+    fs.unlink(draftPath, function (err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to delete draft file' })
+      }
+
+      res.status(200).json({ 
+        success: true, 
+        message: 'Draft deleted successfully'
+      })
+    })
+  })
+})
+
 router.post('/:postId/preview', function (req, res, next) {
   const content = req.body.content || ''
   const postId = req.params.postId

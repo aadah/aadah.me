@@ -237,6 +237,7 @@
 						<button id="save-btn" type="button">Save Draft</button>
 						<button id="publish-btn" type="button">Publish</button>
 						<button id="rename-btn" type="button">Rename</button>
+						<button id="delete-draft-btn" type="button">Delete Draft</button>
 					<% } else { %>
 						<button id="save-btn" type="button">Save</button>
 						<button id="tweak-btn" type="button">Tweak</button>
@@ -281,6 +282,7 @@
 			$('#reveal-btn').click(function() { handleReveal(postId); });
 			$('#hide-btn').click(function() { handleHide(postId); });
 			$('#delete-btn').click(function() { handleDelete(postId); });
+			$('#delete-draft-btn').click(function() { handleDeleteDraft(postId); });
 			$('#rename-btn').click(function() { handleRename(postId); });
 
 			// Initialize draft-specific features
