@@ -254,11 +254,12 @@ class Hoops extends Transform {
 }
 
 class DiscoFloor extends Transform {
-    static FPS = 2;
+    static FPS = 30;
     static SECONDS = 3;
     static SPACING = 20;
     static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
     static FADE = 2;
+    static BORDER = 3;
 
     constructor() {
         super();
@@ -289,9 +290,11 @@ class DiscoFloor extends Transform {
     draw() {
         clear();
         this.colors.forEach((c, n) => {
-            fill(c);
             let x = frameCount + this.idxs[n];
-            square(this.is[n], this.js[n], DiscoFloor.SPACING * (1 + Math.sin(x * DiscoFloor.FREQ)) / 2);
+            let opacityFrac = (1 + Math.sin(x * DiscoFloor.FREQ)) / 2;
+            c.setAlpha(opacityFrac * 255);
+            fill(c);
+            square(this.is[n], this.js[n], DiscoFloor.SPACING - DiscoFloor.BORDER);
         });
         filter(BLUR, DiscoFloor.FADE);
     }
