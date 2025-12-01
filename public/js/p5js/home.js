@@ -5,449 +5,594 @@ var HEIGHT;
 var IMAGE;
 
 class Transform {
-    constructor() { }
+  constructor() {}
 
-    setup() {
-        throw new Error("not implemented");
-    }
+  setup() {
+    throw new Error("not implemented");
+  }
 
-    draw() {
-        throw new Error("not implemented");
+  draw() {
+    throw new Error("not implemented");
+  }
+}
+
+class ChromaWanderersCircle {
+  static SPEED = 0.005;
+  static STRAY_FACTOR = 0.2;
+
+  constructor(radiusMax, channel, valence) {
+    this.radiusMax = radiusMax;
+    this.channel = channel;
+    this.valence = valence;
+    this.freq = (2 * Math.PI) / random(100, 200);
+    this.shiftDelta = Math.floor(random(1, 1000000));
+  }
+
+  move() {
+    const stray_factor = 2 * ChromaWanderersCircle.STRAY_FACTOR + 1;
+    const shift = frameCount + this.shiftDelta;
+    this.x =
+      width *
+      (stray_factor * noise(ChromaWanderersCircle.SPEED * shift) -
+        ChromaWanderersCircle.STRAY_FACTOR);
+    this.y =
+      height *
+      (stray_factor * noise(ChromaWanderersCircle.SPEED * (shift + 100000)) -
+        ChromaWanderersCircle.STRAY_FACTOR);
+    this.r1 = noise(ChromaWanderersCircle.SPEED * (shift + 1000000));
+    this.r2 = (1 + Math.sin(shift * this.freq)) / 2;
+    this.radius = this.radiusMax * ((this.r1 + this.r2) / 2);
+  }
+
+  apply(originalPixels, pixelDensity) {
+    for (
+      let i = Math.max(0, this.x - this.radius);
+      i < Math.min(width, this.x + this.radius);
+      i += 1
+    ) {
+      for (
+        let j = Math.max(0, this.y - this.radius);
+        j < Math.min(height, this.y + this.radius);
+        j += 1
+      ) {
+        if (dist(this.x, this.y, i, j) > this.radius) continue;
+        for (let di = 0; di < pixelDensity; di++) {
+          for (let dj = 0; dj < pixelDensity; dj++) {
+            const px = Math.floor(i) * pixelDensity + di;
+            const py = Math.floor(j) * pixelDensity + dj;
+            const pixelIdx = (py * width * pixelDensity + px) * 4;
+            const original = originalPixels[pixelIdx + this.channel];
+            if (this.valence) {
+              pixels[pixelIdx + this.channel] = 255 - original;
+            } else {
+              pixels[pixelIdx + this.channel] = original;
+            }
+          }
+        }
+      }
     }
+  }
+}
+
+class ChromaWanderers extends Transform {
+  static FPS = 60;
+  static MAX_RADIUS_FACTOR = 0.2;
+  static NUM_SETS = 1;
+
+  constructor() {
+    super();
+  }
+
+  setup() {
+    noStroke();
+    frameRate(ChromaWanderers.FPS);
+
+    loadPixels();
+    this.pixelDensity = pixelDensity();
+    this.originalPixels = [...pixels];
+
+    this.circles = [];
+
+    const radiusMax =
+      Math.max(width, height) * ChromaWanderers.MAX_RADIUS_FACTOR;
+
+    for (let i = 0; i < 3 * ChromaWanderers.NUM_SETS; i += 1) {
+      this.circles.push(new ChromaWanderersCircle(radiusMax, i % 3, false));
+      this.circles.push(new ChromaWanderersCircle(radiusMax, i % 3, true));
+    }
+  }
+
+  draw() {
+    loadPixels();
+
+    this.circles.forEach((myCircle) => {
+      myCircle.move();
+      myCircle.apply(this.originalPixels, this.pixelDensity);
+    });
+
+    updatePixels();
+  }
 }
 
 class JustThePicture extends Transform {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    setup() {}
+  setup() {}
 
-    draw() {
-        image(IMAGE, 0, 0);
-        noLoop();
-    }
+  draw() {
+    image(IMAGE, 0, 0);
+    noLoop();
+  }
 }
 
 class Inverter extends Transform {
-    static FPS = 3;
+  static FPS = 3;
 
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    setup() {
-        frameRate(Inverter.FPS);
-    }
+  setup() {
+    frameRate(Inverter.FPS);
+  }
 
-    draw() {
-        (frameCount - 1) % Inverter.FPS == 0 ? image(IMAGE, 0, 0) : undefined;
+  draw() {
+    (frameCount - 1) % Inverter.FPS == 0 ? image(IMAGE, 0, 0) : undefined;
 
-        let dx = random(0.2, 0.8) * WIDTH;
-        let dy = random(0.2, 0.8) * HEIGHT;
-        let x = random(0, WIDTH - dx);
-        let y = random(0, HEIGHT - dy);
+    let dx = random(0.2, 0.8) * WIDTH;
+    let dy = random(0.2, 0.8) * HEIGHT;
+    let x = random(0, WIDTH - dx);
+    let y = random(0, HEIGHT - dy);
 
-        let piece = get(x, y, dx, dy);
-        piece.filter(INVERT);
+    let piece = get(x, y, dx, dy);
+    piece.filter(INVERT);
 
-        image(piece, x, y)
-    }
+    image(piece, x, y);
+  }
 }
 
 class Glitcher extends Transform {
-    constructor() {
-        super();
-        this.glitch = new Glitch();
-    }
+  constructor() {
+    super();
+    this.glitch = new Glitch();
+  }
 
-    setup() {
-        frameRate(24);
-        this.glitch.loadImage(IMAGE);
-    }
+  setup() {
+    frameRate(24);
+    this.glitch.loadImage(IMAGE);
+  }
 
-    draw() {
-        this.glitch.resetBytes();
-        this.glitch.randomBytes(1);
-        this.glitch.buildImage();
-        image(this.glitch.image, 0, 0)
-    }
+  draw() {
+    this.glitch.resetBytes();
+    this.glitch.randomBytes(1);
+    this.glitch.buildImage();
+    image(this.glitch.image, 0, 0);
+  }
 }
 
 class BasePixelator extends Transform {
-    constructor(f) {
-        super();
-        this.glitch = new Glitch();
-        this.f = f;
-    }
+  constructor(f) {
+    super();
+    this.glitch = new Glitch();
+    this.f = f;
+  }
 
-    setup() {
-        frameRate(24);
-        this.glitch.loadImage(IMAGE);
-    }
+  setup() {
+    frameRate(24);
+    this.glitch.loadImage(IMAGE);
+  }
 
-    draw() {
-        this.glitch.pixelate(this.f());
-        image(this.glitch.image, 0, 0)
-    }
+  draw() {
+    this.glitch.pixelate(this.f());
+    image(this.glitch.image, 0, 0);
+  }
 }
 
 class Pixelator extends BasePixelator {
-    constructor() {
-        super(() => noise(0.0005 * frameCount) * 0.2 + 0.05);
-    }
+  constructor() {
+    super(() => noise(0.0005 * frameCount) * 0.2 + 0.05);
+  }
 }
-
 
 class PixelOscillator extends BasePixelator {
-    constructor() {
-        super(() => (Math.cos(frameCount * 0.1) + 1 + 0.01) / 2);
-    }
+  constructor() {
+    super(() => (Math.cos(frameCount * 0.1) + 1 + 0.01) / 2);
+  }
 }
 
-
 function circularShiftPixels(numPixels) {
-    const n = pixels.length;
+  const n = pixels.length;
 
-    // Normalize shiftBy to be within array bounds
-    numPixels *= 4;
-    numPixels = numPixels % n;
-    if (numPixels < 0) numPixels += n;
+  // Normalize shiftBy to be within array bounds
+  numPixels *= 4;
+  numPixels = numPixels % n;
+  if (numPixels < 0) numPixels += n;
 
-    // Reverse the entire array
-    reversePixels(0, n - 1);
+  // Reverse the entire array
+  reversePixels(0, n - 1);
 
-    // Reverse the first shiftBy elements
-    reversePixels(0, numPixels - 1);
+  // Reverse the first shiftBy elements
+  reversePixels(0, numPixels - 1);
 
-    // Reverse the remaining elements
-    reversePixels(numPixels, n - 1);
+  // Reverse the remaining elements
+  reversePixels(numPixels, n - 1);
 }
 
 function reversePixels(start, end) {
-    while (start < end) {
-        [pixels[start], pixels[end]] = [pixels[end], pixels[start]];
-        start++;
-        end--;
-    }
+  while (start < end) {
+    [pixels[start], pixels[end]] = [pixels[end], pixels[start]];
+    start++;
+    end--;
+  }
 }
 
 class FourCorners extends Transform {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    setup() {
-        frameRate(0.5);
-    }
+  setup() {
+    frameRate(0.5);
+  }
 
-    draw() {
-        loadPixels();
-        circularShiftPixels(random([1000003, 3000017, 5000011, 7000003]));
-        updatePixels();
-    }
+  draw() {
+    loadPixels();
+    circularShiftPixels(random([1000003, 3000017, 5000011, 7000003]));
+    updatePixels();
+  }
 }
 
 class ChromaFlipper extends Transform {
-    constructor() {
-        super();
-        this.prev = random([0, 1, 2]);
-    }
+  constructor() {
+    super();
+    this.prev = random([0, 1, 2]);
+  }
 
-    setup() {
-        frameRate(0.5);
-    }
+  setup() {
+    frameRate(0.5);
+  }
 
-    draw() {
-        loadPixels();
-        let colorIdx = random([0, 1, 2]);
-        colorIdx = colorIdx == this.prev ? (colorIdx + random([1, 2])) % 3 : colorIdx;
-        for (let i = 0; i < pixels.length; i += 4) {
-            pixels[colorIdx + i] = 255 - pixels[colorIdx + i];
-        }
-        print(colorIdx);
-        updatePixels();
-        this.prev = colorIdx;
+  draw() {
+    loadPixels();
+    let colorIdx = random([0, 1, 2]);
+    colorIdx =
+      colorIdx == this.prev ? (colorIdx + random([1, 2])) % 3 : colorIdx;
+    for (let i = 0; i < pixels.length; i += 4) {
+      pixels[colorIdx + i] = 255 - pixels[colorIdx + i];
     }
+    print(colorIdx);
+    updatePixels();
+    this.prev = colorIdx;
+  }
 }
 
 class ChromaWalker extends Transform {
-    static SECONDS = 2;
-    static FPS = 30;
+  static SECONDS = 2;
+  static FPS = 30;
 
-    constructor() {
-        super();
-        this.colorIdx = random([0, 1, 2]);
-        this.tickerMax = Math.round(ChromaWalker.FPS * ChromaWalker.SECONDS);
+  constructor() {
+    super();
+    this.colorIdx = random([0, 1, 2]);
+    this.tickerMax = Math.round(ChromaWalker.FPS * ChromaWalker.SECONDS);
+  }
+
+  setup() {
+    frameRate(ChromaWalker.FPS);
+
+    loadPixels();
+    this.starts = new Array(pixels.length / 4).fill(undefined);
+    this.starts.forEach(
+      (_, i) => (this.starts[i] = pixels[this.colorIdx + 4 * i])
+    );
+  }
+
+  draw() {
+    loadPixels();
+
+    let ticker = ((frameCount - 1) % this.tickerMax) + 1;
+    let pos = ticker / this.tickerMax;
+
+    for (let i = 0; i < pixels.length; i += 4) {
+      let s = this.starts[i / 4];
+      let e = 255 - s;
+      pixels[this.colorIdx + i] = lerp(s, e, pos);
     }
 
-    setup() {
-        frameRate(ChromaWalker.FPS);
-
-        loadPixels();
-        this.starts = new Array(pixels.length / 4).fill(undefined);
-        this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
+    if (ticker == this.tickerMax) {
+      let colorIdx = random([0, 1, 2]);
+      this.colorIdx =
+        colorIdx == this.colorIdx ? (colorIdx + random([1, 2])) % 3 : colorIdx;
+      this.starts.forEach(
+        (_, i) => (this.starts[i] = pixels[this.colorIdx + 4 * i])
+      );
     }
 
-    draw() {
-        loadPixels();
-
-        let ticker = (frameCount - 1) % this.tickerMax + 1;
-        let pos = ticker / this.tickerMax;
-
-        for (let i = 0; i < pixels.length; i += 4) {
-            let s = this.starts[i / 4];
-            let e = 255 - s;
-            pixels[this.colorIdx + i] = lerp(s, e, pos);
-        }
-
-        if (ticker == this.tickerMax) {
-            let colorIdx = random([0, 1, 2]);
-            this.colorIdx = colorIdx == this.colorIdx ? (colorIdx + random([1, 2])) % 3 : colorIdx;
-            this.starts.forEach((_, i) => this.starts[i] = pixels[this.colorIdx + 4 * i]);
-        }
-
-        updatePixels();
-    }
+    updatePixels();
+  }
 }
 
 class Hoops extends Transform {
-    static FPS = 30;
-    static SECONDS = 3;
-    static PIXEL_SPACING = 10;
-    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
+  static FPS = 30;
+  static SECONDS = 3;
+  static PIXEL_SPACING = 10;
+  static FREQ = (2 * Math.PI) / (this.FPS * this.SECONDS);
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.is = [];
-        this.js = [];
-        this.colors = [];
-        this.idxs = [];
+    this.is = [];
+    this.js = [];
+    this.colors = [];
+    this.idxs = [];
 
-        for (let i = Math.round(Hoops.PIXEL_SPACING / 2); i < width + Hoops.PIXEL_SPACING; i += Hoops.PIXEL_SPACING) {
-            for (let j = Math.round(Hoops.PIXEL_SPACING / 2); j < height + Hoops.PIXEL_SPACING; j += Hoops.PIXEL_SPACING) {
-                this.is.push(i);
-                this.js.push(j);
-                this.colors.push(color(IMAGE.get(i, j)));
-                this.idxs.push(this.idxs.length);
-            }
-        }
-
-        this.idxs = shuffle(this.idxs);
+    for (
+      let i = Math.round(Hoops.PIXEL_SPACING / 2);
+      i < width + Hoops.PIXEL_SPACING;
+      i += Hoops.PIXEL_SPACING
+    ) {
+      for (
+        let j = Math.round(Hoops.PIXEL_SPACING / 2);
+        j < height + Hoops.PIXEL_SPACING;
+        j += Hoops.PIXEL_SPACING
+      ) {
+        this.is.push(i);
+        this.js.push(j);
+        this.colors.push(color(IMAGE.get(i, j)));
+        this.idxs.push(this.idxs.length);
+      }
     }
 
-    setup() {
-        frameRate(Hoops.FPS);
-        noFill();
-        strokeWeight(1);
-    }
+    this.idxs = shuffle(this.idxs);
+  }
 
-    draw() {
-        clear();
-        this.colors.forEach((c, n) => {
-            stroke(c);
-            let x = frameCount + this.idxs[n];
-            circle(this.is[n], this.js[n], (Hoops.PIXEL_SPACING - 1) * (1 + Math.sin(x * Hoops.FREQ)) / 2);
-        });
-    }
+  setup() {
+    frameRate(Hoops.FPS);
+    noFill();
+    strokeWeight(1);
+  }
+
+  draw() {
+    clear();
+    this.colors.forEach((c, n) => {
+      stroke(c);
+      let x = frameCount + this.idxs[n];
+      circle(
+        this.is[n],
+        this.js[n],
+        ((Hoops.PIXEL_SPACING - 1) * (1 + Math.sin(x * Hoops.FREQ))) / 2
+      );
+    });
+  }
 }
 
 class DiscoFloor extends Transform {
-    static FPS = 30;
-    static SECONDS = 3;
-    static SPACING = 20;
-    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
-    static FADE = 2;
-    static BORDER = 3;
+  static FPS = 30;
+  static SECONDS = 3;
+  static SPACING = 20;
+  static FREQ = (2 * Math.PI) / (this.FPS * this.SECONDS);
+  static FADE = 2;
+  static BORDER = 3;
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.is = [];
-        this.js = [];
-        this.colors = [];
-        this.idxs = [];
+    this.is = [];
+    this.js = [];
+    this.colors = [];
+    this.idxs = [];
 
-        for (let i = Math.round(DiscoFloor.SPACING / 2); i < width + DiscoFloor.SPACING; i += DiscoFloor.SPACING) {
-            for (let j = Math.round(DiscoFloor.SPACING / 2); j < height + DiscoFloor.SPACING; j += DiscoFloor.SPACING) {
-                this.is.push(i);
-                this.js.push(j);
-                this.colors.push(color(IMAGE.get(i, j)));
-                this.idxs.push(this.idxs.length);
-            }
-        }
-
-        this.idxs = shuffle(this.idxs);
+    for (
+      let i = Math.round(DiscoFloor.SPACING / 2);
+      i < width + DiscoFloor.SPACING;
+      i += DiscoFloor.SPACING
+    ) {
+      for (
+        let j = Math.round(DiscoFloor.SPACING / 2);
+        j < height + DiscoFloor.SPACING;
+        j += DiscoFloor.SPACING
+      ) {
+        this.is.push(i);
+        this.js.push(j);
+        this.colors.push(color(IMAGE.get(i, j)));
+        this.idxs.push(this.idxs.length);
+      }
     }
 
-    setup() {
-        frameRate(DiscoFloor.FPS);
-        rectMode(CENTER);
-        noStroke();
-    }
+    this.idxs = shuffle(this.idxs);
+  }
 
-    draw() {
-        clear();
-        this.colors.forEach((c, n) => {
-            let x = frameCount + this.idxs[n];
-            let opacityFrac = (1 + Math.sin(x * DiscoFloor.FREQ)) / 2;
-            c.setAlpha(opacityFrac * 255);
-            fill(c);
-            square(this.is[n], this.js[n], DiscoFloor.SPACING - DiscoFloor.BORDER);
-        });
-        filter(BLUR, DiscoFloor.FADE);
-    }
+  setup() {
+    frameRate(DiscoFloor.FPS);
+    rectMode(CENTER);
+    noStroke();
+  }
+
+  draw() {
+    clear();
+    this.colors.forEach((c, n) => {
+      let x = frameCount + this.idxs[n];
+      let opacityFrac = (1 + Math.sin(x * DiscoFloor.FREQ)) / 2;
+      c.setAlpha(opacityFrac * 255);
+      fill(c);
+      square(this.is[n], this.js[n], DiscoFloor.SPACING - DiscoFloor.BORDER);
+    });
+    filter(BLUR, DiscoFloor.FADE);
+  }
 }
 
 class Cartograph extends Transform {
-    static FPS = 10;
-    static SECONDS = 10;
-    static PIXEL_SPACING = 30;
-    static FREQ = 2 * Math.PI / (this.FPS * this.SECONDS);
-    static EFFECT = 25;
+  static FPS = 10;
+  static SECONDS = 10;
+  static PIXEL_SPACING = 30;
+  static FREQ = (2 * Math.PI) / (this.FPS * this.SECONDS);
+  static EFFECT = 25;
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.is = [];
-        this.js = [];
-        this.colors = [];
-        this.idxs = [];
+    this.is = [];
+    this.js = [];
+    this.colors = [];
+    this.idxs = [];
 
-        for (let i = Math.round(Cartograph.PIXEL_SPACING / 2); i < width + Cartograph.PIXEL_SPACING; i += Cartograph.PIXEL_SPACING) {
-            for (let j = Math.round(Cartograph.PIXEL_SPACING / 2); j < height + Cartograph.PIXEL_SPACING; j += Cartograph.PIXEL_SPACING) {
-                this.is.push(i);
-                this.js.push(j);
-                this.colors.push(color(IMAGE.get(i, j)));
-                this.idxs.push(this.idxs.length);
-            }
-        }
-
-        this.idxs = shuffle(this.idxs);
+    for (
+      let i = Math.round(Cartograph.PIXEL_SPACING / 2);
+      i < width + Cartograph.PIXEL_SPACING;
+      i += Cartograph.PIXEL_SPACING
+    ) {
+      for (
+        let j = Math.round(Cartograph.PIXEL_SPACING / 2);
+        j < height + Cartograph.PIXEL_SPACING;
+        j += Cartograph.PIXEL_SPACING
+      ) {
+        this.is.push(i);
+        this.js.push(j);
+        this.colors.push(color(IMAGE.get(i, j)));
+        this.idxs.push(this.idxs.length);
+      }
     }
 
-    setup() {
-        frameRate(Cartograph.FPS);
-        noStroke();
-    }
+    this.idxs = shuffle(this.idxs);
+  }
 
-    draw() {
-        clear();
-        this.idxs.forEach((idx, n) => {
-            fill(this.colors[idx]);
-            let x = frameCount + n;
-            circle(
-                this.is[idx], this.js[idx],
-                Cartograph.PIXEL_SPACING + (Cartograph.PIXEL_SPACING - 1) * (1 + Math.sin(x * Cartograph.FREQ)) / 2
-            );
-        });
-        filter(BLUR, Math.round(Cartograph.EFFECT / 2));
-        filter(POSTERIZE, Cartograph.EFFECT);
-    }
+  setup() {
+    frameRate(Cartograph.FPS);
+    noStroke();
+  }
+
+  draw() {
+    clear();
+    this.idxs.forEach((idx, n) => {
+      fill(this.colors[idx]);
+      let x = frameCount + n;
+      circle(
+        this.is[idx],
+        this.js[idx],
+        Cartograph.PIXEL_SPACING +
+          ((Cartograph.PIXEL_SPACING - 1) *
+            (1 + Math.sin(x * Cartograph.FREQ))) /
+            2
+      );
+    });
+    filter(BLUR, Math.round(Cartograph.EFFECT / 2));
+    filter(POSTERIZE, Cartograph.EFFECT);
+  }
 }
 
 function getImageData() {
-    const img = document.querySelector('figure img');
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+  const img = document.querySelector("figure img");
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
-    canvas.width = img.width;
-    canvas.height = img.height;
+  canvas.width = img.width;
+  canvas.height = img.height;
 
-    ctx.drawImage(
-        img,
-        0, 0, img.naturalWidth, img.naturalHeight, // src
-        0, 0, canvas.width, canvas.height, // dst
-    );
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    img.naturalWidth,
+    img.naturalHeight, // src
+    0,
+    0,
+    canvas.width,
+    canvas.height // dst
+  );
 
-    return canvas.toDataURL();
+  return canvas.toDataURL();
 }
 
 function preload() {
-    const imageData = getImageData();
-    loadImage(imageData, (img) => {
-        IMAGE = img;
-        $('figure').toggle(false);
-    });
+  const imageData = getImageData();
+  loadImage(imageData, (img) => {
+    IMAGE = img;
+    $("figure").toggle(false);
+  });
 }
 
 function setupCanvas() {
-    WIDTH = IMAGE.width;
-    HEIGHT = IMAGE.height;
-    createCanvas(WIDTH, HEIGHT);
-    image(IMAGE, 0, 0);
+  WIDTH = IMAGE.width;
+  HEIGHT = IMAGE.height;
+  createCanvas(WIDTH, HEIGHT);
+  image(IMAGE, 0, 0);
 
-    let selector = 'figure, .p5Canvas';
-    $(selector).off();
-    $(selector).on('click', () => {
-        $(selector).toggle();
-        // cycleEffect();
-    }).on('touchstart', (event) => {
-        event.preventDefault();
-        $(selector).toggle();
-        // cycleEffect();
+  let selector = "figure, .p5Canvas";
+  $(selector).off();
+  $(selector)
+    .on("click", () => {
+      $(selector).toggle();
+      // cycleEffect();
+    })
+    .on("touchstart", (event) => {
+      event.preventDefault();
+      $(selector).toggle();
+      // cycleEffect();
     });
 }
 
 const EFFECTS = [
-    // JustThePicture,
-    // Inverter,
-    Pixelator,
-    Glitcher,
-    // FourCorners,
-    // ChromaFlipper,
-    ChromaWalker,
-    PixelOscillator,
-    Hoops,
-    DiscoFloor,
-    Cartograph,
+  // JustThePicture,
+  // Inverter,
+  Pixelator,
+  Glitcher,
+  // FourCorners,
+  // ChromaFlipper,
+  ChromaWalker,
+  PixelOscillator,
+  Hoops,
+  DiscoFloor,
+  Cartograph,
+  ChromaWanderers,
 ];
 
 var EFFECT_IDX = Math.floor(Math.random() * EFFECTS.length);
 var SYSTEM;
 
 function setup() {
-    setupCanvas();
-    SYSTEM = new EFFECTS[EFFECT_IDX]();
-    SYSTEM.setup();
+  setupCanvas();
+  SYSTEM = new EFFECTS[EFFECT_IDX]();
+  SYSTEM.setup();
 }
 
 function draw() {
-    SYSTEM.draw();
+  SYSTEM.draw();
 }
 
 function cycleEffect() {
-    noLoop();
-    
-    EFFECT_IDX++;
-    EFFECT_IDX %= EFFECTS.length;
-    setup();
+  noLoop();
 
-    loop();
+  EFFECT_IDX++;
+  EFFECT_IDX %= EFFECTS.length;
+  setup();
+
+  loop();
 }
 
 // -----------------------------------------------------------------------------
 
-window.addEventListener('resize', () => {
-    preload();
-    setup();
+window.addEventListener("resize", () => {
+  preload();
+  setup();
 });
 
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
 }
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   if (isMobileDevice()) {
-    $('footer > p')[0].innerText = 'Tap visual to toggle.';
+    $("footer > p")[0].innerText = "Tap visual to toggle.";
   }
 });
 
 setTimeout(() => {
-  $('footer > *').toggle(1000, () => {
+  $("footer > *").toggle(1000, () => {
     setTimeout(() => {
-      $('footer > *').toggle(1000);
+      $("footer > *").toggle(1000);
     }, 3000);
   });
 }, 5000);
