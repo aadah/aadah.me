@@ -62,13 +62,20 @@ nav {
   text-align: center;
   padding: calc(3.5 * var(--default-margin)) 0;
   z-index: 1;
-  opacity: 0.5;
 
-  -webkit-transition: opacity 0.25s ease;
-  transition: opacity 0.25s ease;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 
 nav:hover {
+  opacity: 1 !important;
+}
+
+nav.scrolled-down {
+  opacity: 0;
+}
+
+nav.scrolled-up {
   opacity: 1;
 }
 
