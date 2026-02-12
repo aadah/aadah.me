@@ -105,9 +105,36 @@ function toggleImage () {
 
 // /////////////////////////////////////////////////////////////////////////////
 
+function initScrollNav () {
+  var lastScroll = 0
+  var nav = $('nav')
+
+  $(window).scroll(function () {
+    var currentScroll = $(window).scrollTop()
+
+    if (currentScroll <= 0) {
+      nav.removeClass('scrolled-up scrolled-down')
+      return
+    }
+
+    if (currentScroll > lastScroll) {
+      nav.removeClass('scrolled-up')
+      nav.addClass('scrolled-down')
+    } else {
+      nav.removeClass('scrolled-down')
+      nav.addClass('scrolled-up')
+    }
+
+    lastScroll = currentScroll
+  })
+}
+
+// /////////////////////////////////////////////////////////////////////////////
+
 $(function () {
   $('body').data('theme', 'main')
   createFootnotesList()
+  initScrollNav()
 })
 
 $(window).load(function () {
