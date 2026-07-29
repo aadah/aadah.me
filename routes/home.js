@@ -51,8 +51,7 @@ var EXTERNAL = new Set([
 ]);
 
 var PROXY_WHITELIST = new Set([
-  // tech for palestine banner
-  "https://banner.techforpalestine.org/lib/banner.min.js",
+  // "http://www.example.com/foo.html",
 ]);
 
 EXTERNAL.forEach((url) => {
